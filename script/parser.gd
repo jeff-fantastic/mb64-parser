@@ -22,11 +22,16 @@ func parse_file(path : String) -> void:
 	
 	# Begin parsing
 	res.level_name = path.get_file()
-	res.file_header = file.get_buffer(10).get_string_from_ascii()
+	res.file_header = file.get_buffer(0xA).get_string_from_ascii()
 	res.version = file.get_8()
-	res.author = file.get_buffer(30).get_string_from_ascii()
+	res.author = file.get_buffer(0x1F).get_string_from_ascii()
+	print(file.get_position())
 	res.picture = file.get_buffer(8192)
 	res.picture_img = build_image(res.picture)
+	# @bug
+	# Seems like a weird inconsistency between the struct and
+	# how the file is saved. Painting is offset by 43 bytes instead
+	# of the expected 42
 	res.costume = file.get_8()
 	res.music = file.get_buffer(5)
 	
@@ -47,9 +52,9 @@ func write_meta():
 	var new_file = FileAccess.open(new_name, FileAccess.WRITE)
 	
 	# Begin writing
-	new_file.store_buffer(res.file_header.rpad(10).to_ascii_buffer())
+	new_file.store_buffer(res.file_header.rpad(0xA).to_ascii_buffer())
 	new_file.store_8(res.version)
-	new_file.store_buffer(res.author.rpad(30).to_ascii_buffer())
+	new_file.store_buffer(res.author.rpad(0x1F).to_ascii_buffer())
 	new_file.store_buffer(res.picture)
 	new_file.store_8(res.costume)
 	new_file.store_buffer(res.music)
@@ -69,8 +74,11 @@ func build_image(data : PackedByteArray) -> Image:
 	# Since Godot doesnt have RGBA16 conversion,
 	# we'll have to do it ourselves!
 	for byte in range(data.size()/2):
-		# Obtain u16
-		var pixel : int = data.decode_u16(byte*2)
+		# Obtain u16... but not using the default decode_u16
+		# method as that returns bad data for some reason
+		var u81 : int = data.decode_u8(byte*2) << 8
+		var u82 : int = data.decode_u8(byte*2+1)
+		var pixel : int = u81 | u82
 		
 		# Get RGBA values (5,5,5,1)
 		var red : float = ((pixel >> 11) & 0x1F) / 31.0
@@ -89,6 +97,7 @@ func overwrite_image(image : Image) -> PackedByteArray:
 	# Create byte array
 	var bytes : PackedByteArray = []
 	bytes.resize(8192)
+	image.convert(Image.FORMAT_RGBA8)
 	
 	# We're going to convert an RGBA8 (32 bit) image
 	# into RGBA16 (16 bit, 5551)
@@ -104,18 +113,23 @@ func overwrite_image(image : Image) -> PackedByteArray:
 		
 		# Create two bytes (u16) and put in array
 		var value = red + green + blue + alpha
-		bytes.encode_u16(byte*2, value)
+		bytes.encode_u8(byte*2, (value >> 8) & 0xFF)
+		bytes.encode_u8(byte*2+1, value & 0xFF)
 	
 	# Return bytes
 	return bytes
 
 ## Converts user image into valid painting dimensions (64x64)
 func load_picture_for_import(path : String) -> void:
-	# Load image, resize
-	var image = Image.load_from_file(path)
-	image.resize(64, 64, Image.INTERPOLATE_NEAREST)
+	# Load image, check for bad import
+	var image = Image.new()
+	var result : Error = image.load(path)
+	if result != OK:
+		push_error("Error when importing image, likely bad file format")
+		return
 	
-	# Overwrite image, rebuild, signal
+	# Resize, overwrite, rebuild, signal
+	image.resize(64, 64, Image.INTERPOLATE_NEAREST)
 	current_res.picture = overwrite_image(image)
 	current_res.picture_img = build_image(current_res.picture)
 	parsing_complete.emit(current_res)
