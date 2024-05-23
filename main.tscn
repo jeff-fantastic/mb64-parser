@@ -1,0 +1,204 @@
+[gd_scene load_steps=6 format=3 uid="uid://rok34yn3wnyo"]
+
+[ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
+[ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
+[ext_resource type="Script" path="res://script/ui.gd" id="2_3kiir"]
+[ext_resource type="Texture2D" uid="uid://c2psown8f2nhy" path="res://asset/gui/thumb_placeholder.png" id="4_22j1p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1iys"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_detail = 5
+
+[node name="main" type="Node"]
+
+[node name="parser" type="Node" parent="."]
+script = ExtResource("1_2mchu")
+
+[node name="ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_3kiir")
+metadata/_edit_use_anchors_ = true
+
+[node name="import_panel" type="Control" parent="ui"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 226.0
+offset_bottom = 316.0
+
+[node name="hide_show" type="Button" parent="ui/import_panel"]
+layout_mode = 2
+anchor_top = -0.0633333
+anchor_right = 0.0047619
+anchor_bottom = -0.0633333
+offset_left = 210.0
+offset_top = 114.0
+offset_right = 235.0
+offset_bottom = 186.0
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
+text = ">"
+metadata/_edit_use_anchors_ = true
+
+[node name="panel" type="PanelContainer" parent="ui/import_panel"]
+layout_mode = 2
+offset_right = 210.0
+offset_bottom = 260.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_5kf88")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/import_panel/panel"]
+layout_mode = 2
+
+[node name="label" type="RichTextLabel" parent="ui/import_panel/panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]Mario Builder 64 
+Parser Tool[/b]
+
+[i]Original hack by Rovertronic, Arthurtilly, and co.
+
+Select a valid SM64 rom to extract assets from, then load a valid level file (.mb64)"
+
+[node name="load_sm64_rom" type="Button" parent="ui/import_panel/panel/VBoxContainer"]
+layout_mode = 2
+text = "Load SM64 ROM"
+
+[node name="open_file_diag" type="FileDialog" parent="ui/import_panel/panel/VBoxContainer/load_sm64_rom"]
+title = "Open a File"
+size = Vector2i(941, 159)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mb64")
+use_native_dialog = true
+
+[node name="load_level" type="Button" parent="ui/import_panel/panel/VBoxContainer"]
+layout_mode = 2
+text = "Load Level"
+
+[node name="level_diag" type="FileDialog" parent="ui/import_panel/panel/VBoxContainer/load_level"]
+unique_name_in_owner = true
+title = "Open a File"
+size = Vector2i(941, 159)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mb64")
+use_native_dialog = true
+
+[node name="meta_data" type="Control" parent="ui"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 332.0
+offset_right = 226.0
+offset_bottom = 632.0
+
+[node name="hide_show" type="Button" parent="ui/meta_data"]
+layout_mode = 2
+anchor_top = -0.1
+anchor_right = 0.0047619
+anchor_bottom = -0.1
+offset_left = 210.0
+offset_top = 114.0
+offset_right = 235.0
+offset_bottom = 186.0
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
+text = ">"
+metadata/_edit_use_anchors_ = true
+
+[node name="panel" type="PanelContainer" parent="ui/meta_data"]
+custom_minimum_size = Vector2(210, 300)
+layout_mode = 2
+anchor_top = -0.146667
+offset_right = 210.0
+offset_bottom = 300.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_5kf88")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/meta_data/panel"]
+layout_mode = 2
+
+[node name="category" type="RichTextLabel" parent="ui/meta_data/panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+bbcode_enabled = true
+text = "[b]Level Metadata[/b]
+"
+fit_content = true
+
+[node name="thumbnail" type="Button" parent="ui/meta_data/panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+icon = ExtResource("4_22j1p")
+flat = true
+icon_alignment = 1
+
+[node name="thumbnail_diag" type="FileDialog" parent="ui/meta_data/panel/VBoxContainer/thumbnail"]
+title = "Open an Image"
+size = Vector2i(941, 159)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.bmp")
+use_native_dialog = true
+
+[node name="metadata" type="RichTextLabel" parent="ui/meta_data/panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[fill][i]HeaderString: {header_string}
+MB64Version: {mb64_version}
+
+Vertices: {vert_percent}%
+	 {vert_count}
+Tiles: {tile_percent}%
+	 {tile_count}"
+
+[node name="level_name" type="LineEdit" parent="ui/meta_data/panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Level Name"
+clear_button_enabled = true
+
+[node name="level_author" type="LineEdit" parent="ui/meta_data/panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Level Author"
+clear_button_enabled = true
+
+[node name="write_metadata" type="Button" parent="ui/meta_data/panel/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Writes changed metadata to .mb64 file"
+text = "Write Metadata"
+
+[node name="container" type="Node3D" parent="."]
+
+[node name="built_mesh" type="MeshInstance3D" parent="container"]
+
+[connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
+[connection signal="parse_requested" from="ui" to="parser" method="parse_file"]
+[connection signal="pressed" from="ui/import_panel/panel/VBoxContainer/load_level" to="ui" method="mb64_import_requested"]
+[connection signal="file_selected" from="ui/import_panel/panel/VBoxContainer/load_level/level_diag" to="ui" method="mb64_selected"]
