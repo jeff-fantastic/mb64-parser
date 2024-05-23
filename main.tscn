@@ -182,12 +182,14 @@ Tiles: {tile_percent}%
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Level Name"
+max_length = 50
 clear_button_enabled = true
 
 [node name="level_author" type="LineEdit" parent="ui/meta_data/panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Level Author"
+max_length = 30
 clear_button_enabled = true
 
 [node name="write_metadata" type="Button" parent="ui/meta_data/panel/VBoxContainer"]
@@ -205,3 +207,6 @@ text = "Write Metadata"
 [connection signal="file_selected" from="ui/import_panel/panel/VBoxContainer/load_level/level_diag" to="ui" method="mb64_selected"]
 [connection signal="pressed" from="ui/meta_data/panel/VBoxContainer/thumbnail" to="ui" method="painting_import_requested"]
 [connection signal="file_selected" from="ui/meta_data/panel/VBoxContainer/thumbnail/thumbnail_diag" to="parser" method="load_picture_for_import"]
+[connection signal="text_changed" from="ui/meta_data/panel/VBoxContainer/level_name" to="parser" method="set_level_name"]
+[connection signal="text_changed" from="ui/meta_data/panel/VBoxContainer/level_author" to="parser" method="set_author"]
+[connection signal="pressed" from="ui/meta_data/panel/VBoxContainer/write_metadata" to="parser" method="write_meta"]

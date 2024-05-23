@@ -36,6 +36,27 @@ func parse_file(path : String) -> void:
 	current_path = path
 	current_res = res
 
+## Writes metadata to file at path, then reloads
+func write_meta():
+	# Declare variables
+	var res = current_res
+	var base_file : PackedByteArray = FileAccess.get_file_as_bytes(current_path)
+	var new_name : String = current_path.get_base_dir().path_join(res.level_name + ".mb64") 
+	var new_file = FileAccess.open(new_name, FileAccess.WRITE)
+	
+	# Begin writing
+	new_file.store_buffer(res.file_header.rpad(10).to_ascii_buffer())
+	new_file.store_8(res.version)
+	new_file.store_buffer(res.author.rpad(30).to_ascii_buffer())
+	new_file.store_buffer(res.picture)
+	
+	# End custom stuff, read rest from unmodified
+	new_file.store_buffer(base_file.slice(new_file.get_position()))
+	
+	# Close file
+	new_file.close()
+	print("File saved successfully.")
+
 ## Builds an image from RGBA16 data
 func build_image(data : PackedByteArray) -> Image:
 	# Create blank image
@@ -95,6 +116,11 @@ func load_picture_for_import(path : String) -> void:
 	current_res.picture_img = build_image(current_res.picture)
 	parsing_complete.emit(current_res)
 
+## SETTERS
+##------------------------------------------------------------------------------
 
-func write_meta():
-	pass # Replace with function body.
+func set_level_name(new_name : String) -> void:
+	current_res.level_name = new_name
+
+func set_author(new_author: String) -> void:
+	current_res.author = new_author
