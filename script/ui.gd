@@ -18,6 +18,16 @@ Tiles: {tile_percent}%
 
 ## Sent when a parse is requested
 signal parse_requested(path : String)
+## Sent when editing ability is changed
+signal editing_changed(mode : bool)
+
+## Whether or not editing is enabled
+var edit_mode : bool = false :
+	set(value) : edit_mode = value; editing_changed.emit(value)
+	get : return edit_mode
+
+func _ready() -> void:
+	edit_mode = false
 
 ## Called when load level is pressed
 func mb64_import_requested() -> void:
@@ -33,6 +43,7 @@ func mb64_selected(path : String) -> void:
 
 ## Updates UI based on provided MB64Level resource
 func update_ui(res : MB64Level) -> void:
+	edit_mode = true
 	%thumbnail.icon = ImageTexture.create_from_image(res.picture_img)
 	%metadata.text = DEFAULT_METADATA.format(
 		{
@@ -42,3 +53,8 @@ func update_ui(res : MB64Level) -> void:
 	)
 	%level_name.text = res.level_name
 	%level_author.text = res.author
+
+## Toggles metadata window field visibility
+func toggle_metadata_fields(mode : bool) -> void:
+	%meta_container.visible = mode
+	%meta_message.visible = !mode
