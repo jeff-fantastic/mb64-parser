@@ -187,13 +187,16 @@ bbcode_enabled = true
 text = "[fill][i]HeaderString: {header_string}
 MB64Version: {mb64_version}
 GridSize:	 {grid_size}x{grid_size}
+
+TileCount: {tile_count}
+ObjectCount: {object_count}
 "
 fit_content = true
 
 [node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 118
+scroll_vertical = 271
 horizontal_scroll_mode = 0
 
 [node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
@@ -539,7 +542,7 @@ popup/item_14/id = 14
 [node name="write_metadata" type="Button" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 tooltip_text = "Writes changed metadata to .mb64 file"
-text = "Write Metadata"
+text = "Export Modified Level"
 
 [node name="meta_message" type="Label" parent="ui/meta_data/panel"]
 unique_name_in_owner = true

@@ -10,11 +10,11 @@ components, such as the parser
 const DEFAULT_METADATA : String = \
 """[fill][i]HeaderString: {header_string}
 MB64Version: {mb64_version}
+GridSize:	 {grid_size}x{grid_size}
 
-Vertices: {vert_percent}%
-	 {vert_count}
-Tiles: {tile_percent}%
-	 {tile_count}"""
+TileCount: {tile_count}
+ObjectCount: {object_count}
+"""
 
 ## Sent when a parse is requested
 signal parse_requested(path : String)
@@ -53,6 +53,9 @@ func update_ui(res : MB64Level) -> void:
 		{
 			"header_string" : res.file_header,
 			"mb64_version" : res.version,
+			"grid_size" : res.size,
+			"tile_count" : res.tile_count,
+			"object_count" : res.object_count
 		}
 	)
 	%level_name.text = res.level_name
@@ -64,6 +67,3 @@ func update_ui(res : MB64Level) -> void:
 func toggle_metadata_fields(mode : bool) -> void:
 	%meta_container.visible = mode
 	%meta_message.visible = !mode
-
-
-

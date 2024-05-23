@@ -29,6 +29,17 @@ func parse_file(path : String) -> void:
 	res.picture_img = build_image(res.picture)
 	res.costume = file.get_8()
 	res.music = file.get_buffer(5)
+	res.envfx = file.get_8()
+	res.theme = file.get_8()
+	res.bg = file.get_8()
+	res.boundary_mat = file.get_8()
+	res.boundary = file.get_8()
+	res.boundary_height = file.get_8()
+	res.coinstar = file.get_8()
+	res.size = file.get_8()
+	res.waterlevel = file.get_8()
+	res.secret = true if file.get_8() == 1 else false
+	res.game = true if file.get_8() == 1 else false
 	
 	# End parsing, emit signal
 	file.close()

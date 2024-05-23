@@ -20,7 +20,7 @@ by a custom Godot resource
 
 ## Version byte
 @export var version : int :
-	set(value) : if value >= 0 && value <= 255: version = value;
+	set(value) : if value >= 0 && value <= 0xFF: version = value;
 	get : return version
 
 ## Author, 31 bytes long
@@ -35,7 +35,7 @@ by a custom Godot resource
 
 ## Costume byte
 @export var costume : int :
-	set(value) : if value >= 0 && value <= 255: costume = value;
+	set(value) : if value >= 0 && value <= 0xFF: costume = value;
 	get : return costume
 
 ## Music selection, 5 bytes, though only 3 are actually used
@@ -43,54 +43,68 @@ by a custom Godot resource
 
 ## Environment byte
 @export var envfx : int :
-	set(value) : if value >= 0 && value <= 255: envfx = value;
+	set(value) : if value >= 0 && value <= 0xFF: envfx = value;
 	get : return envfx
 	
 ## Theme byte
 @export var theme : int :
-	set(value) : if value >= 0 && value <= 255: theme = value;
+	set(value) : if value >= 0 && value <= 0xFF: theme = value;
 	get : return theme
 
 ## Background byte
 @export var bg : int :
-	set(value) : if value >= 0 && value <= 255: bg = value;
+	set(value) : if value >= 0 && value <= 0xFF: bg = value;
 	get : return bg
 
 ## Boundary material byte
 @export var boundary_mat : int :
-	set(value) : if value >= 0 && value <= 255: boundary_mat = value;
+	set(value) : if value >= 0 && value <= 0xFF: boundary_mat = value;
 	get : return boundary_mat
 
 ## Boundary type byte
 @export var boundary : int :
-	set(value) : if value >= 0 && value <= 255: boundary = value;
+	set(value) : if value >= 0 && value <= 0xFF: boundary = value;
 	get : return boundary
 	
 ## Boundary height byte
 @export var boundary_height : int :
-	set(value) : if value >= 0 && value <= 255: boundary_height = value;
+	set(value) : if value >= 0 && value <= 0xFF: boundary_height = value;
 	get : return boundary_height
 
 ## Coin star value byte
 @export var coinstar : int :
-	set(value) : if value / 20 >= 0 && value / 20 <= 255: coinstar = value / 20;
+	set(value) : if value / 20 >= 0 && value / 20 <= 0xFF: coinstar = value / 20;
 	get : return coinstar
 
 ## Size byte
 @export var size : int :
-	set(value) : if value >= 0 && value <= 255: size = value;
+	set(value) : if value >= 0 && value <= 0xFF: size = value;
 	get : return size
 
 ## Water level byte
 @export var waterlevel : int :
-	set(value) : if value >= 0 && value <= 255: waterlevel = value;
+	set(value) : if value >= 0 && value <= 0xFF: waterlevel = value;
 	get : return waterlevel
 
 ## Secret flag
 @export var secret : bool
-
 ## Game-mode flag
 @export var game : bool
+
+## Toolbar array, 9 bytes, not really used for anything in this program
+@export var toolbar : PackedByteArray
+## Toolbar params, 9 bytes, not really used for anything in this program
+@export var toolbar_params : PackedByteArray
+
+## Tile count, two bytes
+@export var tile_count : int :
+	set(value) : if value >= 0 && value <= 0xFFFF: tile_count = value;
+	get : return tile_count
+
+## Object count, two bytes
+@export var object_count : int :
+	set(value) : if value >= 0 && value <= 0xFFFF: object_count = value;
+	get : return object_count
 
 @export_group("LevelTile")
 
