@@ -44,6 +44,7 @@ grow_vertical = 2
 theme = ExtResource("1_5kf88")
 script = ExtResource("2_3kiir")
 metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [node name="import_panel" type="Control" parent="ui"]
 layout_mode = 2
@@ -52,6 +53,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 226.0
 offset_bottom = 316.0
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="hide_show" type="Button" parent="ui/import_panel"]
@@ -127,6 +129,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="hide_show" type="Button" parent="ui/meta_data"]
 layout_mode = 2
@@ -551,10 +555,18 @@ popup/item_13/id = 13
 popup/item_14/text = "Cosmic Phant."
 popup/item_14/id = 14
 
-[node name="write_metadata" type="Button" parent="ui/meta_data/panel/meta_container"]
+[node name="export" type="Button" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 tooltip_text = "Writes changed metadata to .mb64 file"
 text = "Export Modified Level"
+
+[node name="export_dialog" type="FileDialog" parent="ui/meta_data/panel/meta_container/export"]
+unique_name_in_owner = true
+title = "Export Modified Level..."
+initial_position = 4
+access = 2
+filters = PackedStringArray("*.mb64")
+use_native_dialog = true
 
 [node name="meta_message" type="Label" parent="ui/meta_data/panel"]
 unique_name_in_owner = true
@@ -588,4 +600,5 @@ horizontal_alignment = 1
 [connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property/bound_height" to="parser" method="bound_height_changed"]
 [connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property/bound_mat" to="parser" method="bound_mat_changed"]
 [connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
-[connection signal="pressed" from="ui/meta_data/panel/meta_container/write_metadata" to="parser" method="write_meta"]
+[connection signal="pressed" from="ui/meta_data/panel/meta_container/export" to="parser" method="open_save_dialog"]
+[connection signal="file_selected" from="ui/meta_data/panel/meta_container/export/export_dialog" to="parser" method="write_meta"]

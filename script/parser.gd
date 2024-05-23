@@ -54,11 +54,11 @@ func parse_file(path : String) -> void:
 	parsing_complete.emit(res)
 
 ## Writes metadata to file at path, then reloads
-func write_meta():
+func write_meta(path : String) -> void:
 	# Declare variables
 	var res = current_res
 	var base_file : PackedByteArray = FileAccess.get_file_as_bytes(current_path)
-	var new_name : String = current_path.get_base_dir().path_join(res.level_name + ".mb64") 
+	var new_name : String = path
 	var new_file = FileAccess.open(new_name, FileAccess.WRITE)
 	
 	# Begin writing
@@ -167,6 +167,12 @@ func prep_data(length : int, buf : PackedByteArray) -> PackedByteArray:
 	pad.fill(0)
 	buf.append_array(pad)
 	return buf
+
+## Opens file save dialog
+func open_save_dialog() -> void:
+	%export_dialog.current_path = current_path.get_base_dir() + "/"
+	%export_dialog.current_file = current_res.level_name + ".mb64"
+	%export_dialog.show()
 
 ## SETTERS
 ##------------------------------------------------------------------------------
