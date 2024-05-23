@@ -41,6 +41,57 @@ by a custom Godot resource
 ## Music selection, 5 bytes, though only 3 are actually used
 @export var music : PackedByteArray
 
+## Environment byte
+@export var envfx : int :
+	set(value) : if value >= 0 && value <= 255: envfx = value;
+	get : return envfx
+	
+## Theme byte
+@export var theme : int :
+	set(value) : if value >= 0 && value <= 255: theme = value;
+	get : return theme
+
+## Background byte
+@export var bg : int :
+	set(value) : if value >= 0 && value <= 255: bg = value;
+	get : return bg
+
+## Boundary material byte
+@export var boundary_mat : int :
+	set(value) : if value >= 0 && value <= 255: boundary_mat = value;
+	get : return boundary_mat
+
+## Boundary type byte
+@export var boundary : int :
+	set(value) : if value >= 0 && value <= 255: boundary = value;
+	get : return boundary
+	
+## Boundary height byte
+@export var boundary_height : int :
+	set(value) : if value >= 0 && value <= 255: boundary_height = value;
+	get : return boundary_height
+
+## Coin star value byte
+@export var coinstar : int :
+	set(value) : if value / 20 >= 0 && value / 20 <= 255: coinstar = value / 20;
+	get : return coinstar
+
+## Size byte
+@export var size : int :
+	set(value) : if value >= 0 && value <= 255: size = value;
+	get : return size
+
+## Water level byte
+@export var waterlevel : int :
+	set(value) : if value >= 0 && value <= 255: waterlevel = value;
+	get : return waterlevel
+
+## Secret flag
+@export var secret : bool
+
+## Game-mode flag
+@export var game : bool
+
 @export_group("LevelTile")
 
 @export_group("LevelObject")

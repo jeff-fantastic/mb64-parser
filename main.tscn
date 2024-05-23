@@ -150,6 +150,7 @@ metadata/_edit_use_anchors_ = true
 [node name="meta_container" type="VBoxContainer" parent="ui/meta_data/panel"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="category" type="RichTextLabel" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
@@ -162,10 +163,12 @@ fit_content = true
 
 [node name="thumbnail" type="Button" parent="ui/meta_data/panel/meta_container"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
-size_flags_horizontal = 4
 icon = ExtResource("4_22j1p")
+flat = true
 icon_alignment = 1
+expand_icon = true
 
 [node name="thumbnail_diag" type="FileDialog" parent="ui/meta_data/panel/meta_container/thumbnail"]
 unique_name_in_owner = true
@@ -183,17 +186,14 @@ layout_mode = 2
 bbcode_enabled = true
 text = "[fill][i]HeaderString: {header_string}
 MB64Version: {mb64_version}
-
-Vertices: {vert_percent}%
-	 {vert_count}
-Tiles: {tile_percent}%
-	 {tile_count}"
+GridSize:	 {grid_size}x{grid_size}
+"
 fit_content = true
 
 [node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 124
+scroll_vertical = 118
 horizontal_scroll_mode = 0
 
 [node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
@@ -368,6 +368,36 @@ popup/item_8/id = 8
 popup/item_9/text = "None"
 popup/item_9/id = 9
 
+[node name="coin_star_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/coin_star_property"]
+layout_mode = 2
+text = "Coin Star"
+
+[node name="coin_star" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/coin_star_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 5100.0
+step = 20.0
+value = 20.0
+suffix = "Coins"
+
+[node name="water_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/water_property"]
+layout_mode = 2
+text = "Water Level"
+
+[node name="water_level" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/water_property"]
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 64.0
+prefix = "Y"
+
 [node name="secret_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 
@@ -381,6 +411,19 @@ custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 size_flags_horizontal = 10
 
+[node name="btcm_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/btcm_property"]
+layout_mode = 2
+text = "Enable BTCM gamemode"
+
+[node name="btcm_mode" type="CheckBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/btcm_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 10
+
 [node name="boundary" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 text = "Boundary"
@@ -389,19 +432,20 @@ label_settings = SubResource("LabelSettings_cjteh")
 [node name="seperator2" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="boundary_type" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary_type_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type"]
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type_property"]
 layout_mode = 2
 text = "Boundary Type"
 
-[node name="bound_type" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type"]
+[node name="bound_type" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 item_count = 5
+selected = 0
 popup/item_0/text = "Void"
 popup/item_0/id = 0
 popup/item_1/text = "Plain"
@@ -413,35 +457,35 @@ popup/item_3/id = 3
 popup/item_4/text = "Plateau"
 popup/item_4/id = 4
 
-[node name="boundary_height" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary_height_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height"]
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property"]
 layout_mode = 2
 text = "Boundary Height"
 
-[node name="bound_height" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height"]
+[node name="bound_height" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 64.0
 prefix = "Y"
 
-[node name="boundary_material_id" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary_material_id_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id"]
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property"]
 layout_mode = 2
 text = "Boundary Material ID"
 
-[node name="mat_id" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id"]
+[node name="mat_id" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property"]
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 9.0
 
 [node name="btcm" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
-text = "Beyond The Cursed Mirror"
+text = "BTCM Exclusive"
 label_settings = SubResource("LabelSettings_cjteh")
 
 [node name="seperator4" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
