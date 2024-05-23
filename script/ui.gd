@@ -53,7 +53,7 @@ func update_ui(res : MB64Level) -> void:
 		{
 			"header_string" : res.file_header,
 			"mb64_version" : res.version,
-			"grid_size" : res.size,
+			"grid_size" : 32 + 16 * res.size,
 			"tile_count" : res.tile_count,
 			"object_count" : res.object_count
 		}
@@ -62,6 +62,16 @@ func update_ui(res : MB64Level) -> void:
 	%level_author.text = res.author
 	%costume.selected = res.costume
 	%song_config_window.current_res = res
+	%environment.selected = res.envfx
+	%theme.selected = res.theme
+	%background.selected = res.bg
+	%coin_star.value = res.coinstar * 20
+	%water_level.value = res.waterlevel
+	%secret_theme.button_pressed = res.secret
+	%btcm_mode.button_pressed = res.game
+	%bound_type.selected = res.boundary
+	%bound_height.value = res.boundary_height
+	%bound_mat.value = res.boundary_mat
 
 ## Toggles metadata window field visibility
 func toggle_metadata_fields(mode : bool) -> void:

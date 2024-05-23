@@ -73,7 +73,7 @@ by a custom Godot resource
 
 ## Coin star value byte
 @export var coinstar : int :
-	set(value) : if value / 20 >= 0 && value / 20 <= 0xFF: coinstar = value / 20;
+	set(value) : if value >= 0 && value <= 0xFF: coinstar = value;
 	get : return coinstar
 
 ## Size byte

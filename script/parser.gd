@@ -45,13 +45,13 @@ func parse_file(path : String) -> void:
 	res.tile_count = file.get_16()
 	res.object_count = file.get_16()
 	
-	# End parsing, emit signal
-	file.close()
-	parsing_complete.emit(res)
-	
 	# Set vars
 	current_path = path
 	current_res = res
+	
+	# End parsing, emit signal
+	file.close()
+	parsing_complete.emit(res)
 
 ## Writes metadata to file at path, then reloads
 func write_meta():
@@ -179,3 +179,33 @@ func set_author(new_author: String) -> void:
 
 func set_costume(new_costume : int) -> void:
 	current_res.costume = new_costume
+
+func set_envfx(index : int) -> void:
+	current_res.envfx = index
+
+func set_theme(index : int) -> void:
+	current_res.theme = index
+
+func set_background(index : int) -> void:
+	current_res.bg = index
+
+func coin_star_changed(value : float) -> void:
+	current_res.coinstar = int(value / 20)
+
+func water_level_changed(value : float) -> void:
+	current_res.waterlevel = int(value)
+
+func secret_theme_toggled(toggled_on: bool) -> void:
+	current_res.secret = toggled_on
+
+func btcm_mode_toggled(toggled_on: bool) -> void:
+	current_res.game = toggled_on
+
+func bound_type_selected(index: int) -> void:
+	current_res.boundary = index
+
+func bound_height_changed(value: float) -> void:
+	current_res.boundary_height = int(value)
+
+func bound_mat_changed(value: float) -> void:
+	current_res.boundary_mat = int(value)

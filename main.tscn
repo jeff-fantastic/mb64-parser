@@ -1,10 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=9 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
 [ext_resource type="Script" path="res://script/ui.gd" id="2_3kiir"]
 [ext_resource type="Texture2D" uid="uid://c2psown8f2nhy" path="res://asset/gui/thumb_placeholder.png" id="4_22j1p"]
 [ext_resource type="PackedScene" uid="uid://cisw0jgkcidv1" path="res://song_config_window.tscn" id="5_68tqu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unneb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1iys"]
 content_margin_left = 8.0
@@ -46,20 +56,21 @@ metadata/_edit_use_anchors_ = true
 
 [node name="hide_show" type="Button" parent="ui/import_panel"]
 layout_mode = 2
-anchor_top = -0.0633333
+anchor_top = -0.0533333
 anchor_right = 0.0047619
-anchor_bottom = -0.0633333
+anchor_bottom = -0.0533333
 offset_left = 210.0
 offset_top = 114.0
 offset_right = 235.0
 offset_bottom = 186.0
 size_flags_horizontal = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
+theme_override_styles/normal = SubResource("StyleBoxFlat_unneb")
 text = ">"
 metadata/_edit_use_anchors_ = true
 
 [node name="panel" type="PanelContainer" parent="ui/import_panel"]
 layout_mode = 2
+anchor_bottom = 0.0533333
 offset_right = 210.0
 offset_bottom = 260.0
 size_flags_horizontal = 0
@@ -77,7 +88,7 @@ bbcode_enabled = true
 text = "[b]Mario Builder 64 
 Parser Tool[/b]
 
-[i]Original hack by Rovertronic, Arthurtilly, and co.
+[i]Original hack by Rovertronic, Arthurtilly, and co. Parser created by Jefftastic
 
 [s]Select a valid SM64 rom to extract assets from,[/s] then load a valid level file (.mb64)"
 
@@ -196,7 +207,7 @@ fit_content = true
 [node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 271
+scroll_vertical = 322
 horizontal_scroll_mode = 0
 
 [node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
@@ -396,6 +407,7 @@ layout_mode = 2
 text = "Water Level"
 
 [node name="water_level" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/water_property"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 64.0
@@ -481,7 +493,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Boundary Material ID"
 
-[node name="mat_id" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property"]
+[node name="bound_mat" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 9.0
@@ -565,5 +578,15 @@ horizontal_alignment = 1
 [connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property/level_name" to="parser" method="set_level_name"]
 [connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property/level_author" to="parser" method="set_author"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" to="ui" method="open_song_config"]
+[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/envfx_property/environment" to="parser" method="set_envfx"]
+[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/theme_property/theme" to="parser" method="set_theme"]
+[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/background_property/background" to="parser" method="set_background"]
+[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/coin_star_property/coin_star" to="parser" method="coin_star_changed"]
+[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/water_property/water_level" to="parser" method="water_level_changed"]
+[connection signal="toggled" from="ui/meta_data/panel/meta_container/scroll/vbox/secret_property/secret_theme" to="parser" method="secret_theme_toggled"]
+[connection signal="toggled" from="ui/meta_data/panel/meta_container/scroll/vbox/btcm_property/btcm_mode" to="parser" method="btcm_mode_toggled"]
+[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type_property/bound_type" to="parser" method="bound_type_selected"]
+[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property/bound_height" to="parser" method="bound_height_changed"]
+[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property/bound_mat" to="parser" method="bound_mat_changed"]
 [connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/write_metadata" to="parser" method="write_meta"]
