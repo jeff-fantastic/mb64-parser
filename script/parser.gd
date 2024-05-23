@@ -27,6 +27,8 @@ func parse_file(path : String) -> void:
 	res.author = file.get_buffer(30).get_string_from_ascii()
 	res.picture = file.get_buffer(8192)
 	res.picture_img = build_image(res.picture)
+	res.costume = file.get_8()
+	res.music = file.get_buffer(5)
 	
 	# End parsing, emit signal
 	file.close()
@@ -49,6 +51,8 @@ func write_meta():
 	new_file.store_8(res.version)
 	new_file.store_buffer(res.author.rpad(30).to_ascii_buffer())
 	new_file.store_buffer(res.picture)
+	new_file.store_8(res.costume)
+	new_file.store_buffer(res.music)
 	
 	# End custom stuff, read rest from unmodified
 	new_file.store_buffer(base_file.slice(new_file.get_position()))

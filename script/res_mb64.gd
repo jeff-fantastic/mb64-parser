@@ -30,9 +30,16 @@ by a custom Godot resource
 
 ## RGBA16 Picture data, 4096 u16 bytes
 @export var picture : PackedByteArray
-
 ## RGBA16 Picture data, image-ified
 @export var picture_img : Image
+
+## Costume byte
+@export var costume : int :
+	set(value) : if value >= 0 && value <= 255: costume = value;
+	get : return costume
+
+## Music selection, 5 bytes, though only 3 are actually used
+@export var music : PackedByteArray
 
 @export_group("LevelTile")
 
