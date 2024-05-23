@@ -22,6 +22,10 @@ signal parse_requested(path : String)
 ## Called when load level is pressed
 func mb64_import_requested() -> void:
 	%level_diag.show()
+	
+## Called when painting image is pressed
+func painting_import_requested() -> void:
+	%thumbnail_diag.show()
 
 ## Called when level is selected
 func mb64_selected(path : String) -> void:

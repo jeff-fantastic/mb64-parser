@@ -59,10 +59,11 @@ func build_image(data : PackedByteArray) -> Image:
 	# Return image
 	return image
 
-## Overrides image data in .mb64 file
+## Creates RGBA16 image data from RGBA8 (32 bit) data
 func overwrite_image(image : Image) -> PackedByteArray:
 	# Create byte array
 	var bytes : PackedByteArray = []
+	bytes.resize(8192)
 	
 	# We're going to convert an RGBA8 (32 bit) image
 	# into RGBA16 (16 bit, 5551)
@@ -70,15 +71,30 @@ func overwrite_image(image : Image) -> PackedByteArray:
 		# Get color at pixel
 		var color : Color = image.get_pixel(byte%64,int(byte/64))
 		
-		# Set new colors confined to 5551
-		var red : int = (color.r8 >> 3) - 1
-		var green : int = (color.g8 >> 3) - 1
-		var blue : int = (color.b8 >> 3) - 1
-		var alpha : int = (color.a8 >> 7)
+		# Get each color byte
+		var red : int = color.r8 / 8 * 2048
+		var green : int = color.g8 / 8 * 64
+		var blue : int = color.b8 / 8 * 2
+		var alpha : int = 1 if color.a8 > 0 else 0
 		
-		var b1 = red + (green >> 2)
-		var b2 = (green << 3) + blue + alpha
-		bytes.append(b1)
-		bytes.append(b2)
+		# Create two bytes (u16) and put in array
+		var value = red + green + blue + alpha
+		bytes.encode_u16(byte*2, value)
 	
+	# Return bytes
 	return bytes
+
+## Converts user image into valid painting dimensions (64x64)
+func load_picture_for_import(path : String) -> void:
+	# Load image, resize
+	var image = Image.load_from_file(path)
+	image.resize(64, 64, Image.INTERPOLATE_NEAREST)
+	
+	# Overwrite image, rebuild, signal
+	current_res.picture = overwrite_image(image)
+	current_res.picture_img = build_image(current_res.picture)
+	parsing_complete.emit(current_res)
+
+
+func write_meta():
+	pass # Replace with function body.
