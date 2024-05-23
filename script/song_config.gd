@@ -138,6 +138,14 @@ const points : Array[int] = [
 	96
 ]
 
+## Number of songs in each category
+const song_count : Array[int] = [
+	14,
+	14,
+	68,
+	7
+]
+
 ## Category names
 const category : Array[String] = [
 	"Super Mario 64 OST",
@@ -158,7 +166,10 @@ var current_res : MB64Level :
 	set(value) : current_res = value; prepare_backup(); update_fields()
 	get : return current_res
 ## Backup fields
-var backup_fields : PackedByteArray
+var backup_fields : Array[int]
+
+func _ready() -> void:
+	visibility_changed.connect(update_fields.bind())
 
 ## Updates dropdown and tree view of songs
 func update_fields() -> void:
@@ -180,7 +191,7 @@ func update_tree() -> void:
 	for index in range(music.size()):
 		for point in range(points.size()):
 			if index == points[point]:
-				category_item = %list.create_item(root) as TreeItem
+				category_item = %list.create_item(root, index) as TreeItem
 				category_item.set_text(0, category[point])
 				break
 		var item = %list.create_item(category_item, index) as TreeItem
@@ -188,29 +199,52 @@ func update_tree() -> void:
 
 ## Update song categories
 func update_categories() -> void:
-	# Prepare dropdown
-	%type.clear()
-	
 	# Iterate
-	for label in dropdown_names:
-		%type.add_item(label % music[current_res.music.decode_u8(%type.item_count)])
+	for index in range(dropdown_names.size()):
+		%type.set_item_text(index, dropdown_names[index] % music[backup_fields[index]])
 
 ## Prepares backup fields
 func prepare_backup() -> void:
-	backup_fields = current_res.music
+	backup_fields.clear()
+	for track in range(current_res.music.size()):
+		backup_fields.append(current_res.music[track])
 
-## Generates tree list of songs
-func generate_tree() -> void:
-	pass
-
+## Called when user selects song
+func song_selected() -> void:
+	var item : TreeItem = %list.get_selected()
+	if item.get_parent() == %list.get_root():
+		return
+	var song_idx : int = item.get_index()
+	var category_idx : int = item.get_parent().get_index()
+	backup_fields[%type.selected] = points[category_idx] + song_idx
+	update_categories()
+	
 ## Called when dropdown selection is changed
-func dropdown_changed() -> void:
-	pass
+func dropdown_changed(index : int) -> void:
+	var selection = byte_to_index(backup_fields[index])
+	var target : TreeItem = %list.get_root().get_child(selection[0]).get_child(selection[1])
+	target.select(0)
+	%list.scroll_to_item(target, true)
 
 ## Called when user requests to apply data change
 func apply_pressed() -> void:
-	pass
+	current_res.music = backup_fields
+	hide()
 
 ## Called when user denies data change
 func cancel_pressed() -> void:
-	pass
+	backup_fields.clear()
+	hide()
+
+## Converts byte song id to album and song index
+func byte_to_index(byte : int) -> Array[int]:
+	var index : Array[int] = [0, 0]
+	var song : int = byte 
+	
+	for x in range(song_count.size()):
+		if song <= song_count[x]:
+			index[0] = x
+			index[1] = song
+			break
+		song -= song_count[x]
+	return index

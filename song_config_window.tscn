@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cisw0jgkcidv1"]
+[gd_scene load_steps=3 format=3 uid="uid://cisw0jgkcidv1"]
 
 [ext_resource type="Script" path="res://script/song_config.gd" id="1_exvfu"]
+[ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_x4xtn"]
 
 [node name="song_config_window" type="Window"]
 title = "Song Configuration"
 initial_position = 4
-size = Vector2i(360, 280)
+size = Vector2i(420, 280)
 exclusive = true
+theme = ExtResource("1_x4xtn")
 script = ExtResource("1_exvfu")
 
 [node name="margin" type="MarginContainer" parent="."]
@@ -28,6 +30,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 item_count = 3
+selected = 0
 fit_to_longest_item = false
 allow_reselect = true
 popup/item_0/text = "Level Song - %s"
@@ -41,6 +44,7 @@ popup/item_2/id = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+hide_root = true
 scroll_horizontal_enabled = false
 
 [node name="hbox" type="HBoxContainer" parent="margin/vbox"]
@@ -55,3 +59,6 @@ text = "Cancel"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Apply"
+
+[connection signal="item_selected" from="margin/vbox/type" to="." method="dropdown_changed"]
+[connection signal="item_selected" from="margin/vbox/list" to="." method="song_selected"]

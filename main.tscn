@@ -121,23 +121,22 @@ filters = PackedStringArray("*.mb64")
 use_native_dialog = true
 
 [node name="meta_data" type="Control" parent="ui"]
-layout_mode = 2
-anchors_preset = 0
-anchor_left = 1.0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -231.0
-offset_top = 15.0
-offset_right = -21.0
-offset_bottom = 315.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="hide_show" type="Button" parent="ui/meta_data"]
 layout_mode = 2
-anchor_left = -0.442809
-anchor_right = -0.442809
-offset_left = -26.0101
-offset_top = 266.0
-offset_right = -0.0100632
-offset_bottom = 338.0
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -351.0
+offset_top = 313.0
+offset_right = -325.0
+offset_bottom = -263.0
 size_flags_horizontal = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
 text = "<"
@@ -146,13 +145,13 @@ metadata/_edit_use_anchors_ = true
 [node name="panel" type="PanelContainer" parent="ui/meta_data"]
 custom_minimum_size = Vector2(210, 300)
 layout_mode = 2
-anchor_left = 1.03324
-anchor_top = -0.00666667
-anchor_right = 1.03324
-anchor_bottom = -0.00633341
-offset_left = -309.98
-offset_right = 0.0198975
-offset_bottom = 615.9
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -324.914
+offset_top = 13.68
+offset_right = -14.9141
+offset_bottom = -16.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_5kf88")
@@ -207,13 +206,13 @@ fit_content = true
 [node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 322
 horizontal_scroll_mode = 0
 
 [node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 6
+alignment = 1
 
 [node name="info" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
