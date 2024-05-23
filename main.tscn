@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=8 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -15,6 +15,9 @@ bg_color = Color(0.1, 0.1, 0.1, 0.6)
 corner_radius_top_left = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
+font_size = 18
 
 [node name="main" type="Node"]
 
@@ -119,13 +122,11 @@ offset_bottom = 315.0
 [node name="hide_show" type="Button" parent="ui/meta_data"]
 layout_mode = 2
 anchor_left = -0.442809
-anchor_top = -0.00633341
 anchor_right = -0.442809
-anchor_bottom = -0.00633341
 offset_left = -26.0101
-offset_top = 251.9
-offset_right = -0.0100708
-offset_bottom = 323.9
+offset_top = 266.0
+offset_right = -0.0100632
+offset_bottom = 338.0
 size_flags_horizontal = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
 text = "<"
@@ -192,11 +193,21 @@ fit_content = true
 [node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
+scroll_vertical = 124
+horizontal_scroll_mode = 0
 
 [node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="info" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+text = "Information"
+label_settings = SubResource("LabelSettings_cjteh")
+
+[node name="seperator3" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
 
 [node name="level_name_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
@@ -230,7 +241,210 @@ placeholder_text = "Level Author"
 max_length = 30
 clear_button_enabled = true
 
-[node name="HSeparator" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="generic" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+text = "Generic"
+label_settings = SubResource("LabelSettings_cjteh")
+
+[node name="seperator" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="song_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+layout_mode = 2
+text = "Song"
+
+[node name="song" type="Button" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open Config"
+alignment = 0
+
+[node name="song_config_window" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" instance=ExtResource("5_68tqu")]
+unique_name_in_owner = true
+visible = false
+
+[node name="envfx_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/envfx_property"]
+layout_mode = 2
+text = "Environment"
+
+[node name="environment" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/envfx_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 5
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "Ashes"
+popup/item_1/id = 1
+popup/item_2/text = "Snow"
+popup/item_2/id = 2
+popup/item_3/text = "Rain"
+popup/item_3/id = 3
+popup/item_4/text = "Sandstorm"
+popup/item_4/id = 4
+
+[node name="theme_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/theme_property"]
+layout_mode = 2
+text = "Theme"
+
+[node name="theme" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/theme_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 12
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "Generic"
+popup/item_0/id = 0
+popup/item_1/text = "Shifting Sand Land"
+popup/item_1/id = 1
+popup/item_2/text = "Red Hot Reservoir"
+popup/item_2/id = 2
+popup/item_3/text = "Hazy Maze Cave"
+popup/item_3/id = 3
+popup/item_4/text = "Peach's Castle"
+popup/item_4/id = 4
+popup/item_5/text = "Virtualplex"
+popup/item_5/id = 5
+popup/item_6/text = "Snowy Palace"
+popup/item_6/id = 6
+popup/item_7/text = "Big Boo's Haunt"
+popup/item_7/id = 7
+popup/item_8/text = "Jolly Roger Bay"
+popup/item_8/id = 8
+popup/item_9/text = "Retroland"
+popup/item_9/id = 9
+popup/item_10/text = "Custom"
+popup/item_10/id = 10
+popup/item_11/text = "Minecraft"
+popup/item_11/id = 11
+
+[node name="background_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/background_property"]
+layout_mode = 2
+text = "BG"
+
+[node name="background" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/background_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 10
+selected = 0
+popup/item_0/text = "Ocean Hills"
+popup/item_0/id = 0
+popup/item_1/text = "Cloudy Sky"
+popup/item_1/id = 1
+popup/item_2/text = "Fiery Sky"
+popup/item_2/id = 2
+popup/item_3/text = "Green Cave"
+popup/item_3/id = 3
+popup/item_4/text = "Haunted Forest"
+popup/item_4/id = 4
+popup/item_5/text = "Ice Mountains"
+popup/item_5/id = 5
+popup/item_6/text = "Desert Pyramids"
+popup/item_6/id = 6
+popup/item_7/text = "Underwater City"
+popup/item_7/id = 7
+popup/item_8/text = "Pink Sky"
+popup/item_8/id = 8
+popup/item_9/text = "None"
+popup/item_9/id = 9
+
+[node name="secret_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/secret_property"]
+layout_mode = 2
+text = "Enable Secret Theme"
+
+[node name="secret_theme" type="CheckBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/secret_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="boundary" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+text = "Boundary"
+label_settings = SubResource("LabelSettings_cjteh")
+
+[node name="seperator2" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="boundary_type" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type"]
+layout_mode = 2
+text = "Boundary Type"
+
+[node name="bound_type" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 5
+popup/item_0/text = "Void"
+popup/item_0/id = 0
+popup/item_1/text = "Plain"
+popup/item_1/id = 1
+popup/item_2/text = "Valley"
+popup/item_2/id = 2
+popup/item_3/text = "Chasm"
+popup/item_3/id = 3
+popup/item_4/text = "Plateau"
+popup/item_4/id = 4
+
+[node name="boundary_height" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height"]
+layout_mode = 2
+text = "Boundary Height"
+
+[node name="bound_height" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 64.0
+prefix = "Y"
+
+[node name="boundary_material_id" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id"]
+layout_mode = 2
+text = "Boundary Material ID"
+
+[node name="mat_id" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id"]
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 9.0
+
+[node name="btcm" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+text = "Beyond The Cursed Mirror"
+label_settings = SubResource("LabelSettings_cjteh")
+
+[node name="seperator4" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
 
 [node name="costume_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
@@ -278,24 +492,6 @@ popup/item_13/id = 13
 popup/item_14/text = "Cosmic Phant."
 popup/item_14/id = 14
 
-[node name="song_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
-layout_mode = 2
-
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
-layout_mode = 2
-text = "Song"
-
-[node name="song" type="Button" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-text = "Open Config"
-alignment = 0
-
-[node name="song_config_window" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" instance=ExtResource("5_68tqu")]
-unique_name_in_owner = true
-visible = false
-
 [node name="write_metadata" type="Button" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
 tooltip_text = "Writes changed metadata to .mb64 file"
@@ -321,6 +517,6 @@ horizontal_alignment = 1
 [connection signal="file_selected" from="ui/meta_data/panel/meta_container/thumbnail/thumbnail_diag" to="parser" method="load_picture_for_import"]
 [connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property/level_name" to="parser" method="set_level_name"]
 [connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property/level_author" to="parser" method="set_author"]
-[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" to="ui" method="open_song_config"]
+[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/write_metadata" to="parser" method="write_meta"]

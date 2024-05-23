@@ -25,13 +25,8 @@ func parse_file(path : String) -> void:
 	res.file_header = file.get_buffer(0xA).get_string_from_ascii()
 	res.version = file.get_8()
 	res.author = file.get_buffer(0x1F).get_string_from_ascii()
-	print(file.get_position())
 	res.picture = file.get_buffer(8192)
 	res.picture_img = build_image(res.picture)
-	# @bug
-	# Seems like a weird inconsistency between the struct and
-	# how the file is saved. Painting is offset by 43 bytes instead
-	# of the expected 42
 	res.costume = file.get_8()
 	res.music = file.get_buffer(5)
 	
@@ -52,9 +47,9 @@ func write_meta():
 	var new_file = FileAccess.open(new_name, FileAccess.WRITE)
 	
 	# Begin writing
-	new_file.store_buffer(res.file_header.rpad(0xA).to_ascii_buffer())
+	new_file.store_buffer(prep_data(0xA, res.file_header.to_utf8_buffer()))
 	new_file.store_8(res.version)
-	new_file.store_buffer(res.author.rpad(0x1F).to_ascii_buffer())
+	new_file.store_buffer(prep_data(0x1F, res.author.to_utf8_buffer()))
 	new_file.store_buffer(res.picture)
 	new_file.store_8(res.costume)
 	new_file.store_buffer(res.music)
@@ -133,6 +128,15 @@ func load_picture_for_import(path : String) -> void:
 	current_res.picture = overwrite_image(image)
 	current_res.picture_img = build_image(current_res.picture)
 	parsing_complete.emit(current_res)
+
+## Prepares empty space in a data packet
+func prep_data(length : int, buf : PackedByteArray) -> PackedByteArray:
+	var pad : PackedByteArray = []
+	var target : int = length - buf.size()
+	pad.resize(target)
+	pad.fill(0)
+	buf.append_array(pad)
+	return buf
 
 ## SETTERS
 ##------------------------------------------------------------------------------
