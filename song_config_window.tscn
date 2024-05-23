@@ -1,10 +1,13 @@
-[gd_scene format=3 uid="uid://cisw0jgkcidv1"]
+[gd_scene load_steps=2 format=3 uid="uid://cisw0jgkcidv1"]
+
+[ext_resource type="Script" path="res://script/song_config.gd" id="1_exvfu"]
 
 [node name="song_config_window" type="Window"]
 title = "Song Configuration"
 initial_position = 4
 size = Vector2i(360, 280)
 exclusive = true
+script = ExtResource("1_exvfu")
 
 [node name="margin" type="MarginContainer" parent="."]
 anchors_preset = 15
