@@ -57,6 +57,7 @@ func update_ui(res : MB64Level) -> void:
 	)
 	%level_name.text = res.level_name
 	%level_author.text = res.author
+	%costume.selected = res.costume
 	%song_config_window.current_res = res
 
 ## Toggles metadata window field visibility

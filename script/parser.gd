@@ -142,3 +142,6 @@ func set_level_name(new_name : String) -> void:
 
 func set_author(new_author: String) -> void:
 	current_res.author = new_author
+
+func set_costume(new_costume : int) -> void:
+	current_res.costume = new_costume
