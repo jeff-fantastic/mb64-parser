@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=7 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
 [ext_resource type="Script" path="res://script/ui.gd" id="2_3kiir"]
 [ext_resource type="Texture2D" uid="uid://c2psown8f2nhy" path="res://asset/gui/thumb_placeholder.png" id="4_22j1p"]
+[ext_resource type="PackedScene" uid="uid://cisw0jgkcidv1" path="res://song_config_window.tscn" id="5_68tqu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1iys"]
 content_margin_left = 8.0
@@ -283,12 +284,16 @@ layout_mode = 2
 layout_mode = 2
 text = "Song"
 
-[node name="costume" type="Button" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+[node name="song" type="Button" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Open Config"
 alignment = 0
+
+[node name="song_config_window" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" instance=ExtResource("5_68tqu")]
+unique_name_in_owner = true
+visible = false
 
 [node name="write_metadata" type="Button" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
@@ -315,4 +320,5 @@ horizontal_alignment = 1
 [connection signal="file_selected" from="ui/meta_data/panel/meta_container/thumbnail/thumbnail_diag" to="parser" method="load_picture_for_import"]
 [connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property/level_name" to="parser" method="set_level_name"]
 [connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property/level_author" to="parser" method="set_author"]
+[connection signal="pressed" from="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" to="ui" method="open_song_config"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/write_metadata" to="parser" method="write_meta"]

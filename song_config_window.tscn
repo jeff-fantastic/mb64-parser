@@ -24,6 +24,7 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 
 [node name="type" type="OptionButton" parent="margin/vbox"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 item_count = 3
@@ -37,6 +38,7 @@ popup/item_2/text = "Boss Song - %s"
 popup/item_2/id = 2
 
 [node name="list" type="Tree" parent="margin/vbox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 scroll_horizontal_enabled = false

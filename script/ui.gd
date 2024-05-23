@@ -37,6 +37,10 @@ func mb64_import_requested() -> void:
 func painting_import_requested() -> void:
 	%thumbnail_diag.show()
 
+## Called when song config is requested
+func open_song_config():
+	%song_config_window.show()
+
 ## Called when level is selected
 func mb64_selected(path : String) -> void:
 	parse_requested.emit(path)
@@ -53,8 +57,12 @@ func update_ui(res : MB64Level) -> void:
 	)
 	%level_name.text = res.level_name
 	%level_author.text = res.author
+	%song_config_window.current_res = res
 
 ## Toggles metadata window field visibility
 func toggle_metadata_fields(mode : bool) -> void:
 	%meta_container.visible = mode
 	%meta_message.visible = !mode
+
+
+

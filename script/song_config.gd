@@ -130,12 +130,27 @@ const music : Array[String] = [
 	"Castle (Super Mario World)",
 ]
 
+## Points to define a parent group
+const points : Array[int] = [
+	0,
+	14,
+	28,
+	96
+]
+
 ## Category names
 const category : Array[String] = [
 	"Super Mario 64 OST",
 	"Beyond the Cursed Mirror OST",
 	"ROM Hack Music Ports",
 	"Retro 2D Mario Music"
+]
+
+## Dropdown names
+const dropdown_names : Array[String] = [
+	"Level Song - %s",
+	"Race Song - %s",
+	"Boss Song - %s"
 ]
 
 ## Current [MB64Level] resource
@@ -147,11 +162,42 @@ var backup_fields : PackedByteArray
 
 ## Updates dropdown and tree view of songs
 func update_fields() -> void:
-	pass
+	update_tree()
+	update_categories()
+
+## Update song list
+func update_tree() -> void:
+	# Prepare tree
+	%list.clear()
+	var root : TreeItem
+	var category_item : TreeItem
+	
+	# Create root item
+	root = %list.create_item(null)
+	root.set_text(0, "Songs")
+	
+	# Update tree
+	for index in range(music.size()):
+		for point in range(points.size()):
+			if index == points[point]:
+				category_item = %list.create_item(root) as TreeItem
+				category_item.set_text(0, category[point])
+				break
+		var item = %list.create_item(category_item, index) as TreeItem
+		item.set_text(0, music[index])
+
+## Update song categories
+func update_categories() -> void:
+	# Prepare dropdown
+	%type.clear()
+	
+	# Iterate
+	for label in dropdown_names:
+		%type.add_item(label % music[current_res.music.decode_u8(%type.item_count)])
 
 ## Prepares backup fields
 func prepare_backup() -> void:
-	pass
+	backup_fields = current_res.music
 
 ## Generates tree list of songs
 func generate_tree() -> void:
