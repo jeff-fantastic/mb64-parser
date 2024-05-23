@@ -11,8 +11,8 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
+corner_radius_top_left = 3
+corner_radius_bottom_left = 3
 corner_detail = 5
 
 [node name="main" type="Node"]
@@ -27,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_5kf88")
 script = ExtResource("2_3kiir")
 metadata/_edit_use_anchors_ = true
 
@@ -37,6 +38,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 226.0
 offset_bottom = 316.0
+metadata/_edit_use_anchors_ = true
 
 [node name="hide_show" type="Button" parent="ui/import_panel"]
 layout_mode = 2
@@ -106,31 +108,38 @@ use_native_dialog = true
 [node name="meta_data" type="Control" parent="ui"]
 layout_mode = 2
 anchors_preset = 0
-offset_left = 16.0
-offset_top = 332.0
-offset_right = 226.0
-offset_bottom = 632.0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -231.0
+offset_top = 15.0
+offset_right = -21.0
+offset_bottom = 315.0
 
 [node name="hide_show" type="Button" parent="ui/meta_data"]
 layout_mode = 2
-anchor_top = -0.1
-anchor_right = 0.0047619
-anchor_bottom = -0.1
-offset_left = 210.0
-offset_top = 114.0
-offset_right = 235.0
-offset_bottom = 186.0
+anchor_left = -0.442809
+anchor_top = -0.00633336
+anchor_right = -0.442809
+anchor_bottom = -0.00633341
+offset_left = -26.0101
+offset_top = 251.9
+offset_right = -0.0100708
+offset_bottom = 323.9
 size_flags_horizontal = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
-text = ">"
+text = "<"
 metadata/_edit_use_anchors_ = true
 
 [node name="panel" type="PanelContainer" parent="ui/meta_data"]
 custom_minimum_size = Vector2(210, 300)
 layout_mode = 2
-anchor_top = -0.146667
-offset_right = 210.0
-offset_bottom = 300.0
+anchor_left = 1.03324
+anchor_top = -0.00666667
+anchor_right = 1.03324
+anchor_bottom = -0.00633341
+offset_left = -309.98
+offset_right = 0.0198975
+offset_bottom = 615.9
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_5kf88")
@@ -154,12 +163,11 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 icon = ExtResource("4_22j1p")
-flat = true
 icon_alignment = 1
 
 [node name="thumbnail_diag" type="FileDialog" parent="ui/meta_data/panel/meta_container/thumbnail"]
 unique_name_in_owner = true
-title = "Open an Image"
+title = "Open a File"
 size = Vector2i(941, 159)
 ok_button_text = "Open"
 file_mode = 0
@@ -170,7 +178,6 @@ use_native_dialog = true
 [node name="metadata" type="RichTextLabel" parent="ui/meta_data/panel/meta_container"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
 bbcode_enabled = true
 text = "[fill][i]HeaderString: {header_string}
 MB64Version: {mb64_version}
@@ -179,20 +186,109 @@ Vertices: {vert_percent}%
 	 {vert_count}
 Tiles: {tile_percent}%
 	 {tile_count}"
+fit_content = true
 
-[node name="level_name" type="LineEdit" parent="ui/meta_data/panel/meta_container"]
-unique_name_in_owner = true
+[node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="level_name_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property"]
+layout_mode = 2
+text = "Title"
+
+[node name="level_name" type="LineEdit" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
 placeholder_text = "Level Name"
 max_length = 50
 clear_button_enabled = true
 
-[node name="level_author" type="LineEdit" parent="ui/meta_data/panel/meta_container"]
-unique_name_in_owner = true
+[node name="level_author_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
 layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property"]
+layout_mode = 2
+text = "Author"
+
+[node name="level_author" type="LineEdit" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
 placeholder_text = "Level Author"
 max_length = 30
 clear_button_enabled = true
+
+[node name="HSeparator" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="costume_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/costume_property"]
+layout_mode = 2
+text = "Costume"
+
+[node name="costume" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/costume_property"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 15
+selected = 0
+popup/item_0/text = "Mario"
+popup/item_0/id = 0
+popup/item_1/text = "Fire Mario"
+popup/item_1/id = 1
+popup/item_2/text = "Glitchy"
+popup/item_2/id = 2
+popup/item_3/text = "Luigi"
+popup/item_3/id = 3
+popup/item_4/text = "Wario"
+popup/item_4/id = 4
+popup/item_5/text = "Disco Mario"
+popup/item_5/id = 5
+popup/item_6/text = "Undead Pirate"
+popup/item_6/id = 6
+popup/item_7/text = "Mocap Mario"
+popup/item_7/id = 7
+popup/item_8/text = "Darius"
+popup/item_8/id = 8
+popup/item_9/text = "Butler Mario"
+popup/item_9/id = 9
+popup/item_10/text = "Retro Mario"
+popup/item_10/id = 10
+popup/item_11/text = "Thwompio"
+popup/item_11/id = 11
+popup/item_12/text = "Builder Mario"
+popup/item_12/id = 12
+popup/item_13/text = "Showrunner"
+popup/item_13/id = 13
+popup/item_14/text = "Cosmic Phant."
+popup/item_14/id = 14
+
+[node name="song_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+layout_mode = 2
+
+[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+layout_mode = 2
+text = "Song"
+
+[node name="costume" type="Button" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open Config"
+alignment = 0
 
 [node name="write_metadata" type="Button" parent="ui/meta_data/panel/meta_container"]
 layout_mode = 2
@@ -217,6 +313,6 @@ horizontal_alignment = 1
 [connection signal="file_selected" from="ui/import_panel/panel/VBoxContainer/load_level/level_diag" to="ui" method="mb64_selected"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/thumbnail" to="ui" method="painting_import_requested"]
 [connection signal="file_selected" from="ui/meta_data/panel/meta_container/thumbnail/thumbnail_diag" to="parser" method="load_picture_for_import"]
-[connection signal="text_changed" from="ui/meta_data/panel/meta_container/level_name" to="parser" method="set_level_name"]
-[connection signal="text_changed" from="ui/meta_data/panel/meta_container/level_author" to="parser" method="set_author"]
+[connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property/level_name" to="parser" method="set_level_name"]
+[connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property/level_author" to="parser" method="set_author"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/write_metadata" to="parser" method="write_meta"]

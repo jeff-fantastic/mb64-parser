@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cisw0jgkcidv1"]
+
+[node name="song_config_window" type="Window"]
+title = "Song Configuration"
+initial_position = 4
+size = Vector2i(360, 280)
+exclusive = true
+
+[node name="margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="vbox" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="type" type="OptionButton" parent="margin/vbox"]
+custom_minimum_size = Vector2(0, 31)
+layout_mode = 2
+item_count = 3
+fit_to_longest_item = false
+allow_reselect = true
+popup/item_0/text = "Level Song - %s"
+popup/item_0/id = 0
+popup/item_1/text = "Race Song - %s"
+popup/item_1/id = 1
+popup/item_2/text = "Boss Song - %s"
+popup/item_2/id = 2
+
+[node name="list" type="Tree" parent="margin/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="hbox" type="HBoxContainer" parent="margin/vbox"]
+layout_mode = 2
+
+[node name="cancel" type="Button" parent="margin/vbox/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="apply" type="Button" parent="margin/vbox/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Apply"
