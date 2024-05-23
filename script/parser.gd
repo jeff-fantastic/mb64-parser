@@ -40,6 +40,10 @@ func parse_file(path : String) -> void:
 	res.waterlevel = file.get_8()
 	res.secret = true if file.get_8() == 1 else false
 	res.game = true if file.get_8() == 1 else false
+	res.toolbar = file.get_buffer(0x9)
+	res.toolbar_params = file.get_buffer(0x9)
+	res.tile_count = file.get_16()
+	res.object_count = file.get_16()
 	
 	# End parsing, emit signal
 	file.close()
@@ -64,6 +68,21 @@ func write_meta():
 	new_file.store_buffer(res.picture)
 	new_file.store_8(res.costume)
 	new_file.store_buffer(res.music)
+	new_file.store_8(res.envfx)
+	new_file.store_8(res.theme)
+	new_file.store_8(res.bg)
+	new_file.store_8(res.boundary_mat)
+	new_file.store_8(res.boundary)
+	new_file.store_8(res.boundary_height)
+	new_file.store_8(res.coinstar)
+	new_file.store_8(res.size)
+	new_file.store_8(res.waterlevel)
+	new_file.store_8(res.secret)
+	new_file.store_8(res.game)
+	new_file.store_buffer(res.toolbar)
+	new_file.store_buffer(res.toolbar_params)
+	new_file.store_16(res.tile_count)
+	new_file.store_16(res.object_count)
 	
 	# End custom stuff, read rest from unmodified
 	new_file.store_buffer(base_file.slice(new_file.get_position()))
