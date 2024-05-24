@@ -45,7 +45,7 @@ jobs:
 
       - name: install_rsync
         run: |
-          apt-get update && apt-get install rsync
+          apt-get update && apt-get install rsync curl
 
       - name: sharedarraybuffer_workaround
         run: |
