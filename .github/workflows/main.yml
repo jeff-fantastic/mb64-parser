@@ -35,7 +35,7 @@ jobs:
         run: |
           mkdir -v -p html/
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "HTML5" ../html/index.html
+          godot --headless --verbose --export-release "web" ../html/index.html
           
       - name: upload_artifact
         uses: actions/upload-artifact@v1
