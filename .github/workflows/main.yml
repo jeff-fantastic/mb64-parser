@@ -46,6 +46,12 @@ jobs:
       - name: install_rsync
         run: |
           apt-get update && apt-get install rsync
+
+      - name: sharedarraybuffer_workaround
+      - run: |
+          cd public/play
+          curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js > coi-serviceworker.js
+          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' index.html
       
       - name: deploy_ghp
         uses: JamesIves/github-pages-deploy-action@releases/v4
