@@ -49,7 +49,7 @@ func painting_import_requested() -> void:
 		%thumbnail_diag.show()
 		return
 	
-	facc.loaded.connect(%parser.overwrite_image_web(), CONNECT_ONE_SHOT)
+	facc.loaded.connect(%parser.overwrite_image_web.bind(), CONNECT_ONE_SHOT)
 	facc.open(".png")
 
 ## Called when song config is requested

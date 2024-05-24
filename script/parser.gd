@@ -209,7 +209,8 @@ func overwrite_image_web(file_name : String, file_type : String, base64 : String
 	var bytes : PackedByteArray = Marshalls.base64_to_raw(base64)
 	var image : Image = Image.new()
 	image.load_png_from_buffer(bytes)
-	overwrite_image(image)
+	print("file loaded")
+	replace_image(image)
 
 ## Converts user image into valid painting dimensions (64x64)
 func load_picture_for_import(path : String) -> void:
@@ -221,6 +222,9 @@ func load_picture_for_import(path : String) -> void:
 		return
 	
 	# Resize, overwrite, rebuild, signal
+	replace_image(image)
+
+func replace_image(image : Image) -> void:
 	image.resize(64, 64, Image.INTERPOLATE_NEAREST)
 	current_res.picture = overwrite_image(image)
 	current_res.picture_img = build_image(current_res.picture)
