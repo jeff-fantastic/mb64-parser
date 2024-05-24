@@ -71,7 +71,7 @@ func parse_web_file(file_name : String, file_type : String, base64 : String) -> 
 	res.picture = data.slice(bytes_read, 8192); bytes_read += 8192
 	res.picture_img = build_image(res.picture)
 	res.costume = data.decode_u8(bytes_read); bytes_read += 0x1
-	res.music = data.slice(bytes_read, 0x5); bytes_read += 0x1
+	res.music = data.slice(bytes_read, 0x5); bytes_read += 0x5
 	res.envfx = data.decode_u8(bytes_read); bytes_read += 0x1
 	res.theme = data.decode_u8(bytes_read); bytes_read += 0x1
 	res.bg = data.decode_u8(bytes_read); bytes_read += 0x1
