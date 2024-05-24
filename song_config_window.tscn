@@ -62,3 +62,5 @@ text = "Apply"
 
 [connection signal="item_selected" from="margin/vbox/type" to="." method="dropdown_changed"]
 [connection signal="item_selected" from="margin/vbox/list" to="." method="song_selected"]
+[connection signal="pressed" from="margin/vbox/hbox/cancel" to="." method="cancel_pressed"]
+[connection signal="pressed" from="margin/vbox/hbox/apply" to="." method="apply_pressed"]

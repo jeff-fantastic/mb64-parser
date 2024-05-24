@@ -13,8 +13,8 @@ signal parsing_complete(result : MB64Level)
 var current_path : String = ""
 ## Current [MB64Level] resource
 var current_res : MB64Level
-## Raw data buffer, for web export
-var web_buffer : PackedByteArray
+## Current data buffer (unmodified byte data)
+var current_buffer : PackedByteArray
 
 func _ready() -> void:
 	get_tree().root.files_dropped.connect(func(files : PackedStringArray): parse_file(files[0]))
@@ -24,6 +24,9 @@ func parse_file(path : String) -> void:
 	# Declare variables
 	var res = MB64Level.new()
 	var file = FileAccess.open(path, FileAccess.READ)
+	
+	# Write buffer
+	current_buffer = file.get_file_as_bytes(path)
 	
 	# Begin parsing
 	res.level_name = path.get_file()
@@ -62,35 +65,41 @@ func parse_file(path : String) -> void:
 func parse_web_file(file_name : String, file_type : String, base64 : String) -> void:
 	# Declare variables
 	var res = MB64Level.new()
-	web_buffer = Marshalls.base64_to_raw(base64)
-	var bytes_read : int = 0
+	var stream : StreamPeerBuffer = StreamPeerBuffer.new()
+	stream.data_array = Marshalls.base64_to_raw(base64)
+	print("MB64 stream : %0d" % stream.data_array.size())
 	
 	# Begin parsing
 	res.level_name = file_name.rstrip(".mb64")
-	res.file_header = web_buffer.slice(bytes_read, 0xA).get_string_from_ascii(); bytes_read += 0xA
-	res.version = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.author = web_buffer.slice(bytes_read, 0x1F).get_string_from_ascii(); bytes_read += 0x1F
-	res.picture = web_buffer.slice(bytes_read, 8192); bytes_read += 8192
+	res.file_header = PackedByteArray(stream.get_data(0xA)[1]).get_string_from_ascii()
+	res.version = stream.get_u8()
+	res.author = PackedByteArray(stream.get_data(0x1F)[1]).get_string_from_ascii()
+	res.picture = PackedByteArray(stream.get_data(8192)[1])
 	res.picture_img = build_image(res.picture)
-	res.costume = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.music = web_buffer.slice(bytes_read, 0x5); bytes_read += 0x5
-	res.envfx = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.theme = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.bg = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.boundary_mat = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.boundary = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.boundary_height = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.coinstar = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.size = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.waterlevel = web_buffer.decode_u8(bytes_read); bytes_read += 0x1
-	res.secret = true if web_buffer.decode_u8(bytes_read) == 1 else false; bytes_read += 0x1
-	res.game = true if web_buffer.decode_u8(bytes_read) == 1 else false; bytes_read += 0x1
-	res.toolbar = web_buffer.slice(bytes_read, 0x9); bytes_read += 0x9
-	res.toolbar_params = web_buffer.slice(bytes_read, 0x9); bytes_read += 0x9
-	res.tile_count = web_buffer.decode_u16(bytes_read); bytes_read += 0x2
-	res.object_count = web_buffer.decode_u16(bytes_read); bytes_read += 0x2
+	res.costume = stream.get_u8()
+	res.music = PackedByteArray(stream.get_data(0x5)[1])
+	res.envfx = stream.get_u8()
+	res.theme = stream.get_u8()
+	res.bg = stream.get_u8()
+	res.boundary_mat = stream.get_u8()
+	res.boundary = stream.get_u8()
+	res.boundary_height = stream.get_u8()
+	res.coinstar = stream.get_u8()
+	res.size = stream.get_u8()
+	res.waterlevel = stream.get_u8()
+	res.secret = true if stream.get_u8() == 1 else false
+	res.game = true if stream.get_u8() == 1 else false
+	res.toolbar = PackedByteArray(stream.get_data(0x9)[1])
+	res.toolbar_params = PackedByteArray(stream.get_data(0x9)[1])
+	res.tile_count = stream.get_u16()
+	res.object_count = stream.get_u16()
+	
+	# Debug print
+	for property in res.get_property_list():
+		print(res.get(property.name))
 	
 	# Set vars
+	current_buffer = stream.data_array
 	current_path = "./"
 	current_res = res
 	
@@ -100,73 +109,46 @@ func parse_web_file(file_name : String, file_type : String, base64 : String) -> 
 ## Writes metadata to file at path, then reloads
 func write_meta(path : String) -> void:
 	# Declare variables
+	var facc : FileAccessWeb = FileAccessWeb.new()
 	var res = current_res
-	var base_file : PackedByteArray = FileAccess.get_file_as_bytes(current_path)
 	var new_name : String = path
-	var new_file = FileAccess.open(new_name, FileAccess.WRITE)
+	var new_data : StreamPeerBuffer = StreamPeerBuffer.new()
 	
-	# Begin writing
-	new_file.store_buffer(prep_data(0xA, res.file_header.to_utf8_buffer()))
-	new_file.store_8(res.version)
-	new_file.store_buffer(prep_data(0x1F, res.author.to_utf8_buffer()))
-	new_file.store_buffer(res.picture)
-	new_file.store_8(res.costume)
-	new_file.store_buffer(res.music)
-	new_file.store_8(res.envfx)
-	new_file.store_8(res.theme)
-	new_file.store_8(res.bg)
-	new_file.store_8(res.boundary_mat)
-	new_file.store_8(res.boundary)
-	new_file.store_8(res.boundary_height)
-	new_file.store_8(res.coinstar)
-	new_file.store_8(res.size)
-	new_file.store_8(res.waterlevel)
-	new_file.store_8(res.secret)
-	new_file.store_8(res.game)
-	new_file.store_buffer(res.toolbar)
-	new_file.store_buffer(res.toolbar_params)
-	new_file.store_16(res.tile_count)
-	new_file.store_16(res.object_count)
+	# Begin writing to stream buffer
+	new_data.put_data(prep_data(0xA, res.file_header.to_utf8_buffer()))
+	new_data.put_u8(res.version)
+	new_data.put_data(prep_data(0x1F, res.author.to_utf8_buffer()))
+	new_data.put_data(res.picture)
+	new_data.put_u8(res.costume)
+	new_data.put_data(res.music)
+	new_data.put_u8(res.envfx)
+	new_data.put_u8(res.theme)
+	new_data.put_u8(res.bg)
+	new_data.put_u8(res.boundary_mat)
+	new_data.put_u8(res.boundary)
+	new_data.put_u8(res.boundary_height)
+	new_data.put_u8(res.coinstar)
+	new_data.put_u8(res.size)
+	new_data.put_u8(res.waterlevel)
+	new_data.put_u8(res.secret)
+	new_data.put_u8(res.game)
+	new_data.put_data(res.toolbar)
+	new_data.put_data(res.toolbar_params)
+	new_data.put_u16(res.tile_count)
+	new_data.put_u16(res.object_count)
+	new_data.put_data(current_buffer.slice(new_data.get_position()))
 	
-	# End custom stuff, read rest from unmodified
-	new_file.store_buffer(base_file.slice(new_file.get_position()))
+	# Export buffer to download if on web
+	if !facc._is_not_web():
+		JavaScriptBridge.download_buffer(new_data.data_array, res.level_name + ".mb64")
+		print("File exported from web.")
+		return
 	
-	# Close file
-	new_file.close()
-	print("File saved successfully.")
-
-## Web version of metadata writer
-func write_meta_web(res : MB64Level) -> void:
-	# Declare variables
-	var bytes_written : int = 0
-	var new_buf : PackedByteArray = []
-	
-	# Start writing to new buffer
-	new_buf.append_array(prep_data(0xA, res.file_header.to_utf8_buffer())); bytes_written += 0xA
-	new_buf.encode_u8(bytes_written, res.version); bytes_written += 0x1
-	new_buf.append_array(prep_data(0x1F, res.author.to_utf8_buffer())); bytes_written += 0x1F
-	new_buf.append_array(res.picture); bytes_written += 8192
-	new_buf.encode_u8(bytes_written, res.costume); bytes_written += 0x1
-	new_buf.append_array(res.music); bytes_written += 0x5
-	new_buf.encode_u8(bytes_written, res.envfx); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.theme); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.bg); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.boundary_mat); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.boundary); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.boundary_height); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.coinstar); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.size); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.waterlevel); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.secret); bytes_written += 0x1
-	new_buf.encode_u8(bytes_written, res.game); bytes_written += 0x1
-	new_buf.append_array(res.toolbar); bytes_written += 0x9
-	new_buf.append_array(res.toolbar_params); bytes_written += 0x9
-	new_buf.encode_u16(bytes_written, res.tile_count); bytes_written += 0x2
-	new_buf.encode_u16(bytes_written, res.object_count); bytes_written += 0x2
-	
-	# Splice old buf into new now
-	new_buf.append_array(web_buffer.slice(bytes_written))
-	JavaScriptBridge.download_buffer(new_buf, res.level_name + ".mb64")
+	# Otherwise just dump buffer into file
+	var file : FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	file.store_buffer(new_data.data_array)
+	file.close()
+	print("File exported successfully.")
 
 ## Builds an image from RGBA16 data
 func build_image(data : PackedByteArray) -> Image:
@@ -265,8 +247,8 @@ func open_save_dialog() -> void:
 		%export_dialog.show()
 		return
 	
-	# Web save
-	write_meta_web(current_res)
+	# Otherwise just save
+	write_meta("")
 
 ## SETTERS
 ##------------------------------------------------------------------------------

@@ -163,7 +163,7 @@ const dropdown_names : Array[String] = [
 
 ## Current [MB64Level] resource
 var current_res : MB64Level :
-	set(value) : current_res = value; prepare_backup(); update_fields()
+	set(value) : current_res = value; update_fields()
 	get : return current_res
 ## Backup fields
 var backup_fields : Array[int]
@@ -173,8 +173,10 @@ func _ready() -> void:
 
 ## Updates dropdown and tree view of songs
 func update_fields() -> void:
+	prepare_backup()
 	update_tree()
 	update_categories()
+	%type.select(0)
 
 ## Update song list
 func update_tree() -> void:
@@ -207,7 +209,7 @@ func update_categories() -> void:
 func prepare_backup() -> void:
 	backup_fields.clear()
 	for track in range(current_res.music.size()):
-		backup_fields.append(current_res.music[track])
+		backup_fields.append(int(current_res.music[track]))
 
 ## Called when user selects song
 func song_selected() -> void:

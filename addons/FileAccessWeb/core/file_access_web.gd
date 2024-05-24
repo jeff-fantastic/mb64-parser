@@ -15,7 +15,6 @@ var _on_file_error_callback: JavaScriptObject
 
 func _init() -> void:
 	if _is_not_web():
-		_notify_error()
 		return
 	
 	JavaScriptBridge.eval(js_source_code, true)
