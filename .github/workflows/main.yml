@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.2.1
+  GODOT_VERSION: 4.2.2
   EXPORT_NAME: mb64-parser
   PROJECT_PATH: ./
 
