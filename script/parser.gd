@@ -186,6 +186,14 @@ func overwrite_image(image : Image) -> PackedByteArray:
 	# Return bytes
 	return bytes
 
+## Creates RGBA16 image data from web image
+func overwrite_image_web(file_name : String, file_type : String, base64 : String) -> void:
+	# Get array of bytes from base64
+	var bytes : PackedByteArray = Marshalls.base64_to_raw(base64)
+	var image : Image = Image.new()
+	image.load_png_from_buffer(bytes)
+	overwrite_image(image)
+
 ## Converts user image into valid painting dimensions (64x64)
 func load_picture_for_import(path : String) -> void:
 	# Load image, check for bad import
