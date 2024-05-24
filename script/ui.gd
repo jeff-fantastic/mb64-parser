@@ -40,7 +40,7 @@ func mb64_import_requested() -> void:
 		return
 	
 	# Otherwise queue import
-	facc.loaded.connect(%parser.parse_web_file())
+	facc.loaded.connect(%parser.parse_web_file.bind())
 	facc.open("*.mb64")
 	
 	
