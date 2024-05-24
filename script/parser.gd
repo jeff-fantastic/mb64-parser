@@ -256,9 +256,18 @@ func prep_data(length : int, buf : PackedByteArray) -> PackedByteArray:
 
 ## Opens file save dialog
 func open_save_dialog() -> void:
-	%export_dialog.current_path = current_path.get_base_dir() + "/"
-	%export_dialog.current_file = current_res.level_name + ".mb64"
-	%export_dialog.show()
+	# Declare variables
+	var facc : FileAccessWeb = FileAccessWeb.new()
+	
+	# Non web save
+	if facc._is_not_web():
+		%export_dialog.current_path = current_path.get_base_dir() + "/"
+		%export_dialog.current_file = current_res.level_name + ".mb64"
+		%export_dialog.show()
+		return
+	
+	# Web save
+	write_meta_web(current_res)
 
 ## SETTERS
 ##------------------------------------------------------------------------------
