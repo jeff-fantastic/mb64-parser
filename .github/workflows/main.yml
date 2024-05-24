@@ -49,6 +49,7 @@ jobs:
 
       - name: sharedarraybuffer_workaround
         run: |
+          cd ./html/
           curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js > coi-serviceworker.js
           sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' index.html
       
