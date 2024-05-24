@@ -13,7 +13,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.3.0
+      - name: checkout
+        uses: actions/checkout@v3.3.0
+        with:
+          lfs: true
+        
       - name: web_export
         uses: firebelley/godot-export@v5.2.1
         with:
@@ -22,12 +26,18 @@ jobs:
           relative_project_path: ./
           cache: true
           
-      - name: deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: upload_artifact
+        uses: actions/upload-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./html5/
-          force_orphan: true
-          user_name: 'github-ci[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'publish to gh pages'
+          name: html
+          path: ./html/
+
+      - name: install_rsync
+        run: |
+          apt-get update && apt-get install rsync
+      
+      - name: deploy_ghp
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          branch: gh-pages
+          folder: ./html/
