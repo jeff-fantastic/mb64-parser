@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=13 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
 [ext_resource type="Script" path="res://script/ui.gd" id="2_3kiir"]
 [ext_resource type="Texture2D" uid="uid://c2psown8f2nhy" path="res://asset/gui/thumb_placeholder.png" id="4_22j1p"]
 [ext_resource type="PackedScene" uid="uid://cisw0jgkcidv1" path="res://song_config_window.tscn" id="5_68tqu"]
+[ext_resource type="Texture2D" uid="uid://vyscghk0x3p7" path="res://asset/github.svg" id="6_v1xy5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unneb"]
 content_margin_left = 8.0
@@ -28,6 +29,11 @@ corner_detail = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lvik"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e6hdq"]
+font_size = 24
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_xmjss"]
 
@@ -95,11 +101,10 @@ Parser Tool[/b]
 
 [i]Original hack by Rovertronic, Arthurtilly, and co. Parser created by Jefftastic
 
-[s]Select a valid SM64 rom to extract assets from,[/s] then load a valid level file (.mb64)"
+Select a valid SM64 rom to extract assets from, then load a valid level file (.mb64)"
 
 [node name="load_sm64_rom" type="Button" parent="ui/import_panel/panel/VBoxContainer"]
 layout_mode = 2
-disabled = true
 text = "Load SM64 ROM"
 
 [node name="open_file_diag" type="FileDialog" parent="ui/import_panel/panel/VBoxContainer/load_sm64_rom"]
@@ -578,6 +583,31 @@ layout_mode = 2
 text = "Load a level first!"
 horizontal_alignment = 1
 
+[node name="info" type="HBoxContainer" parent="ui"]
+modulate = Color(1, 1, 1, 0.482353)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = -59.0
+offset_right = 286.0
+offset_bottom = -19.0
+metadata/_edit_use_anchors_ = true
+
+[node name="github" type="Button" parent="ui/info"]
+layout_mode = 2
+tooltip_text = "Support me and my work!"
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1lvik")
+icon = ExtResource("6_v1xy5")
+flat = true
+
+[node name="version" type="Label" parent="ui/info"]
+layout_mode = 2
+text = "mb64-parser v0.2"
+label_settings = SubResource("LabelSettings_e6hdq")
+
 [node name="container" type="Node3D" parent="."]
 
 [node name="built_mesh" type="MeshInstance3D" parent="container"]
@@ -606,3 +636,4 @@ mesh = SubResource("ImmediateMesh_xmjss")
 [connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
 [connection signal="pressed" from="ui/meta_data/panel/meta_container/export" to="parser" method="open_save_dialog"]
 [connection signal="file_selected" from="ui/meta_data/panel/meta_container/export/export_dialog" to="parser" method="write_meta"]
+[connection signal="pressed" from="ui/info/github" to="ui" method="open_github_repo"]

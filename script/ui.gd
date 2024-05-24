@@ -15,6 +15,8 @@ GridSize:	 {grid_size}x{grid_size}
 TileCount: {tile_count}
 ObjectCount: {object_count}
 """
+## GitHub link
+const GITHUB_LINK : String = "https://github.com/jeff-fantastic/mb64-parser"
 
 ## Sent when a parse is requested
 signal parse_requested(path : String)
@@ -55,6 +57,14 @@ func painting_import_requested() -> void:
 ## Called when song config is requested
 func open_song_config():
 	%song_config_window.show()
+
+## Called when GitHub button is pressed
+func open_github_repo() -> void:
+	if facc._is_not_web():
+		OS.shell_open(GITHUB_LINK)
+	else:
+		JavaScriptBridge.eval("window.location.href='%s'" % GITHUB_LINK, false)
+		
 
 ## Called when level is selected
 func mb64_selected(path : String) -> void:

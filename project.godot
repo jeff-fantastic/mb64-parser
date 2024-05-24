@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 gdscript/warnings/integer_division=0
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/FileAccessWeb/plugin.cfg")
