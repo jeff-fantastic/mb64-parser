@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=10 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -28,6 +28,8 @@ corner_detail = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_xmjss"]
 
 [node name="main" type="Node"]
 
@@ -579,6 +581,7 @@ horizontal_alignment = 1
 [node name="container" type="Node3D" parent="."]
 
 [node name="built_mesh" type="MeshInstance3D" parent="container"]
+mesh = SubResource("ImmediateMesh_xmjss")
 
 [connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
 [connection signal="editing_changed" from="ui" to="ui" method="toggle_metadata_fields"]
