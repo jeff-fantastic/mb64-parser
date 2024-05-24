@@ -10,7 +10,7 @@ involving the .mb64 file format
 signal parsing_complete(result : MB64Level)
 
 ## Current path
-var current_path : String = ""
+var current_path : String = "/"
 ## Current [MB64Level] resource
 var current_res : MB64Level
 ## Current data buffer (unmodified byte data)
@@ -19,57 +19,31 @@ var current_buffer : PackedByteArray
 func _ready() -> void:
 	get_tree().root.files_dropped.connect(func(files : PackedStringArray): parse_file(files[0]))
 
-## Parses a *.mb64 file.
+## Parses a *.mb64 file, client function
 func parse_file(path : String) -> void:
 	# Declare variables
 	var res = MB64Level.new()
-	var file = FileAccess.open(path, FileAccess.READ)
-	
-	# Write buffer
-	current_buffer = file.get_file_as_bytes(path)
-	
-	# Begin parsing
-	res.level_name = path.get_file()
-	res.file_header = file.get_buffer(0xA).get_string_from_ascii()
-	res.version = file.get_8()
-	res.author = file.get_buffer(0x1F).get_string_from_ascii()
-	res.picture = file.get_buffer(8192)
-	res.picture_img = build_image(res.picture)
-	res.costume = file.get_8()
-	res.music = file.get_buffer(5)
-	res.envfx = file.get_8()
-	res.theme = file.get_8()
-	res.bg = file.get_8()
-	res.boundary_mat = file.get_8()
-	res.boundary = file.get_8()
-	res.boundary_height = file.get_8()
-	res.coinstar = file.get_8()
-	res.size = file.get_8()
-	res.waterlevel = file.get_8()
-	res.secret = true if file.get_8() == 1 else false
-	res.game = true if file.get_8() == 1 else false
-	res.toolbar = file.get_buffer(0x9)
-	res.toolbar_params = file.get_buffer(0x9)
-	res.tile_count = file.get_16()
-	res.object_count = file.get_16()
-	
-	# Set vars
+	var buf = FileAccess.get_file_as_bytes(path)
 	current_path = path
-	current_res = res
 	
-	# End parsing, emit signal
-	file.close()
-	parsing_complete.emit(res)
+	copy_data(res, buf, path.get_file())
 
-## Parses a *.mb64 file, web exclusive
+## Parses a *.mb64 file, web function
 func parse_web_file(file_name : String, file_type : String, base64 : String) -> void:
 	# Declare variables
 	var res = MB64Level.new()
-	var stream : StreamPeerBuffer = StreamPeerBuffer.new()
-	stream.data_array = Marshalls.base64_to_raw(base64)
-	print("MB64 stream : %0d" % stream.data_array.size())
+	var buf = Marshalls.base64_to_raw(base64)
 	
-	# Begin parsing
+	copy_data(res, buf, file_name)
+
+## Core function in parsing
+func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> void:
+	# Create stream
+	var stream : StreamPeerBuffer = StreamPeerBuffer.new()
+	stream.data_array = buf
+	current_buffer = stream.data_array
+	
+	# Read
 	res.level_name = file_name.rstrip(".mb64")
 	res.file_header = PackedByteArray(stream.get_data(0xA)[1]).get_string_from_ascii()
 	res.version = stream.get_u8()
@@ -94,16 +68,8 @@ func parse_web_file(file_name : String, file_type : String, base64 : String) -> 
 	res.tile_count = stream.get_u16()
 	res.object_count = stream.get_u16()
 	
-	# Debug print
-	for property in res.get_property_list():
-		print(res.get(property.name))
-	
-	# Set vars
-	current_buffer = stream.data_array
-	current_path = "./"
+	# Done
 	current_res = res
-	
-	# End parsing, emit signal
 	parsing_complete.emit(res)
 
 ## Writes metadata to file at path, then reloads
