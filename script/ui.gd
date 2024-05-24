@@ -49,6 +49,7 @@ func painting_import_requested() -> void:
 		return
 	
 	facc.loaded.connect(%parser.overwrite_image_web())
+	facc.open(".png")
 
 ## Called when song config is requested
 func open_song_config():

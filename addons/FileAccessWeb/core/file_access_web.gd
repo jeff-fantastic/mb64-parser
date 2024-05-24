@@ -39,6 +39,13 @@ func open(accept_files: String = "*") -> void:
 	_file_uploading.setAcceptFiles(accept_files)
 	_file_uploading.open()
 
+func save(
+	buffer : PackedByteArray, 
+	name : String, 
+	mime : String = "application/octet-stream"
+) -> void:
+	JavaScriptBridge.download_buffer(buffer, name, mime)
+
 func _is_not_web() -> bool:
 	return OS.get_name() != "Web"
 
