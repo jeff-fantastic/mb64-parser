@@ -32,6 +32,7 @@ font_size = 18
 [node name="main" type="Node"]
 
 [node name="parser" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_2mchu")
 
 [node name="ui" type="Control" parent="."]

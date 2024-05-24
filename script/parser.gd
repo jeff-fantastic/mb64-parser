@@ -56,6 +56,45 @@ func parse_file(path : String) -> void:
 	file.close()
 	parsing_complete.emit(res)
 
+## Parses a *.mb64 file, web exclusive
+func parse_web_file(file_name : String, file_type : String, base64 : String) -> void:
+	# Declare variables
+	var res = MB64Level.new()
+	var data : PackedByteArray = Marshalls.base64_to_raw(base64)
+	var bytes_read : int = 0
+	
+	# Begin parsing
+	res.level_name = file_name.rstrip(".mb64")
+	res.file_header = data.slice(bytes_read, 0xA).get_string_from_ascii(); bytes_read += 0xA
+	res.version = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.author = data.slice(bytes_read, 0x1F).get_string_from_ascii(); bytes_read += 0x1F
+	res.picture = data.slice(bytes_read, 8192); bytes_read += 8192
+	res.picture_img = build_image(res.picture)
+	res.costume = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.music = data.slice(bytes_read, 0x5); bytes_read += 0x1
+	res.envfx = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.theme = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.bg = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.boundary_mat = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.boundary = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.boundary_height = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.coinstar = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.size = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.waterlevel = data.decode_u8(bytes_read); bytes_read += 0x1
+	res.secret = true if data.decode_u8(bytes_read) == 1 else false; bytes_read += 0x1
+	res.game = true if data.decode_u8(bytes_read) == 1 else false; bytes_read += 0x1
+	res.toolbar = data.slice(bytes_read, 0x9); bytes_read += 0x9
+	res.toolbar_params = data.slice(bytes_read, 0x9); bytes_read += 0x9
+	res.tile_count = data.decode_u16(bytes_read); bytes_read += 0x2
+	res.object_count = data.decode_u16(bytes_read); bytes_read += 0x2
+	
+	# Set vars
+	current_path = "./"
+	current_res = res
+	
+	# End parsing, emit signal
+	parsing_complete.emit(res)
+
 ## Writes metadata to file at path, then reloads
 func write_meta(path : String) -> void:
 	# Declare variables

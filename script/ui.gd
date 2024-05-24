@@ -21,6 +21,9 @@ signal parse_requested(path : String)
 ## Sent when editing ability is changed
 signal editing_changed(mode : bool)
 
+## Web file access class
+@onready var facc = FileAccessWeb.new()
+
 ## Whether or not editing is enabled
 var edit_mode : bool = false :
 	set(value) : edit_mode = value; editing_changed.emit(value)
@@ -31,7 +34,15 @@ func _ready() -> void:
 
 ## Called when load level is pressed
 func mb64_import_requested() -> void:
-	%level_diag.show()
+	# Normal import if on client
+	if facc._is_not_web():
+		%level_diag.show()
+		return
+	
+	# Otherwise queue import
+	facc.loaded.connect(%parser.parse_web_file())
+	facc.open("*.mb64")
+	
 	
 ## Called when painting image is pressed
 func painting_import_requested() -> void:
