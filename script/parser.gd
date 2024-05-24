@@ -140,7 +140,6 @@ func write_meta_web(res : MB64Level) -> void:
 	# Declare variables
 	var bytes_written : int = 0
 	var new_buf : PackedByteArray = []
-	new_buf.resize(web_buffer.size())
 	
 	# Start writing to new buffer
 	new_buf.append_array(prep_data(0xA, res.file_header.to_utf8_buffer())); bytes_written += 0xA
