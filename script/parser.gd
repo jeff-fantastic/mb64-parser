@@ -14,6 +14,9 @@ var current_path : String = ""
 ## Current [MB64Level] resource
 var current_res : MB64Level
 
+func _ready() -> void:
+	get_tree().root.files_dropped.connect(func(files : PackedStringArray): parse_file(files[0]))
+
 ## Parses a *.mb64 file.
 func parse_file(path : String) -> void:
 	# Declare variables
