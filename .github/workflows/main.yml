@@ -9,22 +9,33 @@ on:
   # Manually allowed as well
   workflow_dispatch:
 
+env:
+  GODOT_VERSION: 4.2.1
+  EXPORT_NAME: mb64-parser
+  PROJECT_PATH: ./
+
 jobs:
   build:
+    name: web
     runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2.2
     steps:
       - name: checkout
         uses: actions/checkout@v3.3.0
         with:
           lfs: true
+
+      - name: setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
         
-      - name: web_export
-        uses: firebelley/godot-export@v5.2.1
-        with:
-          godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.2.2-stable/Godot_v4.2.2-stable_export_templates.tpz
-          relative_project_path: ./
-          cache: true
+      - name: web_build
+        run: |
+          mkdir -v -p html/
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "HTML5" ../html/index.html
           
       - name: upload_artifact
         uses: actions/upload-artifact@v1
