@@ -95,7 +95,7 @@ by a custom Godot resource
 class CMMCustomTheme extends Resource:
 	var mats : PackedByteArray = []
 	var topmats : PackedByteArray = []
-	var topmatsEnabled : Array[bool] = []
+	var topmatsEnabled : PackedByteArray = []
 	var fence : int
 	var pole : int
 	var bars : int
@@ -104,17 +104,28 @@ class CMMCustomTheme extends Resource:
 	## Deserializes data to custom resource
 	func deserialize(data : PackedByteArray) -> CMMCustomTheme:
 		mats = data.slice(0, 10)
-		topmats = data.slice(10, 20)
-		topmatsEnabled = data.slice(20, 30)
-		fence = data.decode_u8(30)
-		pole = data.decode_u8(31)
-		bars = data.decode_u8(32)
-		water = data.decode_u8(33)
+		topmats = data.slice(10, 21)
+		topmatsEnabled = data.slice(21, 31)
+		fence = data.decode_u8(31)
+		pole = data.decode_u8(32)
+		bars = data.decode_u8(33)
+		water = data.decode_u8(34)
 		return self
 	
 	## Reserializes custom resource back into byte data
 	func serialize(stream : StreamPeerBuffer) -> void:
-		pass
+		# Create and populate buffer
+		var buf : PackedByteArray = []
+		buf.append_array(self.mats)
+		buf.append_array(self.topmats)
+		buf.append_array(self.topmatsEnabled)
+		buf.append(fence)
+		buf.append(pole)
+		buf.append(bars)
+		buf.append(water)
+		
+		# Write to stream
+		stream.put_data(buf)
 
 @export_group("LevelTrajectory")
 
@@ -133,6 +144,26 @@ class CMMTrajectoryPoint extends Resource:
 		self.x = x
 		self.y = y
 		self.z = z
+	
+	## Checks if self is all zeroes, usually an indicator
+	## of there being no further data in a block.
+	func is_zero() -> bool:
+		return t == 0 && x == 0 && y == 0 && x == 0
+	
+	## Alternate check for 0x1F fields. These seem like
+	## they exist to pad trajectory data for their entire
+	## data block (of about 200 bytes) but they also just 
+	## sometimes populate entire data blocks. Might just
+	## be remnants of track data that was then deleted
+	## but improperly cleared, leading to unoptimal data
+	## being written to the save
+	func is_0x1F() -> bool:
+		return x == 0x1F && y == 0x1F && z == 0x1F
+	
+	## Whether or not t value is -1
+	func is_stub() -> bool:
+		return false if t != -1 else true
+		
 ## Trajectory track resource class
 class CMMTrajectory extends Resource:
 	var points : Array[CMMTrajectoryPoint]
@@ -140,27 +171,41 @@ class CMMTrajectory extends Resource:
 class CMMTrajectories extends Resource:
 	var list : Array[CMMTrajectory]
 	
-	## Whether or not t value is -1
-	func is_stub(t : int) -> bool:
-		return false if t != -1 else true
-	
 	## Deserializes data to custom resource
 	func deserialize(data : PackedByteArray) -> CMMTrajectories:
 		# Iterate over trajectories
-		for x in range((data.size()/200)-1):
-			var trajectory := CMMTrajectories.new()
+		for x in range((data.size()/200)):
+			var trajectory := CMMTrajectory.new()
 			var traj_points := data.slice(200 * x, 200 * (x + 1))
+			var zeroes = 0
 			
 			# Iterate over points
-			for y in range((traj_points.size()/4)-1):
+			for y in range((traj_points.size()/4)):
 				var p_a := traj_points.slice(y * 4, (y + 1) * 4)
-				var point := CMMTrajectoryPoint.new(p_a[0], p_a[1], p_a[2], p_a[3])
+				var point := CMMTrajectoryPoint.new(
+					p_a.decode_s8(0), 
+					p_a.decode_u8(1), 
+					p_a.decode_u8(2), 
+					p_a.decode_u8(3)
+				)
 				trajectory.points.append(point)
-				if is_stub(point.t):
+				
+				## Cancel adding point if the block is
+				## just empty or dummy data
+				if point.is_zero() || point.is_0x1F():
+					zeroes += 1
+					if zeroes > 1:
+						trajectory.points.clear()
+						break
+				
+				## Otherwise, when coming to a stub,
+				## we know thats the end of the track
+				if point.is_stub():
 					break
 			
 			# Append trajectory to list, continue
 			self.list.append(trajectory)
+			
 		return self
 	
 	## Serializes resource back into bytes
@@ -176,7 +221,7 @@ class CMMTrajectories extends Resource:
 			# Read existing points
 			for p in trajectory.points:
 				traj_buf.append_array([p.t, p.x, p.y, p.z])
-				if is_stub(p.t):
+				if p.is_stub():
 					break
 			
 			# Fill rest with NOTHING and send to main buffer

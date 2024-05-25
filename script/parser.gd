@@ -63,14 +63,16 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	res.waterlevel = stream.get_u8()
 	res.secret = true if stream.get_u8() == 1 else false
 	res.game = true if stream.get_u8() == 1 else false
+	print(stream.get_position())
 	res.toolbar = PackedByteArray(stream.get_data(0x9)[1])
 	res.toolbar_params = PackedByteArray(stream.get_data(0x9)[1])
+	print(stream.get_position())
 	res.tile_count = stream.get_u16()
 	res.object_count = stream.get_u16()
 	
 	# Read special header data
-	res.custom_theme = res.CMMCustomTheme.new().bytes_to_res(PackedByteArray(stream.get_data(0x22)[1])) # Custom theme selection
-	stream.seek(stream.get_position() + 4000) # Trajectories
+	res.custom_theme = res.CMMCustomTheme.new().deserialize(PackedByteArray(stream.get_data(35)[1])) # Custom theme selection
+	res.trajectories = res.CMMTrajectories.new().deserialize(PackedByteArray(stream.get_data(4000)[1])) # Trajectories
 	
 	# Begin tile data
 	
@@ -108,6 +110,10 @@ func write_meta(path : String) -> void:
 	new_data.put_data(res.toolbar_params)
 	new_data.put_u16(res.tile_count)
 	new_data.put_u16(res.object_count)
+	
+	res.custom_theme.serialize(new_data)
+	res.trajectories.serialize(new_data)
+	
 	new_data.put_data(current_buffer.slice(new_data.get_position()))
 	
 	# Export buffer to download if on web

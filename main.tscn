@@ -67,13 +67,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="hide_show" type="Button" parent="ui/import_panel"]
 layout_mode = 2
-anchor_top = -0.0533333
-anchor_right = 0.0047619
-anchor_bottom = -0.0533333
-offset_left = 210.0
-offset_top = 114.0
-offset_right = 235.0
-offset_bottom = 186.0
+anchor_left = -0.076
+anchor_top = -0.053
+anchor_right = -0.076
+anchor_bottom = -0.053
+offset_left = 225.96
+offset_top = 131.9
+offset_right = 251.96
+offset_bottom = 203.9
 size_flags_horizontal = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_unneb")
 text = ">"
@@ -81,9 +82,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="panel" type="PanelContainer" parent="ui/import_panel"]
 layout_mode = 2
-anchor_bottom = 0.0533333
-offset_right = 210.0
-offset_bottom = 260.0
+anchor_left = -0.076
+anchor_top = -0.053
+anchor_right = -0.076
+anchor_bottom = -0.053
+offset_left = 15.96
+offset_top = 15.9
+offset_right = 225.96
+offset_bottom = 321.9
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_5kf88")
@@ -102,6 +108,7 @@ Parser Tool[/b]
 [i]Original hack by Rovertronic, Arthurtilly, and co. Parser created by Jefftastic
 
 Select a valid SM64 rom to extract assets from, then load a valid level file (.mb64)"
+fit_content = true
 
 [node name="load_sm64_rom" type="Button" parent="ui/import_panel/panel/VBoxContainer"]
 layout_mode = 2
@@ -593,6 +600,7 @@ offset_left = 19.0
 offset_top = -59.0
 offset_right = 286.0
 offset_bottom = -19.0
+grow_vertical = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="github" type="Button" parent="ui/info"]
