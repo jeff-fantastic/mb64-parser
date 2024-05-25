@@ -7,7 +7,7 @@ Multipurpose tool intended to work with Mario Builder 64 level files.
 
 # roadmap
 - [x] Parse full header data
-- [ ] Parse custom theme selection
+- [x] Parse custom theme selection
 - [ ] Parse tile data
 - [ ] Parse object data
 - [x] Modify level title, author
