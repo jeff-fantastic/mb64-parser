@@ -68,6 +68,12 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	res.tile_count = stream.get_u16()
 	res.object_count = stream.get_u16()
 	
+	# Read special header data
+	res.custom_theme = res.CMMCustomTheme.new().bytes_to_res(PackedByteArray(stream.get_data(0x22)[1])) # Custom theme selection
+	stream.seek(stream.get_position() + 4000) # Trajectories
+	
+	# Begin tile data
+	
 	# Done
 	current_res = res
 	parsing_complete.emit(res)
