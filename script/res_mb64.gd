@@ -140,14 +140,14 @@ class CMMTrajectory extends Resource:
 class CMMTrajectories extends Resource:
 	var list : Array[CMMTrajectory]
 	
-	## Whether or not all t value is -1
+	## Whether or not t value is -1
 	func is_stub(t : int) -> bool:
 		return false if t != -1 else true
 	
 	## Deserializes data to custom resource
 	func deserialize(data : PackedByteArray) -> CMMTrajectories:
 		# Iterate over trajectories
-		for x in range(data.size()/200):
+		for x in range((data.size()/200)-1):
 			var trajectory := CMMTrajectories.new()
 			var traj_points := data.slice(200 * x, 200 * (x + 1))
 			
@@ -160,9 +160,33 @@ class CMMTrajectories extends Resource:
 					break
 			
 			# Append trajectory to list, continue
-			list.append(trajectory)
-			
+			self.list.append(trajectory)
 		return self
+	
+	## Serializes resource back into bytes
+	func serialize(stream : StreamPeerBuffer) -> void:
+		# Declare variables
+		var buf : PackedByteArray = []
+		
+		# Data preparation loops
+		for trajectory in self.list:
+			# Create data block
+			var traj_buf : PackedByteArray = []
+			
+			# Read existing points
+			for p in trajectory.points:
+				traj_buf.append_array([p.t, p.x, p.y, p.z])
+				if is_stub(p.t):
+					break
+			
+			# Fill rest with NOTHING and send to main buffer
+			var empty : PackedByteArray = []
+			empty.resize(200-traj_buf.size()); empty.fill(0)
+			traj_buf.append_array(empty)
+			buf.append_array(traj_buf)
+		
+		# Write to stream
+		stream.put_data(buf)
 
 @export_group("LevelTile")
 
