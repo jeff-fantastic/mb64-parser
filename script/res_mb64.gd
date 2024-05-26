@@ -79,13 +79,9 @@ by a custom Godot resource
 ## Toolbar params, 9 bytes, not really used for anything in this program
 @export var toolbar_params : PackedByteArray
 ## Tile count, two bytes
-@export var tile_count : int :
-	set(value) : if value >= 0 && value <= 0xFFFF: tile_count = value;
-	get : return tile_count
+@export var tile_count : int
 ## Object count, two bytes
-@export var object_count : int :
-	set(value) : if value >= 0 && value <= 0xFFFF: object_count = value;
-	get : return object_count
+@export var object_count : int
 
 @export_group("LevelCustomTheme")
 
@@ -104,12 +100,12 @@ class CMMCustomTheme extends Resource:
 	## Deserializes data to custom resource
 	func deserialize(data : PackedByteArray) -> CMMCustomTheme:
 		mats = data.slice(0, 10)
-		topmats = data.slice(10, 21)
-		topmatsEnabled = data.slice(21, 31)
-		fence = data.decode_u8(31)
-		pole = data.decode_u8(32)
-		bars = data.decode_u8(33)
-		water = data.decode_u8(34)
+		topmats = data.slice(10, 20)
+		topmatsEnabled = data.slice(20, 30)
+		fence = data.decode_u8(30)
+		pole = data.decode_u8(31)
+		bars = data.decode_u8(32)
+		water = data.decode_u8(33)
 		return self
 	
 	## Reserializes custom resource back into byte data
@@ -134,21 +130,19 @@ class CMMCustomTheme extends Resource:
 ## Trajectory point resource class
 class CMMTrajectoryPoint extends Resource:
 	var t : int
-	var x : int
-	var y : int
-	var z : int
+	var pos : Vector3i = Vector3i.ZERO
 	
 	## Constructor
 	func _init(t : int, x : int, y : int, z : int) -> void:
 		self.t = t
-		self.x = x
-		self.y = y
-		self.z = z
+		self.pos.x = x
+		self.pos.y = y
+		self.pos.z = z
 	
 	## Checks if self is all zeroes, usually an indicator
 	## of there being no further data in a block.
 	func is_zero() -> bool:
-		return t == 0 && x == 0 && y == 0 && x == 0
+		return t == 0 && pos.x == 0 && pos.y == 0 && pos.x == 0
 	
 	## Alternate check for 0x1F fields. These seem like
 	## they exist to pad trajectory data for their entire
@@ -158,7 +152,7 @@ class CMMTrajectoryPoint extends Resource:
 	## but improperly cleared, leading to unoptimal data
 	## being written to the save
 	func is_0x1F() -> bool:
-		return x == 0x1F && y == 0x1F && z == 0x1F
+		return pos.x == 0x1F && pos.y == 0x1F && pos.z == 0x1F
 	
 	## Whether or not t value is -1
 	func is_stub() -> bool:
@@ -220,7 +214,7 @@ class CMMTrajectories extends Resource:
 			
 			# Read existing points
 			for p in trajectory.points:
-				traj_buf.append_array([p.t, p.x, p.y, p.z])
+				traj_buf.append_array([p.t, p.pos.x, p.pos.y, p.pos.z])
 				if p.is_stub():
 					break
 			
@@ -234,5 +228,116 @@ class CMMTrajectories extends Resource:
 		stream.put_data(buf)
 
 @export_group("LevelTile")
+
+## Tile grid resource, 10000 bytes
+@export var t_grid : CMMTileGrid
+
+class CMMTile extends Resource:
+	var pos : Vector3i
+	var type : CMMTileGrid.Types
+	var mat : int
+	var rot : int
+	var waterlogged : bool
+	
+	## Constructor
+	func _init(x : int, y : int, z : int, type : int, mat : int, rot : int, waterlogged : bool) -> void:
+		self.pos.x = x
+		self.pos.y = y
+		self.pos.z = z
+		self.type = type
+		self.mat = mat
+		self.rot = rot
+		self.waterlogged = waterlogged
+	
+class CMMTileGrid extends Resource:
+	## Tile poly type enum
+	enum Types { 
+		Full				= 0x00,
+		PoleTop				= 0x01,
+		Tri_1				= 0x02,
+		Tri_2				= 0x03,
+		DownTri_1			= 0x04,
+		DownTri_2			= 0x05,
+		HalfSide_1			= 0x06,
+		HalfSide_2			= 0x07,
+		TopTri				= 0x08,
+		TopHalf				= 0x09,
+		Empty				= 0x0A,
+		BottomSlab_Priority = 0x10,
+		UpperGentle_1		= BottomSlab_Priority,
+		UpperGentle_2		= 0x11,
+		BottomSlab			= 0x12,
+		LowerGentle_1		= 0x14,
+		LowerGentle_2		= 0x15,
+		TopSlab_Priority	= 0x20,
+		DownUpperGentle_1	= TopSlab_Priority,
+		DownUpperGentle_2	= 0x21,
+		TopSlab				= 0x22,
+		DownLowerGentle_1	= 0x24,
+		DownLowerGentle_2	= 0x25
+	}
+	
+	## Tile overhang type enum
+	enum GrowthTypes {
+		None				= 0x00,
+		Full				= 0x01,
+		NormalSide			= 0x02,
+		HalfSide			= 0x03,
+		UndersideSlopeCorner= 0x04,
+		DiagonalSide		= 0x05,
+		VerticalSlabSide	= 0x06,
+		DownLowerGentleUnder= 0x07,
+		Unconditional		= 0x08,
+		ExtraDecalStart		= 0x10,
+		SlopeSideL			= ExtraDecalStart,
+		SlopeSideR			= 0x11,
+		GentleSideL			= 0x12,
+		GentleSideR			= 0x13,
+	}
+	
+	## Array of tile data
+	var tiles : Array[CMMTile]
+	
+	## Deserializes byte data into tiles
+	func deserialize(data : PackedByteArray, tile_count : int) -> CMMTileGrid:
+		
+		# Begin preparing array
+		for x in range(tile_count):
+			# Get value
+			var u8 : Array[int] = [
+				data.decode_u8((x * 4)),
+				data.decode_u8((x * 4) + 1),
+				data.decode_u8((x * 4) + 2),
+				data.decode_u8((x * 4) + 3),
+			]
+			var value : int = (u8[0] << 24) | (u8[1] << 16) | (u8[2] << 8) | (u8[3])
+			if is_null(value):
+				continue
+			
+			# Split u32 into values
+			var pos_x : int = (value >> 26) & 0x3F
+			var pos_y : int = (value >> 20) & 0x3F
+			var pos_z : int = (value >> 14) & 0x3F
+			var type : int = (value >> 9) & 0x1F
+			var mat : int = (value >> 5) & 0x0F
+			var rot : int = (value >> 3) & 0x03
+			var waterlogged : bool = true if ((value >> 2) & 0x01) == 1 else false
+			
+			# Create tile
+			var tile : CMMTile = CMMTile.new(
+				pos_x, pos_y, pos_z,
+				type, mat, rot,
+				waterlogged
+			)
+			
+			# Add to list
+			tiles.append(tile)
+		
+		# Return self
+		return self
+		
+	## Returns whether or not theres no data
+	func is_null(u32 : int) -> bool:
+		return u32 == 0
 
 @export_group("LevelObject")

@@ -41,6 +41,7 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	# Create stream
 	var stream : StreamPeerBuffer = StreamPeerBuffer.new()
 	stream.data_array = buf
+	stream.big_endian = true
 	current_buffer = stream.data_array
 	
 	# Read
@@ -61,20 +62,33 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	res.coinstar = stream.get_u8()
 	res.size = stream.get_u8()
 	res.waterlevel = stream.get_u8()
+	print(stream.get_position())
 	res.secret = true if stream.get_u8() == 1 else false
 	res.game = true if stream.get_u8() == 1 else false
 	print(stream.get_position())
 	res.toolbar = PackedByteArray(stream.get_data(0x9)[1])
-	res.toolbar_params = PackedByteArray(stream.get_data(0x9)[1])
+	res.toolbar_params = PackedByteArray(stream.get_data(0xA)[1])
 	print(stream.get_position())
 	res.tile_count = stream.get_u16()
 	res.object_count = stream.get_u16()
+	print(stream.get_position())
 	
 	# Read special header data
-	res.custom_theme = res.CMMCustomTheme.new().deserialize(PackedByteArray(stream.get_data(35)[1])) # Custom theme selection
-	res.trajectories = res.CMMTrajectories.new().deserialize(PackedByteArray(stream.get_data(4000)[1])) # Trajectories
+	res.custom_theme = res.CMMCustomTheme.new().deserialize(
+		PackedByteArray(stream.get_data(34)[1])
+	)
+	res.trajectories = res.CMMTrajectories.new().deserialize(
+		PackedByteArray(stream.get_data(4000)[1])
+	)
 	
-	# Begin tile data
+	## Skip padding
+	stream.seek(stream.get_position() + 8)
+	
+	# Read tile data
+	res.t_grid = res.CMMTileGrid.new().deserialize(
+		PackedByteArray(stream.get_data(10000)[1]), 
+		res.tile_count
+	)
 	
 	# Done
 	current_res = res
@@ -114,6 +128,9 @@ func write_meta(path : String) -> void:
 	res.custom_theme.serialize(new_data)
 	res.trajectories.serialize(new_data)
 	
+	## Skip padding
+	new_data.seek(new_data.get_position() + 8)
+	
 	new_data.put_data(current_buffer.slice(new_data.get_position()))
 	
 	# Export buffer to download if on web
@@ -136,8 +153,7 @@ func build_image(data : PackedByteArray) -> Image:
 	# Since Godot doesnt have RGBA16 conversion,
 	# we'll have to do it ourselves!
 	for byte in range(data.size()/2):
-		# Obtain u16... but not using the default decode_u16
-		# method as that returns bad data for some reason
+		# Obtain u16 using endian conversion
 		var u81 : int = data.decode_u8(byte*2) << 8
 		var u82 : int = data.decode_u8(byte*2+1)
 		var pixel : int = u81 | u82
