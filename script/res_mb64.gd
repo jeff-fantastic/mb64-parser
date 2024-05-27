@@ -133,11 +133,11 @@ class CMMTrajectoryPoint extends Resource:
 	var pos : Vector3i = Vector3i.ZERO
 	
 	## Constructor
-	func _init(t : int, x : int, y : int, z : int) -> void:
-		self.t = t
-		self.pos.x = x
-		self.pos.y = y
-		self.pos.z = z
+	func _init(p_t : int, p_x : int, p_y : int, p_z : int) -> void:
+		self.t = p_t
+		self.pos.x = p_x
+		self.pos.y = p_y
+		self.pos.z = p_z
 	
 	## Checks if self is all zeroes, usually an indicator
 	## of there being no further data in a block.
@@ -234,67 +234,23 @@ class CMMTrajectories extends Resource:
 
 class CMMTile extends Resource:
 	var pos : Vector3i
-	var type : CMMTileGrid.Types
+	var type : MDat.TileTypes
 	var mat : int
 	var rot : int
 	var waterlogged : bool
 	
 	## Constructor
-	func _init(x : int, y : int, z : int, type : int, mat : int, rot : int, waterlogged : bool) -> void:
-		self.pos.x = x
-		self.pos.y = y
-		self.pos.z = z
-		self.type = type
-		self.mat = mat
-		self.rot = rot
-		self.waterlogged = waterlogged
+	func _init(p_x : int, p_y : int, p_z : int, p_type : int, 
+	p_mat : int, p_rot : int, p_waterlogged : bool) -> void:
+		self.pos.x = p_x
+		self.pos.y = p_y
+		self.pos.z = p_z
+		self.type = p_type as MDat.TileTypes
+		self.mat = p_mat
+		self.rot = p_rot
+		self.waterlogged = p_waterlogged
 	
 class CMMTileGrid extends Resource:
-	## Tile poly type enum
-	enum Types { 
-		Full				= 0x00,
-		PoleTop				= 0x01,
-		Tri_1				= 0x02,
-		Tri_2				= 0x03,
-		DownTri_1			= 0x04,
-		DownTri_2			= 0x05,
-		HalfSide_1			= 0x06,
-		HalfSide_2			= 0x07,
-		TopTri				= 0x08,
-		TopHalf				= 0x09,
-		Empty				= 0x0A,
-		BottomSlab_Priority = 0x10,
-		UpperGentle_1		= BottomSlab_Priority,
-		UpperGentle_2		= 0x11,
-		BottomSlab			= 0x12,
-		LowerGentle_1		= 0x14,
-		LowerGentle_2		= 0x15,
-		TopSlab_Priority	= 0x20,
-		DownUpperGentle_1	= TopSlab_Priority,
-		DownUpperGentle_2	= 0x21,
-		TopSlab				= 0x22,
-		DownLowerGentle_1	= 0x24,
-		DownLowerGentle_2	= 0x25
-	}
-	
-	## Tile overhang type enum
-	enum GrowthTypes {
-		None				= 0x00,
-		Full				= 0x01,
-		NormalSide			= 0x02,
-		HalfSide			= 0x03,
-		UndersideSlopeCorner= 0x04,
-		DiagonalSide		= 0x05,
-		VerticalSlabSide	= 0x06,
-		DownLowerGentleUnder= 0x07,
-		Unconditional		= 0x08,
-		ExtraDecalStart		= 0x10,
-		SlopeSideL			= ExtraDecalStart,
-		SlopeSideR			= 0x11,
-		GentleSideL			= 0x12,
-		GentleSideR			= 0x13,
-	}
-	
 	## Array of tile data
 	var tiles : Array[CMMTile]
 	
@@ -302,7 +258,7 @@ class CMMTileGrid extends Resource:
 	func deserialize(data : PackedByteArray, tile_count : int) -> CMMTileGrid:
 		
 		# Begin preparing array
-		for x in range(tile_count):
+		for x in range(data.size()/4):
 			# Get value
 			var u8 : Array[int] = [
 				data.decode_u8((x * 4)),

@@ -62,16 +62,12 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	res.coinstar = stream.get_u8()
 	res.size = stream.get_u8()
 	res.waterlevel = stream.get_u8()
-	print(stream.get_position())
 	res.secret = true if stream.get_u8() == 1 else false
 	res.game = true if stream.get_u8() == 1 else false
-	print(stream.get_position())
 	res.toolbar = PackedByteArray(stream.get_data(0x9)[1])
 	res.toolbar_params = PackedByteArray(stream.get_data(0xA)[1])
-	print(stream.get_position())
 	res.tile_count = stream.get_u16()
 	res.object_count = stream.get_u16()
-	print(stream.get_position())
 	
 	# Read special header data
 	res.custom_theme = res.CMMCustomTheme.new().deserialize(
@@ -86,7 +82,7 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	
 	# Read tile data
 	res.t_grid = res.CMMTileGrid.new().deserialize(
-		PackedByteArray(stream.get_data(10000)[1]), 
+		PackedByteArray(stream.get_data((res.tile_count)*4)[1]), 
 		res.tile_count
 	)
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=16 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://c2psown8f2nhy" path="res://asset/gui/thumb_placeholder.png" id="4_22j1p"]
 [ext_resource type="PackedScene" uid="uid://cisw0jgkcidv1" path="res://song_config_window.tscn" id="5_68tqu"]
 [ext_resource type="Texture2D" uid="uid://vyscghk0x3p7" path="res://asset/github.svg" id="6_v1xy5"]
+[ext_resource type="Script" path="res://script/mesh_builder.gd" id="7_oka8h"]
+[ext_resource type="Material" uid="uid://bfi7820a40d06" path="res://asset/mat/debug1.tres" id="8_nqqq3"]
+[ext_resource type="Script" path="res://script/cam.gd" id="9_cubwj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unneb"]
 content_margin_left = 8.0
@@ -35,7 +38,12 @@ font_size = 18
 [sub_resource type="LabelSettings" id="LabelSettings_e6hdq"]
 font_size = 24
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_xmjss"]
+[sub_resource type="Environment" id="Environment_2qncd"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 0.4
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
 
 [node name="main" type="Node"]
 
@@ -50,6 +58,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("1_5kf88")
 script = ExtResource("2_3kiir")
 metadata/_edit_use_anchors_ = true
@@ -616,12 +625,21 @@ layout_mode = 2
 text = "mb64-parser v0.2"
 label_settings = SubResource("LabelSettings_e6hdq")
 
-[node name="container" type="Node3D" parent="."]
+[node name="mesh_builder" type="Node" parent="."]
+script = ExtResource("7_oka8h")
 
-[node name="built_mesh" type="MeshInstance3D" parent="container"]
-mesh = SubResource("ImmediateMesh_xmjss")
+[node name="built_mesh" type="MeshInstance3D" parent="mesh_builder"]
+material_override = ExtResource("8_nqqq3")
+
+[node name="cam" type="Camera3D" parent="mesh_builder"]
+transform = Transform3D(-4.37114e-08, -0.258819, 0.965926, 0, 0.965926, 0.258819, -1, 1.13133e-08, -4.2222e-08, 37.907, 17.525, 14.499)
+environment = SubResource("Environment_2qncd")
+script = ExtResource("9_cubwj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="mesh_builder"]
 
 [connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
+[connection signal="parsing_complete" from="parser" to="mesh_builder" method="build_mesh"]
 [connection signal="editing_changed" from="ui" to="ui" method="toggle_metadata_fields"]
 [connection signal="parse_requested" from="ui" to="parser" method="parse_file"]
 [connection signal="pressed" from="ui/import_panel/panel/VBoxContainer/load_level" to="ui" method="mb64_import_requested"]
