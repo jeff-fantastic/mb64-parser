@@ -82,7 +82,7 @@ func copy_data(res : MB64Level, buf : PackedByteArray, file_name : String) -> vo
 	
 	# Read tile data
 	res.t_grid = res.CMMTileGrid.new().deserialize(
-		PackedByteArray(stream.get_data((res.tile_count)*4)[1]), 
+		PackedByteArray(stream.get_data((res.tile_count+1)*4)[1]), 
 		res.tile_count
 	)
 	

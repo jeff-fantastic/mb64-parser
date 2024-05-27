@@ -53,7 +53,6 @@ func build_mesh(result : MB64Level) -> void:
 		for tile in list:
 			total_ind = build_tile(mesh_data_array, tile, total_ind)
 		
-		
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh_data_array)
 		var count : int = mesh.get_surface_count() - 1
 		mesh.surface_set_material(count, materials[count])
