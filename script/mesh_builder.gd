@@ -80,9 +80,9 @@ func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> in
 		
 		# Build vertices array
 		for vtx in side.mesh:
-			var v_pos = vtx + pos
+			var v_pos = rotate_point(vtx, tile.rot) + pos
 			vertices.push_back(v_pos)
-			mesh_arr[Mesh.ARRAY_NORMAL].push_back(side.dir)
+			mesh_arr[Mesh.ARRAY_NORMAL].push_back(side.dir.rotated(Vector3.UP, tile.rot * PI/2))
 		
 		# Determine indice offset (this sucks)
 		var offset : PackedInt32Array = indices.duplicate()
@@ -112,3 +112,7 @@ func should_build() -> bool:
 ## Returns indice offset based on size of input indices array
 func indices_from_face(indices : PackedInt32Array) -> int:
 	return 2 + (indices.size() / 3)
+
+## Rotates a tile
+func rotate_point(pos : Vector3, rot : int) -> Vector3:
+	return (pos - (Vector3.ONE * 0.5)).rotated(Vector3.UP, rot * PI/2) + (Vector3.ONE * 0.5)
