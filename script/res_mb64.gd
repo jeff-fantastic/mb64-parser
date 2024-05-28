@@ -233,31 +233,32 @@ class CMMTrajectories extends Resource:
 @export var t_grid : CMMTileGrid
 
 class CMMTile extends Resource:
-	var pos : Vector3i
 	var type : MDat.TileTypes
 	var mat : int
 	var rot : int
 	var waterlogged : bool
 	
 	## Constructor
-	func _init(p_x : int, p_y : int, p_z : int, p_type : int, 
-	p_mat : int, p_rot : int, p_waterlogged : bool) -> void:
-		self.pos.x = p_x
-		self.pos.y = p_y
-		self.pos.z = p_z
+	func _init(p_type : int, p_mat : int, p_rot : int, p_waterlogged : bool) -> void:
 		self.type = p_type as MDat.TileTypes
 		self.mat = p_mat
 		self.rot = p_rot
 		self.waterlogged = p_waterlogged
 	
 class CMMTileGrid extends Resource:
-	## Array of tile data
-	var tiles : Array[CMMTile]
+	## Array of tile data. We can look here to easily find
+	## whether or not a tile lies at a certain coordinate or not.
+	var tiles : Array
+	## Map of filled tile data. Lets us easily iterate over only existing
+	## tiles and their positions rather than the entire multidimension tile array
+	var map : Array
 	
 	## Deserializes byte data into tiles
 	func deserialize(data : PackedByteArray, tile_count : int) -> CMMTileGrid:
+		# Prepare array
+		prepare_array()
 		
-		# Begin preparing array
+		# Begin working on parsing tiles
 		for x in range(data.size()/4):
 			# Get value
 			var u8 : Array[int] = [
@@ -281,13 +282,11 @@ class CMMTileGrid extends Resource:
 			
 			# Create tile
 			var tile : CMMTile = CMMTile.new(
-				pos_x, pos_y, pos_z,
 				type, mat, rot,
 				waterlogged
 			)
-			
-			# Add to list
-			tiles.append(tile)
+			self.tiles[pos_x][pos_y][pos_z] = tile
+			self.map.append([Vector3(pos_x,pos_y,pos_z), tile])
 		
 		# Return self
 		return self
@@ -295,5 +294,19 @@ class CMMTileGrid extends Resource:
 	## Returns whether or not theres no data
 	func is_null(u32 : int) -> bool:
 		return u32 == 0
+		
+	## Configures tile array to be multidimensional 64x64x64
+	## ig since Godot doesnt support any /sane/ way to declare
+	## multidimensional arrays.
+	func prepare_array() -> void:
+		# Prepare array
+		tiles.resize(64)
+		tiles.fill([])
+		for dim1 in tiles:
+			dim1.resize(64)
+			dim1.fill([])
+			for dim2 in dim1:
+				dim2.resize(64)
+				dim2.fill([])
 
 @export_group("LevelObject")

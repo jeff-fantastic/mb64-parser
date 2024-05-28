@@ -11,6 +11,9 @@ signal mesh_built()
 ## Reference to [MeshInstance]
 @onready var mesh_instance := $built_mesh
 
+## Tile grid
+var grid : MB64Level.CMMTileGrid
+
 ## Materials
 const materials : Array[StandardMaterial3D] = [
 	preload("res://asset/mat/debug0.tres"),
@@ -27,26 +30,26 @@ const materials : Array[StandardMaterial3D] = [
 
 func build_mesh(result : MB64Level) -> void:
 	# Declare variables
-	var grid : MB64Level.CMMTileGrid = result.t_grid
 	var mesh : ArrayMesh = ArrayMesh.new()
-	var tile_mat : Array[Array]
+	var tiles_sorted : Array[Array]
 	var mesh_data_array : Array[Variant] = []
+	grid = result.t_grid
 	
 	# Setup arrays
-	tile_mat.resize(10)
+	tiles_sorted.resize(10)
 	
 	# Iterate over tiles
-	for tile in grid.tiles:
-		var arr = tile_mat[tile.mat]
-		arr.push_back(tile)
-	
+	for tile in grid.map:
+		tiles_sorted[tile[1].mat].push_back(tile[0])
+		
 	# Now iterate over materials
-	for list in tile_mat:
-		mesh_data_array.clear()
-		mesh_data_array.resize(Mesh.ARRAY_MAX)
-		mesh_data_array[Mesh.ARRAY_VERTEX] = PackedVector3Array([])
-		mesh_data_array[Mesh.ARRAY_INDEX] = PackedInt32Array([])
-		mesh_data_array[Mesh.ARRAY_NORMAL] = PackedVector3Array([])
+	for list in tiles_sorted:
+		# Prepare mesh array
+		prepare_mesh_array(mesh_data_array)
+		
+		# Skip if nothing in list
+		if list.is_empty():
+			continue
 		
 		# Build surface
 		var total_ind : int = 0
@@ -61,10 +64,10 @@ func build_mesh(result : MB64Level) -> void:
 	mesh_instance.mesh = mesh
 
 ## Builds a tile based on type, and assigns it a material
-func build_tile(mesh_arr : Array[Variant], tile : MB64Level.CMMTile, total_ind : int) -> int:
+func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> int:
 	# Determine tile type and position
-	var tile_type : MDat.Tile = MDat.tiles[0] 
-	var pos = tile.pos as Vector3
+	var tile_type : MDat.Tile = MDat.tiles[0]
+	var tile : MB64Level.CMMTile = grid.tiles[pos.x][pos.y][pos.z]
 	
 	# Build sides
 	for side in tile_type.sides:
@@ -89,6 +92,12 @@ func build_tile(mesh_arr : Array[Variant], tile : MB64Level.CMMTile, total_ind :
 	# Return indices
 	return total_ind
 
+func prepare_mesh_array(mda : Array) -> void:
+	mda.clear()
+	mda.resize(Mesh.ARRAY_MAX)
+	mda[Mesh.ARRAY_VERTEX] = PackedVector3Array([])
+	mda[Mesh.ARRAY_INDEX] = PackedInt32Array([])
+	mda[Mesh.ARRAY_NORMAL] = PackedVector3Array([])
 
 func should_build() -> bool:
 	return false
