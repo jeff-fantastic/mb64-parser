@@ -635,6 +635,7 @@ environment = SubResource("Environment_2qncd")
 script = ExtResource("9_cubwj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="mesh_builder"]
+transform = Transform3D(0.477159, -0.715459, -0.510332, 0, 0.580703, -0.814116, 0.878817, 0.388462, 0.277088, 0, 0, 0)
 
 [connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
 [connection signal="parsing_complete" from="parser" to="mesh_builder" method="build_mesh"]

@@ -79,13 +79,13 @@ enum GrowthTypes {
 	GentleSideR			= 0x13,
 }
 
-## Directions
+## Normal dirs
 const UP				= Vector3.UP
 const DOWN				= Vector3.DOWN
 const RIGHT				= Vector3.RIGHT
 const LEFT				= Vector3.LEFT
 const BACK				= Vector3.BACK
-const FORWARD			= Vector3.FORWARD
+const FWD			= Vector3.FORWARD
 
 ## Side class
 class TileSide extends Resource:
@@ -118,19 +118,19 @@ class Tile extends Resource:
 	null,
 	# Slope
 	Tile.new([
-		TileSide.new(PLANE_SLOPE,		INDICE_QUAD, UP, 		CullTypes.Full, GrowthTypes.Full),
-		TileSide.new(PLANE_DOWN,		INDICE_QUAD, DOWN, 		CullTypes.Full, GrowthTypes.None),
-		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  RIGHT, 	CullTypes.Full, GrowthTypes.SlopeSideR),
-		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI,  LEFT, 		CullTypes.Full, GrowthTypes.SlopeSideL),
-		TileSide.new(PLANE_BACK,		INDICE_QUAD, BACK, 		CullTypes.Full, GrowthTypes.HalfSide),
+		TileSide.new(PLANE_SLOPE,		INDICE_QUAD, UP+FWD,	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_DOWN,		INDICE_QUAD, DOWN, 		CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
+		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI,  LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_BACK,		INDICE_QUAD, BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
 	]),
 	# Slope (Flipped)
 	Tile.new([
-		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		CullTypes.Full, GrowthTypes.Full),
-		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN, 		CullTypes.Full, GrowthTypes.None),
-		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	CullTypes.Full, GrowthTypes.SlopeSideR),
-		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		CullTypes.Full, GrowthTypes.SlopeSideL),
-		TileSide.new(PLANE_BACK,				INDICE_QUAD,		 BACK, 		CullTypes.Full, GrowthTypes.HalfSide),
+		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN+FWD,	CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
+		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_BACK,				INDICE_QUAD,		 BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
 	]),
 	# Slab
 	Tile.new([
@@ -139,7 +139,7 @@ class Tile extends Resource:
 		TileSide.new(PLANE_RIGHT_HALF,	INDICE_QUAD, RIGHT, 	CullTypes.Full, GrowthTypes.HalfSide),
 		TileSide.new(PLANE_LEFT_HALF,	INDICE_QUAD, LEFT, 		CullTypes.Full, GrowthTypes.HalfSide),
 		TileSide.new(PLANE_BACK_HALF,	INDICE_QUAD, BACK, 		CullTypes.Full, GrowthTypes.HalfSide),
-		TileSide.new(PLANE_FRONT_HALF,	INDICE_QUAD, FORWARD, 	CullTypes.Full, GrowthTypes.HalfSide),
+		TileSide.new(PLANE_FRONT_HALF,	INDICE_QUAD, FWD, 		CullTypes.Full, GrowthTypes.HalfSide),
 	]),
 	# Slab (Flipped)
 	Tile.new([
@@ -148,7 +148,7 @@ class Tile extends Resource:
 		TileSide.new(flip_y(PLANE_RIGHT_HALF),	INDICE_QUAD_FLIPPED, RIGHT, 	CullTypes.Full, GrowthTypes.HalfSide),
 		TileSide.new(flip_y(PLANE_LEFT_HALF),	INDICE_QUAD_FLIPPED, LEFT, 		CullTypes.Full, GrowthTypes.HalfSide),
 		TileSide.new(flip_y(PLANE_BACK_HALF),	INDICE_QUAD_FLIPPED, BACK, 		CullTypes.Full, GrowthTypes.HalfSide),
-		TileSide.new(flip_y(PLANE_FRONT_HALF),	INDICE_QUAD_FLIPPED, FORWARD, 	CullTypes.Full, GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_FRONT_HALF),	INDICE_QUAD_FLIPPED, FWD, 		CullTypes.Full, GrowthTypes.HalfSide),
 	]),
 	# Corner
 	null,
@@ -177,7 +177,7 @@ class Tile extends Resource:
 		TileSide.new(PLANE_RIGHT,		INDICE_QUAD, RIGHT, 	CullTypes.Full, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_LEFT,		INDICE_QUAD, LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_BACK,		INDICE_QUAD, BACK, 		CullTypes.Full, GrowthTypes.NormalSide),
-		TileSide.new(PLANE_FRONT,		INDICE_QUAD, FORWARD, 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_FRONT,		INDICE_QUAD, FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
 	]),
 	# Sideways Slope
 	null,
@@ -212,9 +212,9 @@ const PLANE_LEFT_HALF	: PackedVector3Array = [Vector3(0,0,1),Vector3(0,0,0),Vect
 const PLANE_BACK_HALF	: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vector3(0,.5,1),Vector3(1,.5,1)]
 const PLANE_FRONT_HALF	: PackedVector3Array = [Vector3(1,0,0),Vector3(0,0,0),Vector3(0,.5,0),Vector3(1,.5,0)]
 
-const PLANE_SLOPE		: PackedVector3Array = [Vector3(0,0,1),Vector3(0,0,0),Vector3(1,1,0),Vector3(1,1,1)]
-const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(0,0,0),Vector3(1,0,1),Vector3(1,1,1)]
-const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,0),Vector3(1,1,0)]
+const PLANE_SLOPE		: PackedVector3Array = [Vector3(1,0,0),Vector3(0,0,0),Vector3(0,1,1),Vector3(1,1,1)]
+const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,1),Vector3(0,0,1)]
+const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,1,1),Vector3(1,0,1)]
 
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
 	var new := PackedVector3Array()
@@ -223,6 +223,17 @@ func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
 		vtx.y = (1 if vtx.y == 0 else 0) if vtx.y == 0 || vtx.y == 1 else vtx.y
 		new.append(vtx)
 	return new
+
+## Calculates normal based on provided triangle points
+func tri_to_normal(points : PackedVector3Array) -> Vector3:
+	var a = points[1] - points[0]
+	var b = points[2] - points[0]
+	return Vector3(
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x
+	)
+
 
 ## Block indices
 const INDICE_QUAD 			: PackedInt32Array = [0,1,2,0,2,3]

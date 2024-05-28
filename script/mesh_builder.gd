@@ -59,6 +59,7 @@ func build_mesh(result : MB64Level) -> void:
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh_data_array)
 		var count : int = mesh.get_surface_count() - 1
 		mesh.surface_set_material(count, materials[count])
+		mesh.generate_triangle_mesh()
 	
 	# Build and set mesh
 	mesh_instance.mesh = mesh
