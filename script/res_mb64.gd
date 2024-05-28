@@ -256,7 +256,7 @@ class CMMTileGrid extends Resource:
 	## Deserializes byte data into tiles
 	func deserialize(data : PackedByteArray, tile_count : int) -> CMMTileGrid:
 		# Prepare array
-		prepare_array()
+		self.tiles = prepare_array()
 		
 		# Begin working on parsing tiles
 		for x in range(data.size()/4):
@@ -298,15 +298,15 @@ class CMMTileGrid extends Resource:
 	## Configures tile array to be multidimensional 64x64x64
 	## ig since Godot doesnt support any /sane/ way to declare
 	## multidimensional arrays.
-	func prepare_array() -> void:
+	func prepare_array() -> Array:
 		# Prepare array
-		tiles.resize(64)
-		tiles.fill([])
-		for dim1 in tiles:
-			dim1.resize(64)
-			dim1.fill([])
-			for dim2 in dim1:
-				dim2.resize(64)
-				dim2.fill([])
+		var arr = []
+		for dim1 in range(64):
+			arr.append([])
+			for dim2 in range(64):
+				arr[dim1].append([])
+				for dim3 in range(64):
+					arr[dim1][dim2].append(null)
+		return arr
 
 @export_group("LevelObject")

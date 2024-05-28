@@ -66,19 +66,25 @@ func build_mesh(result : MB64Level) -> void:
 ## Builds a tile based on type, and assigns it a material
 func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> int:
 	# Determine tile type and position
-	var tile_type : MDat.Tile = MDat.tiles[0]
 	var tile : MB64Level.CMMTile = grid.tiles[pos.x][pos.y][pos.z]
+	var tile_type : MDat.Tile =  MDat.tiles[tile.type]
+	if !tile_type:
+		tile_type = MDat.tiles[MDat.TileTypes.Block]
 	
 	# Build sides
 	for side in tile_type.sides:
+		# Get side information
 		var vertices := PackedVector3Array([])
+		var indices := side.indices 
+		
+		# Build vertices array
 		for vtx in side.mesh:
 			var v_pos = vtx + pos
 			vertices.push_back(v_pos)
 			mesh_arr[Mesh.ARRAY_NORMAL].push_back(side.dir)
 		
 		# Determine indice offset (this sucks)
-		var offset : PackedInt32Array = side.indices.duplicate()
+		var offset : PackedInt32Array = indices.duplicate()
 		for idx in range(offset.size()):
 			offset[idx] += total_ind
 		
@@ -87,7 +93,7 @@ func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> in
 		mesh_arr[Mesh.ARRAY_INDEX].append_array(offset)
 		
 		# Increment
-		total_ind += 4
+		total_ind += indices_from_face(indices)
 	
 	# Return indices
 	return total_ind
@@ -101,3 +107,7 @@ func prepare_mesh_array(mda : Array) -> void:
 
 func should_build() -> bool:
 	return false
+
+## Returns indice offset based on size of input indices array
+func indices_from_face(indices : PackedInt32Array) -> int:
+	return 2 + (indices.size() / 3)
