@@ -194,7 +194,14 @@ class Tile extends Resource:
 	# Sideways Slope
 	null,
 	# Vertical Slab
-	null,
+	Tile.new([
+		TileSide.new(clampv(PLANE_UP,2,0.5),		INDICE_QUAD, UP, 		CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(clampv(PLANE_DOWN,2,0.5),		INDICE_QUAD, DOWN, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(clampv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(clampv(PLANE_LEFT,2,0.5),		INDICE_QUAD, LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(shift(PLANE_BACK,2,-0.5),		INDICE_QUAD, BACK, 		CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_FRONT,					INDICE_QUAD, FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
+	]),
 	# Cull
 	null,
 	# Troll Block
@@ -233,11 +240,34 @@ const TRI_SLOPER_BACK	: PackedVector3Array = [Vector3(0,1,0),Vector3(0,0,0),Vect
 const TRI_CORNER1		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vector3(0,1,0)]
 const TRI_CORNER2		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,0),Vector3(1,0,0)]
 
+## Flips Y coordinate in set of vertices
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
 	var new := PackedVector3Array()
 	for vtx in verts:
 		# Cursed
 		vtx.y = (1 if vtx.y == 0 else 0) if vtx.y == 0 || vtx.y == 1 else vtx.y
+		new.append(vtx)
+	return new
+
+## Shifts axis by count in set of vertices
+func shift(verts : PackedVector3Array, axis : int, count : float) -> PackedVector3Array:
+	var new := PackedVector3Array()
+	for vtx in verts:
+		match axis:
+			0:	vtx.x += count
+			1:	vtx.y += count
+			2:	vtx.z += count
+		new.append(vtx)
+	return new
+
+## Shifts axis by count in set of vertices
+func clampv(verts : PackedVector3Array, axis : int, limit : float) -> PackedVector3Array:
+	var new := PackedVector3Array()
+	for vtx in verts:
+		match axis:
+			0:	vtx.x = min(vtx.x, limit)
+			1:	vtx.y = min(vtx.y, limit)
+			2:	vtx.z = min(vtx.z, limit)
 		new.append(vtx)
 	return new
 
