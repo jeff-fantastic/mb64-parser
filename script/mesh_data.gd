@@ -269,7 +269,9 @@ class Tile extends Resource:
 	# Troll Block
 	null,
 	# Fence
-	null,
+	Tile.new([
+		TileSide.new(PLANE_FRONT_HALF,	INDICE_QUAD, FWD, 		CullTypes.Full, GrowthTypes.HalfSide),
+	]),
 	# Pole
 	null,
 	# Bars
