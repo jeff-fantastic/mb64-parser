@@ -201,9 +201,27 @@ class Tile extends Resource:
 		TileSide.new(TRI_TOP,					INDICE_TRI, 		UP, 				CullTypes.Full, GrowthTypes.None),
 	]),
 	# Upper Gentle Slope
-	null,
+	Tile.new([
+		TileSide.new(maxv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(maxv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
+		TileSide.new(maxv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI,  		 LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_FRONT,					INDICE_QUAD, 		 FWD, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_RIGHT_HALF,				INDICE_QUAD, 		 RIGHT, 	CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_LEFT_HALF,				INDICE_QUAD, 		 LEFT, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_BACK_HALF,				INDICE_QUAD, 		 BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+	]),
 	# Upper Gentle Slope (Flipped)
-	null,
+	Tile.new([
+		TileSide.new(flip_y(maxv(PLANE_SLOPE,1,0.5)),		INDICE_QUAD_FLIPPED, DOWN+BACK,	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_UP,								INDICE_QUAD, 		 UP, 		CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(flip_y(maxv(TRIANGLE_SLOPER,1,0.5)),	INDICE_TRI_FLIPPED,	 RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
+		TileSide.new(flip_y(maxv(TRIANGLE_SLOPEL,1,0.5)),	INDICE_TRI_FLIPPED,  LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_FRONT,							INDICE_QUAD, 		 FWD, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_RIGHT_HALF),				INDICE_QUAD_FLIPPED, RIGHT, 	CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_LEFT_HALF),				INDICE_QUAD_FLIPPED, LEFT, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_BACK_HALF),				INDICE_QUAD_FLIPPED, BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+	]),
 	# Lower Gentle Slope
 	Tile.new([
 		TileSide.new(minv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	CullTypes.Full, 	GrowthTypes.Full),
@@ -312,14 +330,25 @@ func shift(verts : PackedVector3Array, axis : int, count : float) -> PackedVecto
 		new.append(vtx)
 	return new
 
-## Shifts axis by count in set of vertices
-func minv(verts : PackedVector3Array, axis : int, limit : float) -> PackedVector3Array:
+## Clamps axis by minimum count in set of vertices
+func minv(verts : PackedVector3Array, axis : int, maximum : float) -> PackedVector3Array:
 	var new := PackedVector3Array()
 	for vtx in verts:
 		match axis:
-			0:	vtx.x = min(vtx.x, limit)
-			1:	vtx.y = min(vtx.y, limit)
-			2:	vtx.z = min(vtx.z, limit)
+			0:	vtx.x = min(vtx.x, maximum)
+			1:	vtx.y = min(vtx.y, maximum)
+			2:	vtx.z = min(vtx.z, maximum)
+		new.append(vtx)
+	return new
+
+## Clamps axis by maximum count in set of vertices
+func maxv(verts : PackedVector3Array, axis : int, minimum : float) -> PackedVector3Array:
+	var new := PackedVector3Array()
+	for vtx in verts:
+		match axis:
+			0:	vtx.x = max(vtx.x, minimum)
+			1:	vtx.y = max(vtx.y, minimum)
+			2:	vtx.z = max(vtx.z, minimum)
 		new.append(vtx)
 	return new
 
