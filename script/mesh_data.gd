@@ -118,19 +118,19 @@ class Tile extends Resource:
 	null,
 	# Slope
 	Tile.new([
-		TileSide.new(PLANE_SLOPE,		INDICE_QUAD_FLIPPED, (UP+FWD).normalized(),	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_SLOPE,		INDICE_QUAD,		 UP+BACK,	CullTypes.Full, 	GrowthTypes.Full),
 		TileSide.new(PLANE_DOWN,		INDICE_QUAD, 		 DOWN, 		CullTypes.Full, 	GrowthTypes.None),
 		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  		 RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
 		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI,  		 LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
-		TileSide.new(PLANE_BACK,		INDICE_QUAD, 		 BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_FRONT,		INDICE_QUAD, 		 FWD, 		CullTypes.Full, 	GrowthTypes.HalfSide),
 	]),
 	# Slope (Flipped)
 	Tile.new([
 		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		CullTypes.Full, 	GrowthTypes.Full),
-		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD, 		 DOWN+FWD,	CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN+BACK,	CullTypes.Full, 	GrowthTypes.None),
 		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
 		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
-		TileSide.new(PLANE_BACK,				INDICE_QUAD,		 BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_FRONT,				INDICE_QUAD,		 FWD, 		CullTypes.Full, 	GrowthTypes.HalfSide),
 	]),
 	# Slab
 	Tile.new([
@@ -151,9 +151,21 @@ class Tile extends Resource:
 		TileSide.new(flip_y(PLANE_FRONT_HALF),	INDICE_QUAD_FLIPPED, FWD, 		CullTypes.Full, GrowthTypes.HalfSide),
 	]),
 	# Corner
-	null,
+	Tile.new([
+		TileSide.new(TRI_CORNER1,		INDICE_TRI,  UP+BACK,	CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(TRI_CORNER2,		INDICE_TRI,  UP+LEFT,	CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(PLANE_DOWN,		INDICE_QUAD, DOWN, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(TRI_SLOPER_BACK,	INDICE_TRI,  FWD,	 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRIANGLE_SLOPEB,	INDICE_TRI,  RIGHT, 	CullTypes.Full, GrowthTypes.NormalSide),
+	]),
 	# Corner (Flipped)
-	null,
+	Tile.new([
+		TileSide.new(flip_y(TRI_CORNER1),		INDICE_TRI_FLIPPED, DOWN+BACK,	CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(flip_y(TRI_CORNER2),		INDICE_TRI_FLIPPED, DOWN+LEFT,	CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(PLANE_UP,					INDICE_QUAD, 		UP, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(flip_y(TRI_SLOPER_BACK),	INDICE_TRI_FLIPPED, FWD,	 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(flip_y(TRIANGLE_SLOPEB),	INDICE_TRI,  		LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
+	]),
 	# Inverted Corner
 	null,
 	# Inverted Corner (Flipped)
@@ -212,9 +224,14 @@ const PLANE_RIGHT_HALF	: PackedVector3Array = [Vector3(0,.5,1),Vector3(0,0,1),Ve
 const PLANE_BACK_HALF	: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vector3(0,.5,1),Vector3(1,.5,1)]
 const PLANE_FRONT_HALF	: PackedVector3Array = [Vector3(1,.5,0),Vector3(0,.5,0),Vector3(0,0,0),Vector3(1,0,0)]
 
-const PLANE_SLOPE		: PackedVector3Array = [Vector3(1,0,0),Vector3(0,0,0),Vector3(0,1,1),Vector3(1,1,1)]
-const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,1),Vector3(0,0,1)]
-const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,1),Vector3(1,1,1)]
+const PLANE_SLOPE		: PackedVector3Array = [Vector3(0,1,0),Vector3(1,1,0),Vector3(1,0,1),Vector3(0,0,1)]
+const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,0),Vector3(0,0,1)]
+const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,1),Vector3(1,1,0)]
+const TRIANGLE_SLOPEB	: PackedVector3Array = [Vector3(0,0,1),Vector3(0,0,0),Vector3(0,1,0)]
+
+const TRI_SLOPER_BACK	: PackedVector3Array = [Vector3(0,1,0),Vector3(0,0,0),Vector3(1,0,0)]
+const TRI_CORNER1		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vector3(0,1,0)]
+const TRI_CORNER2		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,0),Vector3(1,0,0)]
 
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
 	var new := PackedVector3Array()
