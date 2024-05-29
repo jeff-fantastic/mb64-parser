@@ -192,7 +192,13 @@ class Tile extends Resource:
 		TileSide.new(PLANE_FRONT,		INDICE_QUAD, FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
 	]),
 	# Sideways Slope
-	null,
+	Tile.new([
+		TileSide.new(TRI_TOP,					INDICE_TRI,  			UP, 		CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(shift(TRI_TOP,1,-1),		INDICE_TRI_FLIPPED, 	DOWN, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_VSLOPE,				INDICE_QUAD_FLIPPED, 	LEFT+BACK, 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_FRONT,				INDICE_QUAD, 			FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
+	]),
 	# Vertical Slab
 	Tile.new([
 		TileSide.new(clampv(PLANE_UP,2,0.5),		INDICE_QUAD, UP, 		CullTypes.Full, GrowthTypes.Full),
@@ -232,6 +238,7 @@ const PLANE_BACK_HALF	: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vect
 const PLANE_FRONT_HALF	: PackedVector3Array = [Vector3(1,.5,0),Vector3(0,.5,0),Vector3(0,0,0),Vector3(1,0,0)]
 
 const PLANE_SLOPE		: PackedVector3Array = [Vector3(0,1,0),Vector3(1,1,0),Vector3(1,0,1),Vector3(0,0,1)]
+const PLANE_VSLOPE		: PackedVector3Array = [Vector3(0,1,1),Vector3(0,0,1),Vector3(1,0,0),Vector3(1,1,0)]
 const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,0),Vector3(0,0,1)]
 const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,1),Vector3(1,1,0)]
 const TRIANGLE_SLOPEB	: PackedVector3Array = [Vector3(0,0,1),Vector3(0,0,0),Vector3(0,1,0)]
@@ -239,6 +246,7 @@ const TRIANGLE_SLOPEB	: PackedVector3Array = [Vector3(0,0,1),Vector3(0,0,0),Vect
 const TRI_SLOPER_BACK	: PackedVector3Array = [Vector3(0,1,0),Vector3(0,0,0),Vector3(1,0,0)]
 const TRI_CORNER1		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vector3(0,1,0)]
 const TRI_CORNER2		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,0),Vector3(1,0,0)]
+const TRI_TOP			: PackedVector3Array = [Vector3(0,1,1),Vector3(0,1,0),Vector3(1,1,0)]
 
 ## Flips Y coordinate in set of vertices
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
