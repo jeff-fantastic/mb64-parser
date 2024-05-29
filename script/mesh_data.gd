@@ -188,21 +188,38 @@ class Tile extends Resource:
 	]),
 	# Sloped Corner
 	Tile.new([
-		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 			CullTypes.Full, GrowthTypes.NormalSide),
-		TileSide.new(TRIANGLE_SLOPEF,		INDICE_TRI, 		FWD, 			CullTypes.Full, GrowthTypes.NormalSide),
-		TileSide.new(TRI_CORNER_SLOPE,		INDICE_TRI,			BACK+LEFT+UP,	CullTypes.Full, GrowthTypes.NormalSide),
-		TileSide.new(flip_y(TRI_TOP),		INDICE_TRI_FLIPPED, DOWN, 			CullTypes.Full, GrowthTypes.None),
+		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 				CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRIANGLE_SLOPEF,		INDICE_TRI, 		FWD, 				CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRI_CORNER_SLOPE,		INDICE_TRI,			BACK/2+LEFT/2+UP,	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(flip_y(TRI_TOP),		INDICE_TRI_FLIPPED, DOWN, 				CullTypes.Full, GrowthTypes.None),
 	]),
 	# Sloped Corner (Flipped)
-	null,
+	Tile.new([
+		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,	RIGHT, 				CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(flip_y(TRIANGLE_SLOPEF),	INDICE_TRI_FLIPPED, FWD, 				CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(flip_y(TRI_CORNER_SLOPE),	INDICE_TRI_FLIPPED,	BACK/2+LEFT/2+DOWN,	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRI_TOP,					INDICE_TRI, 		UP, 				CullTypes.Full, GrowthTypes.None),
+	]),
 	# Upper Gentle Slope
 	null,
 	# Upper Gentle Slope (Flipped)
 	null,
 	# Lower Gentle Slope
-	null,
+	Tile.new([
+		TileSide.new(minv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(minv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
+		TileSide.new(minv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI,  		 LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_FRONT_HALF,				INDICE_QUAD, 		 FWD, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+	]),
 	# Lower Gentle Slope (Flipped)
-	null,
+	Tile.new([
+		TileSide.new(flip_y(minv(PLANE_SLOPE,1,0.5)),		INDICE_QUAD_FLIPPED, DOWN+BACK,	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_UP,								INDICE_QUAD, 		 UP, 		CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(flip_y(minv(TRIANGLE_SLOPER,1,0.5)),	INDICE_TRI_FLIPPED,	 RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
+		TileSide.new(flip_y(minv(TRIANGLE_SLOPEL,1,0.5)),	INDICE_TRI_FLIPPED,  LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(flip_y(PLANE_FRONT_HALF),				INDICE_QUAD_FLIPPED, FWD, 		CullTypes.Full, 	GrowthTypes.HalfSide),
+	]),
 	# Block
 	Tile.new([
 		TileSide.new(PLANE_UP,			INDICE_QUAD, UP, 		CullTypes.Full, GrowthTypes.Full),
@@ -222,10 +239,10 @@ class Tile extends Resource:
 	]),
 	# Vertical Slab
 	Tile.new([
-		TileSide.new(clampv(PLANE_UP,2,0.5),		INDICE_QUAD, UP, 		CullTypes.Full, GrowthTypes.Full),
-		TileSide.new(clampv(PLANE_DOWN,2,0.5),		INDICE_QUAD, DOWN, 		CullTypes.Full, GrowthTypes.None),
-		TileSide.new(clampv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	CullTypes.Full, GrowthTypes.NormalSide),
-		TileSide.new(clampv(PLANE_LEFT,2,0.5),		INDICE_QUAD, LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(minv(PLANE_UP,2,0.5),			INDICE_QUAD, UP, 		CullTypes.Full, GrowthTypes.Full),
+		TileSide.new(minv(PLANE_DOWN,2,0.5),		INDICE_QUAD, DOWN, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(minv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(minv(PLANE_LEFT,2,0.5),		INDICE_QUAD, LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
 		TileSide.new(shift(PLANE_BACK,2,-0.5),		INDICE_QUAD, BACK, 		CullTypes.Full, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_FRONT,					INDICE_QUAD, FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
 	]),
@@ -296,7 +313,7 @@ func shift(verts : PackedVector3Array, axis : int, count : float) -> PackedVecto
 	return new
 
 ## Shifts axis by count in set of vertices
-func clampv(verts : PackedVector3Array, axis : int, limit : float) -> PackedVector3Array:
+func minv(verts : PackedVector3Array, axis : int, limit : float) -> PackedVector3Array:
 	var new := PackedVector3Array()
 	for vtx in verts:
 		match axis:
