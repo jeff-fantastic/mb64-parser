@@ -84,29 +84,30 @@ func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> in
 	
 	# Build sides
 	for side in tile_type.sides:
-		# Get side information
-		var vertices := PackedVector3Array([])
-		var indices := side.indices 
+		for face in side:
+			# Get side information
+			var vertices := PackedVector3Array([])
+			var indices : PackedInt32Array = face.indices 
+			
+			# Build vertices array
+			for vtx in face.mesh:
+				var v_pos = rotate_point(vtx, tile.rot) + pos
+				var dir = face.normal.rotated(Vector3.UP, tile.rot * -PI/2)
+				vertices.push_back(v_pos)
+				mesh_arr[Mesh.ARRAY_NORMAL].push_back(dir)
+			
+			# Determine indice offset (this sucks)
+			var offset : PackedInt32Array = indices.duplicate()
+			for idx in range(offset.size()):
+				offset[idx] += total_ind
+			
+			# Append verts, indices, uvs
+			mesh_arr[Mesh.ARRAY_VERTEX].append_array(vertices)
+			mesh_arr[Mesh.ARRAY_INDEX].append_array(offset)
+			
+			# Increment
+			total_ind += indices_from_face(indices)
 		
-		# Build vertices array
-		for vtx in side.mesh:
-			var v_pos = rotate_point(vtx, tile.rot) + pos
-			var dir = side.dir.rotated(Vector3.UP, tile.rot * -PI/2)
-			vertices.push_back(v_pos)
-			mesh_arr[Mesh.ARRAY_NORMAL].push_back(dir)
-		
-		# Determine indice offset (this sucks)
-		var offset : PackedInt32Array = indices.duplicate()
-		for idx in range(offset.size()):
-			offset[idx] += total_ind
-		
-		# Append verts, indices, uvs
-		mesh_arr[Mesh.ARRAY_VERTEX].append_array(vertices)
-		mesh_arr[Mesh.ARRAY_INDEX].append_array(offset)
-		
-		# Increment
-		total_ind += indices_from_face(indices)
-	
 	# Return indices
 	return total_ind
 
@@ -119,6 +120,23 @@ func prepare_mesh_array(mda : Array) -> void:
 
 func should_build() -> bool:
 	return false
+
+## "Rotates" direction enum by provided factor
+func rotate_enum(dir : MDat.Dir, rot : int) -> int:
+	# Return self if dir is not in rotation, otherwise rotate
+	if dir > 3: return dir
+	return wrapi(dir + rot, 0, 3)
+
+## Converts direction enum into vector3
+func vec_from_dir(dir : MDat.Dir) -> Vector3:
+	match dir:
+		MDat.Dir.Front:		return Vector3.FORWARD
+		MDat.Dir.Back:		return Vector3.BACK
+		MDat.Dir.Left:		return Vector3.LEFT
+		MDat.Dir.Right:		return Vector3.RIGHT
+		MDat.Dir.Top:		return Vector3.UP
+		MDat.Dir.Bottom:	return Vector3.DOWN
+	return Vector3.ZERO
 
 ## Returns indice offset based on size of input indices array
 func indices_from_face(indices : PackedInt32Array) -> int:
