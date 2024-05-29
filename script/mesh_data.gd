@@ -167,7 +167,15 @@ class Tile extends Resource:
 		TileSide.new(flip_y(TRIANGLE_SLOPEB),	INDICE_TRI,  		LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
 	]),
 	# Inverted Corner
-	null,
+	Tile.new([
+		TileSide.new(TRIANGLE_SLOPEL,			INDICE_TRI,  			LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(shift(TRI_SLOPER_BACK,2,1),INDICE_TRI_FLIPPED,  	BACK, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_DOWN,				INDICE_QUAD,		 	DOWN, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRI_INVERT1,				INDICE_TRI, 			LEFT+UP, 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRI_INVERT2,				INDICE_TRI, 			BACK+UP, 	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_FRONT,				INDICE_QUAD, 			FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
+	]),
 	# Inverted Corner (Flipped)
 	null,
 	# Sloped Corner
@@ -194,7 +202,7 @@ class Tile extends Resource:
 	# Sideways Slope
 	Tile.new([
 		TileSide.new(TRI_TOP,					INDICE_TRI,  			UP, 		CullTypes.Full, GrowthTypes.Full),
-		TileSide.new(shift(TRI_TOP,1,-1),		INDICE_TRI_FLIPPED, 	DOWN, 		CullTypes.Full, GrowthTypes.None),
+		TileSide.new(flip_y(TRI_TOP),			INDICE_TRI_FLIPPED, 	DOWN, 		CullTypes.Full, GrowthTypes.None),
 		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		CullTypes.Full, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_VSLOPE,				INDICE_QUAD_FLIPPED, 	LEFT+BACK, 	CullTypes.Full, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_FRONT,				INDICE_QUAD, 			FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
@@ -247,6 +255,9 @@ const TRI_SLOPER_BACK	: PackedVector3Array = [Vector3(0,1,0),Vector3(0,0,0),Vect
 const TRI_CORNER1		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vector3(0,1,0)]
 const TRI_CORNER2		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,0),Vector3(1,0,0)]
 const TRI_TOP			: PackedVector3Array = [Vector3(0,1,1),Vector3(0,1,0),Vector3(1,1,0)]
+
+const TRI_INVERT1		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,1),Vector3(0,1,0)]
+const TRI_INVERT2		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,0),Vector3(1,1,0)]
 
 ## Flips Y coordinate in set of vertices
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
