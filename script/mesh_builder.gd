@@ -85,6 +85,11 @@ func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> in
 	# Build sides
 	for side in tile_type.sides:
 		for face in side:
+			# Determine cull
+			face = face as MDat.TileSide
+			if !should_build(face, pos, face.dir, tile.rot):
+				continue
+			
 			# Get side information
 			var vertices := PackedVector3Array([])
 			var indices : PackedInt32Array = face.indices 
@@ -118,14 +123,48 @@ func prepare_mesh_array(mda : Array) -> void:
 	mda[Mesh.ARRAY_INDEX] = PackedInt32Array([])
 	mda[Mesh.ARRAY_NORMAL] = PackedVector3Array([])
 
-func should_build() -> bool:
+## Determines if building a side is necessary based on culling checks
+func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int) -> bool:
+	# Get outbound cull, dont cull if -1
+	var outbound_cull = face.cullid
+	if outbound_cull == -1:
+		return true
+	
+	# Continue with rotation
+	var d_rotated = rotate_enum(dir, rot)
+	var d_vec = add_vec(vec_from_dir(d_rotated), pos)
+	var inbound_tile = grid.tiles[d_vec.x][d_vec.y][d_vec.z]
+	
+	# If theres no tile, always build
+	if !inbound_tile || d_vec == pos:
+		return true
+	
+	# Otherwise check adjacent face and compare priority
+	inbound_tile = inbound_tile as MB64Level.CMMTile
+	var inbound_tile_dat = MDat.tiles[inbound_tile.type]
+	if !inbound_tile_dat:
+		inbound_tile_dat = MDat.tiles[MDat.TileTypes.Block]
+	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, 2)]
+	var cull_offset := 0
+	
+	# Check for flipped tile
+	if (inbound_tile.type % 2) == 0 && inbound_tile.type < MDat.TileTypes.EndOfFlippable:
+		cull_offset = -8
+	
+	# Do culling checks
+	for iface in inbound_faces:
+		if iface.cullid == -1:
+			return true
+		if outbound_cull > (iface.cullid + cull_offset):
+			return true
 	return false
 
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:
 	# Return self if dir is not in rotation, otherwise rotate
 	if dir > 3: return dir
-	return wrapi(dir + rot, 0, 3)
+	if rot == 0: return dir
+	return wrapi(dir + rot, 0, 4)
 
 ## Converts direction enum into vector3
 func vec_from_dir(dir : MDat.Dir) -> Vector3:
@@ -137,6 +176,14 @@ func vec_from_dir(dir : MDat.Dir) -> Vector3:
 		MDat.Dir.Top:		return Vector3.UP
 		MDat.Dir.Bottom:	return Vector3.DOWN
 	return Vector3.ZERO
+
+## Adds vectors.. safely
+func add_vec(vec1 : Vector3, vec2 : Vector3) -> Vector3:
+	return Vector3(
+		clamp(vec1.x + vec2.x, 0, 63),
+		clamp(vec1.y + vec2.y, 0, 63),
+		clamp(vec1.z + vec2.z, 0, 63),
+	)
 
 ## Returns indice offset based on size of input indices array
 func indices_from_face(indices : PackedInt32Array) -> int:

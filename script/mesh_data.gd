@@ -68,7 +68,7 @@ const DOWN				= Vector3.DOWN
 const RIGHT				= Vector3.RIGHT
 const LEFT				= Vector3.LEFT
 const BACK				= Vector3.BACK
-const FWD			= Vector3.FORWARD
+const FWD				= Vector3.FORWARD
 
 ## Side class
 class TileSide extends Resource:
@@ -112,24 +112,24 @@ class Tile extends Resource:
 	Tile.new([
 		TileSide.new(PLANE_SLOPE,		INDICE_QUAD,		 UP+BACK,	-1, Dir.Back,		GrowthTypes.Full),
 		TileSide.new(PLANE_DOWN,		INDICE_QUAD, 		 DOWN, 		16, Dir.Bottom,		GrowthTypes.None),
-		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  		 RIGHT, 	16, Dir.Right,		GrowthTypes.SlopeSideR),
-		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI,  		 LEFT, 		16, Dir.Left,		GrowthTypes.SlopeSideL),
+		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  		 RIGHT, 	9, Dir.Left,		GrowthTypes.SlopeSideR),
+		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI,  		 LEFT, 		9, Dir.Right,		GrowthTypes.SlopeSideL),
 		TileSide.new(PLANE_FRONT,		INDICE_QUAD, 		 FWD, 		16, Dir.Front,		GrowthTypes.HalfSide),
 	]),
 	# Slope (Flipped)
 	Tile.new([
 		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		16, Dir.Top,	GrowthTypes.Full),
 		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN+BACK,	-1, Dir.Back,	GrowthTypes.None),
-		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	16, Dir.Right,	GrowthTypes.SlopeSideR),
-		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		16, Dir.Left,	GrowthTypes.SlopeSideL),
+		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	9, Dir.Left,	GrowthTypes.SlopeSideR),
+		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		9, Dir.Right,	GrowthTypes.SlopeSideL),
 		TileSide.new(PLANE_FRONT,				INDICE_QUAD,		 FWD, 		16, Dir.Front,	GrowthTypes.HalfSide),
 	]),
 	# Slab
 	Tile.new([
 		TileSide.new(PLANE_UP_HALF,		INDICE_QUAD, UP, 		-1, Dir.Top,	GrowthTypes.Full),
 		TileSide.new(PLANE_DOWN,		INDICE_QUAD, DOWN, 		16, Dir.Bottom,	GrowthTypes.None),
-		TileSide.new(PLANE_RIGHT_HALF,	INDICE_QUAD, RIGHT, 	8,	Dir.Right,	GrowthTypes.HalfSide),
-		TileSide.new(PLANE_LEFT_HALF,	INDICE_QUAD, LEFT, 		8, 	Dir.Left,	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_RIGHT_HALF,	INDICE_QUAD, RIGHT, 	8,	Dir.Left,	GrowthTypes.HalfSide),
+		TileSide.new(PLANE_LEFT_HALF,	INDICE_QUAD, LEFT, 		8, 	Dir.Right,	GrowthTypes.HalfSide),
 		TileSide.new(PLANE_BACK_HALF,	INDICE_QUAD, BACK, 		8, 	Dir.Back,	GrowthTypes.HalfSide),
 		TileSide.new(PLANE_FRONT_HALF,	INDICE_QUAD, FWD, 		8, 	Dir.Front,	GrowthTypes.HalfSide),
 	]),
@@ -137,8 +137,8 @@ class Tile extends Resource:
 	Tile.new([
 		TileSide.new(PLANE_UP,					INDICE_QUAD,		 UP, 	16, Dir.Top, GrowthTypes.Full),
 		TileSide.new(PLANE_UP_HALF,				INDICE_QUAD_FLIPPED, DOWN, 	-1, Dir.Bottom, GrowthTypes.None),
-		TileSide.new(flip_y(PLANE_RIGHT_HALF),	INDICE_QUAD_FLIPPED, RIGHT, 16, Dir.Right, GrowthTypes.HalfSide),
-		TileSide.new(flip_y(PLANE_LEFT_HALF),	INDICE_QUAD_FLIPPED, LEFT, 	16, Dir.Left, GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_RIGHT_HALF),	INDICE_QUAD_FLIPPED, RIGHT, 16, Dir.Left, GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_LEFT_HALF),	INDICE_QUAD_FLIPPED, LEFT, 	16, Dir.Right, GrowthTypes.HalfSide),
 		TileSide.new(flip_y(PLANE_BACK_HALF),	INDICE_QUAD_FLIPPED, BACK, 	16, Dir.Back, GrowthTypes.HalfSide),
 		TileSide.new(flip_y(PLANE_FRONT_HALF),	INDICE_QUAD_FLIPPED, FWD, 	16, Dir.Front, GrowthTypes.HalfSide),
 	]),
@@ -234,8 +234,8 @@ class Tile extends Resource:
 	Tile.new([
 		TileSide.new(PLANE_UP,			INDICE_QUAD, UP, 		16, Dir.Top, GrowthTypes.Full),
 		TileSide.new(PLANE_DOWN,		INDICE_QUAD, DOWN, 		16, Dir.Bottom, GrowthTypes.None),
-		TileSide.new(PLANE_RIGHT,		INDICE_QUAD, RIGHT, 	16, Dir.Right, GrowthTypes.NormalSide),
-		TileSide.new(PLANE_LEFT,		INDICE_QUAD, LEFT, 		16, Dir.Left, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_RIGHT,		INDICE_QUAD, RIGHT, 	16, Dir.Left, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_LEFT,		INDICE_QUAD, LEFT, 		16, Dir.Right, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_BACK,		INDICE_QUAD, BACK, 		16, Dir.Back, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_FRONT,		INDICE_QUAD, FWD, 		16, Dir.Front, GrowthTypes.NormalSide),
 	]),
