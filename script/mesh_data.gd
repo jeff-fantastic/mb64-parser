@@ -187,7 +187,12 @@ class Tile extends Resource:
 		TileSide.new(PLANE_FRONT,						INDICE_QUAD, 		FWD, 		CullTypes.Full, GrowthTypes.NormalSide),
 	]),
 	# Sloped Corner
-	null,
+	Tile.new([
+		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 			CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRIANGLE_SLOPEF,		INDICE_TRI, 		FWD, 			CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(TRI_CORNER_SLOPE,		INDICE_TRI,			BACK+LEFT+UP,	CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(flip_y(TRI_TOP),		INDICE_TRI_FLIPPED, DOWN, 			CullTypes.Full, GrowthTypes.None),
+	]),
 	# Sloped Corner (Flipped)
 	null,
 	# Upper Gentle Slope
@@ -257,6 +262,7 @@ const PLANE_SLOPE		: PackedVector3Array = [Vector3(0,1,0),Vector3(1,1,0),Vector3
 const PLANE_VSLOPE		: PackedVector3Array = [Vector3(0,1,1),Vector3(0,0,1),Vector3(1,0,0),Vector3(1,1,0)]
 const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,0),Vector3(0,0,1)]
 const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,1),Vector3(1,1,0)]
+const TRIANGLE_SLOPEF	: PackedVector3Array = [Vector3(0,0,0),Vector3(1,0,0),Vector3(0,1,0)]
 const TRIANGLE_SLOPEB	: PackedVector3Array = [Vector3(0,0,1),Vector3(0,0,0),Vector3(0,1,0)]
 
 const TRI_SLOPER_BACK	: PackedVector3Array = [Vector3(0,1,0),Vector3(0,0,0),Vector3(1,0,0)]
@@ -266,6 +272,8 @@ const TRI_TOP			: PackedVector3Array = [Vector3(0,1,1),Vector3(0,1,0),Vector3(1,
 
 const TRI_INVERT1		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,1),Vector3(0,1,0)]
 const TRI_INVERT2		: PackedVector3Array = [Vector3(1,0,1),Vector3(0,1,0),Vector3(1,1,0)]
+
+const TRI_CORNER_SLOPE	: PackedVector3Array = [Vector3(0,1,0),Vector3(1,0,0),Vector3(0,0,1)]
 
 ## Flips Y coordinate in set of vertices
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
