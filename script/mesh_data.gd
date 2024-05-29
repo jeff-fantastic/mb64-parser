@@ -118,7 +118,7 @@ class Tile extends Resource:
 	null,
 	# Slope
 	Tile.new([
-		TileSide.new(PLANE_SLOPE,		INDICE_QUAD_FLIPPED, UP+FWD,	CullTypes.Full, 	GrowthTypes.Full),
+		TileSide.new(PLANE_SLOPE,		INDICE_QUAD_FLIPPED, (UP+FWD).normalized(),	CullTypes.Full, 	GrowthTypes.Full),
 		TileSide.new(PLANE_DOWN,		INDICE_QUAD, 		 DOWN, 		CullTypes.Full, 	GrowthTypes.None),
 		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  		 RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
 		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI,  		 LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
@@ -127,7 +127,7 @@ class Tile extends Resource:
 	# Slope (Flipped)
 	Tile.new([
 		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		CullTypes.Full, 	GrowthTypes.Full),
-		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD, DOWN+FWD,	CullTypes.Full, 	GrowthTypes.None),
+		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD, 		 DOWN+FWD,	CullTypes.Full, 	GrowthTypes.None),
 		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	CullTypes.Tri_1, 	GrowthTypes.SlopeSideR),
 		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		CullTypes.Tri_2, 	GrowthTypes.SlopeSideL),
 		TileSide.new(PLANE_BACK,				INDICE_QUAD,		 BACK, 		CullTypes.Full, 	GrowthTypes.HalfSide),
@@ -213,8 +213,8 @@ const PLANE_BACK_HALF	: PackedVector3Array = [Vector3(1,0,1),Vector3(0,0,1),Vect
 const PLANE_FRONT_HALF	: PackedVector3Array = [Vector3(1,.5,0),Vector3(0,.5,0),Vector3(0,0,0),Vector3(1,0,0)]
 
 const PLANE_SLOPE		: PackedVector3Array = [Vector3(1,0,0),Vector3(0,0,0),Vector3(0,1,1),Vector3(1,1,1)]
-const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,1),Vector3(0,0,1)]
-const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,1),Vector3(1,1,1)]
+const TRIANGLE_SLOPER	: PackedVector3Array = [Vector3(0,0,0),Vector3(0,1,1),Vector3(0,0,1)]
+const TRIANGLE_SLOPEL	: PackedVector3Array = [Vector3(1,0,0),Vector3(1,0,1),Vector3(1,1,1)]
 
 func flip_y(verts : PackedVector3Array) -> PackedVector3Array:
 	var new := PackedVector3Array()

@@ -82,7 +82,7 @@ func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> in
 		for vtx in side.mesh:
 			var v_pos = rotate_point(vtx, tile.rot) + pos
 			var dir = side.dir.rotated(Vector3.UP, tile.rot * PI/2)
-			vertices.push_back(vtx + pos)
+			vertices.push_back(v_pos)
 			mesh_arr[Mesh.ARRAY_NORMAL].push_back(dir)
 		
 		# Determine indice offset (this sucks)
