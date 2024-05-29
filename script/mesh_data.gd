@@ -164,7 +164,7 @@ class Tile extends Resource:
 		TileSide.new(flip_y(TRI_CORNER2),		INDICE_TRI_FLIPPED, DOWN+LEFT,	CullTypes.Full, GrowthTypes.Full),
 		TileSide.new(PLANE_UP,					INDICE_QUAD, 		UP, 		CullTypes.Full, GrowthTypes.None),
 		TileSide.new(flip_y(TRI_SLOPER_BACK),	INDICE_TRI_FLIPPED, FWD,	 	CullTypes.Full, GrowthTypes.NormalSide),
-		TileSide.new(flip_y(TRIANGLE_SLOPEB),	INDICE_TRI,  		LEFT, 		CullTypes.Full, GrowthTypes.NormalSide),
+		TileSide.new(flip_y(TRIANGLE_SLOPEB),	INDICE_TRI_FLIPPED, RIGHT, 		CullTypes.Full, GrowthTypes.NormalSide),
 	]),
 	# Inverted Corner
 	Tile.new([

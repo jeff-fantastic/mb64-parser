@@ -26,6 +26,10 @@ const materials : Array[StandardMaterial3D] = [
 	preload("res://asset/mat/debug7.tres"),
 	preload("res://asset/mat/debug8.tres"),
 	preload("res://asset/mat/debug9.tres"),
+	preload("res://asset/mat/fence_debug.tres"),
+	preload("res://asset/mat/pole_debug.tres"),
+	preload("res://asset/mat/bars_debug.tres"),
+	preload("res://asset/mat/water_debug.tres")
 ]
 
 func build_mesh(result : MB64Level) -> void:
@@ -36,29 +40,35 @@ func build_mesh(result : MB64Level) -> void:
 	grid = result.t_grid
 	
 	# Setup arrays
-	tiles_sorted.resize(10)
+	tiles_sorted.resize(14)
 	
 	# Iterate over tiles
 	for tile in grid.map:
-		tiles_sorted[tile[1].mat].push_back(tile[0])
+		match (tile[1].type):
+			MDat.TileTypes.Fence:	tiles_sorted[10].push_back(tile[0])
+			MDat.TileTypes.Pole:	tiles_sorted[11].push_back(tile[0])
+			MDat.TileTypes.Bars:	tiles_sorted[12].push_back(tile[0])
+			MDat.TileTypes.Water:	tiles_sorted[13].push_back(tile[0])
+			_:						tiles_sorted[tile[1].mat].push_back(tile[0])
+		
 		
 	# Now iterate over materials
-	for list in tiles_sorted:
+	for list in range(tiles_sorted.size()):
 		# Prepare mesh array
 		prepare_mesh_array(mesh_data_array)
 		
 		# Skip if nothing in list
-		if list.is_empty():
+		if tiles_sorted[list].is_empty():
 			continue
 		
 		# Build surface
 		var total_ind : int = 0
-		for tile in list:
+		for tile in tiles_sorted[list]:
 			total_ind = build_tile(mesh_data_array, tile, total_ind)
 		
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh_data_array)
 		var count : int = mesh.get_surface_count() - 1
-		mesh.surface_set_material(count, materials[count])
+		mesh.surface_set_material(count, materials[list])
 		mesh.generate_triangle_mesh()
 	
 	# Build and set mesh

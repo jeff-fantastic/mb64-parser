@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://3mf4yxfyjh3f"]
+
+[resource]
+shading_mode = 2
+albedo_color = Color(0.780337, 0.650974, 0.893967, 1)
+metallic_specular = 0.0
+emission = Color(1, 0, 0, 1)
