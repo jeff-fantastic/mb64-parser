@@ -145,7 +145,7 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 	var inbound_tile_dat = MDat.tiles[inbound_tile.type]
 	if !inbound_tile_dat:
 		inbound_tile_dat = MDat.tiles[MDat.TileTypes.Block]
-	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, ((4-rot) % 4)) ^ 1]
+	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, ((4-inbound_tile.rot) % 4)) ^ 1]
 	
 	if inbound_faces.is_empty():
 		return true
@@ -165,7 +165,7 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 		if face.cullid == MDat.Cull.BottomSlab || face.cullid == MDat.Cull.TopSlab || face.cullid == MDat.Cull.PoleTop:
 			if (face.cullid != iface.cullid):
 				return rot == inbound_tile.rot
-			return false
+			return true
 		print(face.cullid, iface.cullid^1, face.cullid == iface.cullid^1)
 		if (face.cullid == iface.cullid^1):
 			return false
