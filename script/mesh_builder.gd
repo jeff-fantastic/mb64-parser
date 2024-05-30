@@ -16,20 +16,20 @@ var grid : MB64Level.CMMTileGrid
 
 ## Materials
 const materials : Array[StandardMaterial3D] = [
-	preload("res://asset/mat/debug0.tres"),
-	preload("res://asset/mat/debug1.tres"),
-	preload("res://asset/mat/debug2.tres"),
-	preload("res://asset/mat/debug3.tres"),
-	preload("res://asset/mat/debug4.tres"),
-	preload("res://asset/mat/debug5.tres"),
-	preload("res://asset/mat/debug6.tres"),
-	preload("res://asset/mat/debug7.tres"),
-	preload("res://asset/mat/debug8.tres"),
-	preload("res://asset/mat/debug9.tres"),
-	preload("res://asset/mat/fence_debug.tres"),
-	preload("res://asset/mat/pole_debug.tres"),
-	preload("res://asset/mat/bars_debug.tres"),
-	preload("res://asset/mat/water_debug.tres")
+	preload("res://asset/mat/debug/debug0.tres"),
+	preload("res://asset/mat/debug/debug1.tres"),
+	preload("res://asset/mat/debug/debug2.tres"),
+	preload("res://asset/mat/debug/debug3.tres"),
+	preload("res://asset/mat/debug/debug4.tres"),
+	preload("res://asset/mat/debug/debug5.tres"),
+	preload("res://asset/mat/debug/debug6.tres"),
+	preload("res://asset/mat/debug/debug7.tres"),
+	preload("res://asset/mat/debug/debug8.tres"),
+	preload("res://asset/mat/debug/debug9.tres"),
+	preload("res://asset/mat/debug/fence_debug.tres"),
+	preload("res://asset/mat/debug/pole_debug.tres"),
+	preload("res://asset/mat/debug/bars_debug.tres"),
+	preload("res://asset/mat/debug/water_debug.tres")
 ]
 
 func build_mesh(result : MB64Level) -> void:
