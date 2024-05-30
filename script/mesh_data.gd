@@ -79,7 +79,6 @@ enum Cull {
 	DownLowerGentle_2	= 0x25
 }
 
-
 ## Dirs
 enum Dir {
 	Top					= 0x00,
@@ -89,6 +88,368 @@ enum Dir {
 	Back				= 0x04,
 	Front				= 0x05
 }
+
+enum Mat {
+	ListStart					= 0x00,
+	
+	Grass						= ListStart,
+	GrassOld					= 0x01,
+	CartoonGrass				= 0x02,
+	DarkGrass					= 0x03,
+	HMCGrass					= 0x04,
+	OrangeGrass					= 0x05,
+	RedGrass					= 0x06,
+	PurpleGrass					= 0x07,
+	Sand						= 0x08,
+	JRBSand						= 0x09,
+	Snow						= 0x0A,
+	SnowOld						= 0x0B,
+	Dirt						= 0x0C,
+	SandDirt					= 0x0D,
+	LightDirt					= 0x0E,
+	HMCDirt						= 0x0F,
+	RockyDirt					= 0x10,
+	DirtOld						= 0x11,
+	WavyDirt					= 0x12,
+	WavyDirtBlue				= 0x13,
+	SnowDirt					= 0x14,
+	PurpleDirt					= 0x15,
+	HMCLakeGrass				= 0x16,
+	
+	TerrainEnd					= 0x17,
+	
+	Stone						= TerrainEnd,
+	HMCStone					= 0x18,
+	HMCMazeFloor				= 0x19,
+	CCMRock						= 0x1A,
+	TTMFloor					= 0x1B,
+	TTMRock						= 0x1C,
+	Cobblestone					= 0x1D,
+	JRBWall						= 0x1E,
+	Gabbro						= 0x1F,
+	RHRStone					= 0x20,
+	LavaRocks					= 0x21,
+	VolcanoWall					= 0x22,
+	RHRBasalt					= 0x23,
+	Obsidian					= 0x24,
+	CastleStone					= 0x25,
+	JRBUnderwater				= 0x26,
+	SnowRock					= 0x27,
+	IcyRock						= 0x28,
+	DesertStone					= 0x29,
+	RHRObsidian					= 0x2A,
+	JRBStone					= 0x2B,
+	
+	StoneEnd					= 0x2C,
+	
+	Bricks						= StoneEnd,
+	DesertBricks				= 0x2D,
+	RHRBrick					= 0x2E,
+	HMCBrick					= 0x2F,
+	BrownBrick					= 0x30, # I LOVE BUILDING BROWN BRICKS
+	WDWBrick					= 0x31,
+	TTMBrick					= 0x32,
+	CastleBrick					= 0x33,
+	BBHBrick					= 0x34,
+	RoofBrick					= 0x35,
+	CastleOutsideBrick			= 0x36,
+	SnowBrick					= 0x37,
+	JRBBrick					= 0x38,
+	SnowTileSide				= 0x39,
+	TileBrick					= 0x3A,
+	
+	BricksEnd					= 0x3B,
+	
+	Tile						= BricksEnd,
+	CastleTile					= 0x3C,
+	DesertTile					= 0x3D,
+	BlueTile					= 0x3E,
+	SnowTile					= 0x3F,
+	JRBTileTop					= 0x40,
+	JRBTileSide					= 0x41,
+	HMCTile						= 0x42,
+	GraniteTile					= 0x43,
+	RHRTile						= 0x44,
+	VPTile						= 0x45,
+	DiamondTile					= 0x46,
+	CastleStoneTop				= 0x47,
+	SnowBrickTile				= 0x48,
+	
+	TilesEnd					= 0x49,
+	
+	DesertBlock					= TilesEnd,
+	VPBlock						= 0x4A,
+	BBHStone					= 0x4B,
+	BBHStonePattern				= 0x4C,
+	PatternedBlock				= 0x4D,
+	HMCSlab						= 0x4E,
+	RHRBlock					= 0x4F,
+	GraniteBlock				= 0x50,
+	StoneSide					= 0x51,
+	Pillar						= 0x52,
+	BBHPillar					= 0x53,
+	RHRPillar					= 0x54,
+	
+	CutStoneEnd					= 0x55,
+	
+	Wood						= CutStoneEnd,
+	BBHWoodFloor				= 0x56,
+	BBHWoodWall					= 0x57,
+	CastleWood					= 0x58,
+	JRBWood						= 0x59,
+	JRBShipSide					= 0x5A,
+	JRBShipTop					= 0x5B,
+	BBHHauntedPlanks			= 0x5C,
+	BBHRoof						= 0x5D,
+	SolidWood					= 0x5E,
+	RHRWood						= 0x5F,
+	
+	WoodEnd						= 0x60,
+	
+	BBHMetal					= WoodEnd,
+	JRBMetalSide				= 0x61,
+	JRBMetal					= 0x62,
+	CastleBasementWall			= 0x63,
+	DesertTiles2				= 0x64,
+	RustyBlock					= 0x65,
+	
+	MetalEnd					= 0x66,
+	
+	CastleCarpet				= MetalEnd,
+	CastleWall					= 0x67,
+	Roof						= 0x68,
+	CastleRoof					= 0x69,
+	SnowRoof					= 0x6A,
+	BBHWindow					= 0x6B,
+	HMCLight					= 0x6C,
+	VPCaution					= 0x6D,
+	RRBlock						= 0x6E,
+	StuddedTile					= 0x6F,
+	TTCBlock					= 0x70,
+	TTCSide						= 0x71,
+	TTCWall						= 0x72,
+	Flower						= 0x73,
+	
+	BuildingEnd					= 0x74,
+	
+	Lava						= 0x75,
+	LavaOld						= 0x76,
+	Acid						= 0x77,
+	BurningIce					= 0x78,
+	Quicksand					= 0x79,
+	SlowSand					= 0x7A,
+	Void						= 0x7B,
+	
+	HazardEnd					= 0x7C,
+	
+	RHRMesh						= HazardEnd,
+	VPMesh						= 0x7D,
+	HMCMesh						= 0x7E,
+	BBHMesh						= 0x7F,
+	PinkMesh					= 0x80,
+	TTCMesh						= 0x81,
+	Ice							= 0x82,
+	Crystal						= 0x83,
+	VPScreen					= 0x84,
+	
+	End							= 0x85,
+	
+	RetroGround					= End,
+	RetroBricks					= 0x86,
+	RetroTreeTop				= 0x87,
+	RetroTreePlat				= 0x88,
+	RetroBlock					= 0x89,
+	RetroBlueGround				= 0x8A,
+	RetroBlueBricks				= 0x8B,
+	RetroBlueBlock				= 0x8C,
+	RetroWhiteBrick				= 0x8D,
+	RetroLava					= 0x8E,
+	RetroUnderWaterGround		= 0x8F,
+	
+	MCDirt						= 0x90,
+	MCGrass						= 0x91,
+	MCCobblestone				= 0x92,
+	MCStone						= 0x93,
+	MCOakLogTop					= 0x94,
+	MCOakLogSide				= 0x95,
+	MCOakLeaves					= 0x96,
+	MCWoodPlanks				= 0x97,
+	MCSand						= 0x98,
+	MCBricks					= 0x99,
+	MCLava						= 0x9A,
+	MCFlowingLava				= 0x9B,
+	MCGlass						= 0x9C
+}
+
+## Bar materials
+enum MatBar {
+	Generic,
+	RHR,
+	VP,
+	HMC,
+	BBH,
+	LLL,
+	TTC,
+	Desert,
+	BOB,
+	Retro,
+	MC
+}
+
+## Fence materials
+enum MatFence {
+	Normal,
+	Wood2,
+	Desert,
+	Barbed,
+	RHR,
+	HMC,
+	Castle,
+	VP,
+	BBH,
+	JRB,
+	Snow2,
+	Snow,
+	Retro,
+	MC
+}
+
+enum MatWater {
+	Default,
+	Green,
+	Retro,
+	MC
+}
+
+## Default themes.
+var default_themes : Array[Array] = [
+	## 0 - Generic
+	[
+		[Mat.Dirt,				Mat.Grass,				"Grass"],
+		[Mat.Bricks,			Mat.Bricks,				"Bricks"],
+		[Mat.Cobblestone,		Mat.Stone,				"Rock"],
+		[Mat.TileBrick,			Mat.Tile,				"Tiling"],
+		[Mat.Roof,				Mat.Roof,				"Roof"],
+		[Mat.Wood,				Mat.Wood,				"Wood"],
+		[Mat.SandDirt,			Mat.Sand,				"Sand"],
+		[Mat.SnowDirt,			Mat.Snow,				"Snow"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.Quicksand,			Mat.Quicksand,			"Quicksand"],
+		MatFence.Normal, Mat.Stone, MatBar.Generic, MatWater.Default
+	],
+	## 1 - Desert
+	[
+		[Mat.SandDirt,			Mat.Sand,				"Sand"],
+		[Mat.DesertBricks,		Mat.DesertBricks,		"Bricks"],
+		[Mat.DesertStone,		Mat.DesertStone,		"Cobblestone"],
+		[Mat.DesertTile,		Mat.DesertTile,			"Tiling"],
+		[Mat.DesertBlock,		Mat.DesertBlock,		"Stone Block"],
+		[Mat.SlowSand,			Mat.SlowSand,			"Slow Quicksand"],
+		[Mat.DesertBricks,		Mat.DesertTiles2,		"Plating"],
+		[Mat.Dirt,				Mat.Grass,				"Grass"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.Quicksand,			Mat.Quicksand,			"Quicksand"],
+		MatFence.Desert, Mat.DesertTiles2, MatBar.Desert, MatWater.Green
+	],
+	## 2 - Lava
+	[
+		[Mat.RHRStone,			Mat.RHRObsidian,		"Rock"],
+		[Mat.RHRBrick,			Mat.RHRObsidian,		"Bricks"],
+		[Mat.RHRBasalt,			Mat.RHRBasalt,			"Basalt"],
+		[Mat.RHRTile,			Mat.RHRTile,			"Tiling"],
+		[Mat.RHRBlock,			Mat.RHRBlock,			"Stone Block"],
+		[Mat.RHRWood,			Mat.RHRWood,			"Wood"],
+		[Mat.RHRPillar,			Mat.RHRTile,			"Pillar"],
+		[Mat.RHRMesh,			Mat.RHRMesh,			"Mesh"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.Acid,				Mat.Acid,				"Server Acid"],
+		MatFence.RHR, Mat.RHRPillar, MatBar.RHR, MatWater.Default
+	],
+	## 3 - Cave
+	[
+		[Mat.HMCDirt,			Mat.HMCGrass,			"Grass"],
+		[Mat.HMCBrick,			Mat.HMCMazeFloor,		"Bricks"],
+		[Mat.HMCStone,			Mat.HMCStone,			"Rock"],
+		[Mat.HMCSlab,			Mat.HMCTile,			"Tiling"],
+		[Mat.HMCBrick,			Mat.HMCGrass,			"Grassy Bricks"],
+		[Mat.HMCLakeGrass,		Mat.HMCGrass,			"Lake Wall"],
+		[Mat.HMCLight,			Mat.HMCLight,			"Light"],
+		[Mat.HMCMesh,			Mat.HMCMesh,			"Grille"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.Quicksand,			Mat.Quicksand,			"Quicksand"],
+		MatFence.HMC, Mat.HMCLakeGrass, MatBar.HMC, MatWater.Green
+	],
+	## 4 - Castle
+	[
+		[Mat.CastleWood,		Mat.CastleTile,			"Tiling"],
+		[Mat.CastleBrick,		Mat.CastleTile,			"Tiling (Bricks)"],
+		[Mat.CastleStone,		Mat.CastleStoneTop,		"Tiling (Stone)"],
+		[Mat.CastleWood,		Mat.CastleCarpet,		"Carpet"],
+		[Mat.CastleRoof,		Mat.CastleRoof,			"Roof"],
+		[Mat.CastleWall,		Mat.CastleWall,			"Castle Wall"],
+		[Mat.Pillar,			Mat.CastleStoneTop,		"Pillar"],
+		[Mat.CastleBasementWall,Mat.CastleBasementWall,	"Basement Wall"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.CastleOutsideBrick,Mat.CastleOutsideBrick,	"Castle Bricks"],
+		MatFence.Castle, Mat.CastleStone, MatBar.VP, MatWater.Default
+	],
+	## 5 - Virtuaplex
+	[
+		[Mat.VPBlock,			Mat.VPBlock,			"Block"],
+		[Mat.VPTile,			Mat.VPTile,				"Tiling"],
+		[Mat.Dirt,				Mat.Grass,				"Grass"],
+		[Mat.VPTile,			Mat.BlueTile,			"Blue Tiling"],
+		[Mat.RustyBlock,		Mat.RustyBlock,			"Rusted Block"],
+		[Mat.VPScreen,			Mat.VPScreen,			"Screen"],
+		[Mat.VPCaution,			Mat.VPCaution,			"Hazard Stripes"],
+		[Mat.VPBlock,			Mat.Snow,				"Snowy Block"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.Void,				Mat.Void,				"Void"],
+		MatFence.VP, Mat.VPCaution, MatBar.VP, MatWater.Default
+	],
+	## 6 - Snow
+	[
+		[Mat.SnowDirt,			Mat.Snow,				"Snow"],
+		[Mat.SnowBrick,			Mat.SnowBrickTile,		"Bricks"],
+		[Mat.SnowRock,			Mat.SnowRock,			"Rock"],
+		[Mat.SnowTileSide,		Mat.SnowTile,			"Tiling"],
+		[Mat.SnowRoof,			Mat.SnowRoof,			"Roof"],
+		[Mat.Wood,				Mat.Wood,				"Wood"],
+		[Mat.Crystal,			Mat.Crystal,			"Crystal"],
+		[Mat.Ice,				Mat.Ice,				"Ice"],
+		[Mat.BurningIce,		Mat.BurningIce,			"Hazard Ice"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		MatFence.Snow, Mat.SnowTileSide, MatBar.Generic, MatWater.Default
+	],
+	## 7 - Big Boos Haunt
+	[
+		[Mat.BBHBrick,			Mat.BBHStone,			"Stone Floor"],
+		[Mat.BBHHauntedPlanks,	Mat.BBHHauntedPlanks,	"Haunted Planks"],
+		[Mat.BBHStonePattern,	Mat.BBHWoodFloor,		"Wood Floor"],
+		[Mat.BBHBrick,			Mat.BBHMetal,			"Metal Roof"],
+		[Mat.BBHRoof,			Mat.BBHRoof,			"Roof"],
+		[Mat.BBHWoodWall,		Mat.BBHWoodWall,		"Wood"],
+		[Mat.BBHStone,			Mat.BBHStone,			"Wall"],
+		[Mat.BBHPillar,			Mat.BBHStone,			"Pillar"],
+		[Mat.Lava,				Mat.Lava,				"Lava"],
+		[Mat.BBHWindow,			Mat.BBHWindow,			"Window"],
+		MatFence.BBH, Mat.BBHBrick, MatBar.BBH, MatWater.Default
+	],
+	## 8 - Jolly Roger Bay
+	[
+		[Mat.JRBStone,			Mat.JRBSand,			"Sand"],
+		[Mat.JRBBrick,			Mat.JRBBrick,			"Bricks"],
+		[Mat.JRBUnderwater,		Mat.JRBUnderwater,		"Ocean Floor"],
+		[Mat.JRBTileSide, 		Mat.JRBTileTop,			"Tiles"],
+		[Mat.JRBShipSide,		Mat.JRBShipTop,			"Wood (Ship)"],
+		[Mat.JRBMetalSide,		Mat.JRBWood,			"Wood (Docks)"],
+		[Mat.JRBMetalSide,		Mat.JRBMetal,			"Metal"],
+		[Mat.HMCMesh,			Mat.HMCMesh,			"Grille"],
+		[Mat.JRBWall,			Mat.JRBWall,			"Wall"],
+		[Mat.Quicksand,			Mat.Quicksand,			"Quicksand"],
+		MatFence.JRB, Mat.VPCaution, MatBar.HMC, MatWater.Default
+	]
+]
 
 ## Rotations
 var dir_rot = [
@@ -405,194 +766,3 @@ const INDICE_TRI_FLIPPED	: PackedInt32Array = [2,1,0]
 const UV_QUAD : PackedVector2Array = [Vector2(1,1),Vector2(0,1),Vector2(0,0),Vector2(1,0)]
 const UV_TRI : PackedVector2Array = [Vector2(1,1),Vector2(0,1),Vector2(0,0)]
 
-enum Mat {
-	ListStart					= 0x00,
-	
-	Grass						= ListStart,
-	GrassOld					= 0x01,
-	CartoonGrass				= 0x02,
-	DarkGrass					= 0x03,
-	HMCGrass					= 0x04,
-	OrangeGrass					= 0x05,
-	RedGrass					= 0x06,
-	PurpleGrass					= 0x07,
-	Sand						= 0x08,
-	JRBSand						= 0x09,
-	Snow						= 0x0A,
-	SnowOld						= 0x0B,
-	Dirt						= 0x0C,
-	SandDirt					= 0x0D,
-	LightDirt					= 0x0E,
-	HMCDirt						= 0x0F,
-	RockyDirt					= 0x10,
-	DirtOld						= 0x11,
-	WavyDirt					= 0x12,
-	WavyDirtBlue				= 0x13,
-	SnowDirt					= 0x14,
-	PurpleDirt					= 0x15,
-	HMCLakeGrass				= 0x16,
-	
-	TerrainEnd					= 0x17,
-	
-	Stone						= TerrainEnd,
-	HMCStone					= 0x18,
-	HMCMazeFloor				= 0x19,
-	CCMRock						= 0x1A,
-	TTMFloor					= 0x1B,
-	TTMRock						= 0x1C,
-	Cobblestone					= 0x1D,
-	JRBWall						= 0x1E,
-	Gabbro						= 0x1F,
-	RHRStone					= 0x20,
-	LavaRocks					= 0x21,
-	VolcanoWall					= 0x22,
-	RHRBasalt					= 0x23,
-	Obsidian					= 0x24,
-	CastleStone					= 0x25,
-	JRBUnderwater				= 0x26,
-	SnowRock					= 0x27,
-	IcyRock						= 0x28,
-	DesertStone					= 0x29,
-	RHRObsidian					= 0x2A,
-	JRBStone					= 0x2B,
-	
-	StoneEnd					= 0x2C,
-	
-	Bricks						= StoneEnd,
-	DesertBricks				= 0x2D,
-	RHRBrick					= 0x2E,
-	HMCBrick					= 0x2F,
-	BrownBrick					= 0x30, # I LOVE BUILDING BROWN BRICKS
-	WDWBrick					= 0x31,
-	TTMBrick					= 0x32,
-	CastleBrick					= 0x33,
-	BBHBrick					= 0x34,
-	RoofBrick					= 0x35,
-	CastleOutsideBrick			= 0x36,
-	SnowBrick					= 0x37,
-	JRBBrick					= 0x38,
-	SnowTileSide				= 0x39,
-	TileBrick					= 0x3A,
-	
-	BricksEnd					= 0x3B,
-	
-	Tile						= BricksEnd,
-	CastleTile					= 0x3C,
-	DesertTile					= 0x3D,
-	BlueTile					= 0x3E,
-	SnowTile					= 0x3F,
-	JRBTileTop					= 0x40,
-	JRBTileSide					= 0x41,
-	HMCTile						= 0x42,
-	GraniteTile					= 0x43,
-	RHRTile						= 0x44,
-	VPTile						= 0x45,
-	DiamondTile					= 0x46,
-	CastleStoneTop				= 0x47,
-	SnowBrickTile				= 0x48,
-	
-	TilesEnd					= 0x49,
-	
-	DesertBlock					= TilesEnd,
-	VPBlock						= 0x4A,
-	BBHStone					= 0x4B,
-	BBHStonePattern				= 0x4C,
-	PatternedBlock				= 0x4D,
-	HMCSlab						= 0x4E,
-	RHRBlock					= 0x4F,
-	GraniteBlock				= 0x50,
-	StoneSide					= 0x51,
-	Pillar						= 0x52,
-	BBHPillar					= 0x53,
-	RHRPillar					= 0x54,
-	
-	CutStoneEnd					= 0x55,
-	
-	Wood						= CutStoneEnd,
-	BBHWoodFloor				= 0x56,
-	BBHWoodWall					= 0x57,
-	CastleWood					= 0x58,
-	JRBWood						= 0x59,
-	JRBShipSide					= 0x5A,
-	JRBShipTop					= 0x5B,
-	BBHHauntedPlanks			= 0x5C,
-	BBHRoof						= 0x5D,
-	SolidWood					= 0x5E,
-	RHRWood						= 0x5F,
-	
-	WoodEnd						= 0x60,
-	
-	BBHMetal					= WoodEnd,
-	JRBMetalSide				= 0x61,
-	JRBMetal					= 0x62,
-	CastleBasementWall			= 0x63,
-	DesertTiles2				= 0x64,
-	RustyBlock					= 0x65,
-	
-	MetalEnd					= 0x66,
-	
-	CastleCarpet				= MetalEnd,
-	CastleWall					= 0x67,
-	Roof						= 0x68,
-	CastleRoof					= 0x69,
-	SnowRoof					= 0x6A,
-	BBHWindow					= 0x6B,
-	HMCLight					= 0x6C,
-	VPCaution					= 0x6D,
-	RRBlock						= 0x6E,
-	StuddedTile					= 0x6F,
-	TTCBlock					= 0x70,
-	TTCSide						= 0x71,
-	TTCWall						= 0x72,
-	Flower						= 0x73,
-	
-	BuildingEnd					= 0x74,
-	
-	Lava						= 0x75,
-	LavaOld						= 0x76,
-	Acid						= 0x77,
-	BurningIce					= 0x78,
-	Quicksand					= 0x79,
-	SlowSand					= 0x7A,
-	Void						= 0x7B,
-	
-	HazardEnd					= 0x7C,
-	
-	RHRMesh						= HazardEnd,
-	VPMesh						= 0x7D,
-	HMCMesh						= 0x7E,
-	BBHMesh						= 0x7F,
-	PinkMesh					= 0x80,
-	TTCMesh						= 0x81,
-	Ice							= 0x82,
-	Crystal						= 0x83,
-	VPScreen					= 0x84,
-	
-	End							= 0x85,
-	
-	RetroGround					= End,
-	RetroBricks					= 0x86,
-	RetroTreeTop				= 0x87,
-	RetroTreePlat				= 0x88,
-	RetroBlock					= 0x89,
-	RetroBlueGround				= 0x8A,
-	RetroBlueBricks				= 0x8B,
-	RetroBlueBlock				= 0x8C,
-	RetroWhiteBrick				= 0x8D,
-	RetroLava					= 0x8E,
-	RetroUnderWaterGround		= 0x8F,
-	
-	MCDirt						= 0x90,
-	MCGrass						= 0x91,
-	MCCobblestone				= 0x92,
-	MCStone						= 0x93,
-	MCOakLogTop					= 0x94,
-	MCOakLogSide				= 0x95,
-	MCOakLeaves					= 0x96,
-	MCWoodPlanks				= 0x97,
-	MCSand						= 0x98,
-	MCBricks					= 0x99,
-	MCLava						= 0x9A,
-	MCFlowingLava				= 0x9B,
-	MCGlass						= 0x9C
-}

@@ -12,6 +12,9 @@ const SPEED_FAST = 40
 ## Whether or not camera control is enabled
 var in_control : bool = false
 
+func _init() -> void:
+	RenderingServer.set_debug_generate_wireframes(true)
+
 func _unhandled_input(event: InputEvent) -> void:
 	# Diverge if mouse input
 	if event is InputEventMouseMotion && in_control:
@@ -29,7 +32,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if in_control else Input.MOUSE_MODE_VISIBLE
 	# Toggle wireframe
 	if event.is_pressed() && event.keycode == KEY_V:
-		RenderingServer.set_debug_generate_wireframes(true)
 		get_tree().root.debug_draw = Viewport.DEBUG_DRAW_DISABLED if get_tree().root.debug_draw == Viewport.DEBUG_DRAW_WIREFRAME else Viewport.DEBUG_DRAW_WIREFRAME
 
 func look(event : InputEventMouseMotion) -> void:
@@ -38,8 +40,8 @@ func look(event : InputEventMouseMotion) -> void:
 	rotation.y -= (event.relative.x) * 0.25 * get_process_delta_time()
 	
 	# Clamp and wrap target values
-	rotation.x = clamp(rotation.x, -80.0, 80.0)
-	rotation.y = wrapf(rotation.y, -180.0, 180.0)
+	rotation_degrees.x = clampf(rotation_degrees.x, -80.0, 80.0)
+	rotation_degrees.y = wrapf(rotation_degrees.y, -180.0, 180.0)
 
 func _physics_process(delta : float) -> void:
 	# Skip if no control
