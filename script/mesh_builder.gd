@@ -127,12 +127,13 @@ func prepare_mesh_array(mda : Array) -> void:
 func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int) -> bool:
 	# Get outbound cull, dont cull if -1
 	var outbound_cull = face.cullid
-	if outbound_cull == -1:
+	if outbound_cull == MDat.Cull.Empty:
 		return true
 	
 	# Continue with rotation
 	var d_rotated = rotate_enum(dir, rot)
 	var d_vec = add_vec(vec_from_dir(d_rotated), pos)
+	var outbound_tile = grid.tiles[pos.x][pos.y][pos.z]
 	var inbound_tile = grid.tiles[d_vec.x][d_vec.y][d_vec.z]
 	
 	# If theres no tile, always build
@@ -144,25 +145,37 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 	var inbound_tile_dat = MDat.tiles[inbound_tile.type]
 	if !inbound_tile_dat:
 		inbound_tile_dat = MDat.tiles[MDat.TileTypes.Block]
-	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, 2)]
-	var cull_offset := 0
+	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, 6)]
 	
-	# Check for flipped tile
-	if (inbound_tile.type % 2) == 0 && inbound_tile.type < MDat.TileTypes.EndOfFlippable:
-		cull_offset = -8
+	if inbound_faces.is_empty():
+		return true
 	
 	# Do culling checks
 	for iface in inbound_faces:
-		if iface.cullid == -1:
+		# Edge cases
+		if iface.cullid == MDat.Cull.Empty:
 			return true
-		if outbound_cull > (iface.cullid + cull_offset):
+		if iface.cullid == MDat.Cull.Full:
+			return false
+		if face.cullid == MDat.Cull.Full:
 			return true
-	return false
+		if (face.cullid == MDat.Cull.TopTri || face.cullid == MDat.Cull.TopHalf):
+			if (face.cullid == iface.cullid):
+				return false
+		if face.cullid == MDat.Cull.BottomSlab || face.cullid == MDat.Cull.TopSlab || face.cullid == MDat.Cull.PoleTop:
+			if (face.cullid == iface.cullid):
+				return false
+		if (face.cullid == (iface.cullid^1)):
+			return true
+		if (face.cullid & 0x10) && (iface.cullid & 0x10) ||\
+		   (face.cullid & 0x20) && (iface.cullid & 0x20):
+			return (face.cullid > iface.cullid)
+	return true
 
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:
 	# Return self if dir is not in rotation, otherwise rotate
-	if dir > 3: return dir
+	if dir > 3: return wrapi(dir + 1, 4, 6) if rot == 6 else dir
 	if rot == 0: return dir
 	return wrapi(dir + rot, 0, 4)
 
