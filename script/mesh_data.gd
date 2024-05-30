@@ -82,13 +82,21 @@ enum Cull {
 
 ## Dirs
 enum Dir {
-	Left				= 0x00,
-	Back				= 0x01,
+	Top					= 0x00,
+	Bottom				= 0x01,
 	Right				= 0x02,
-	Front				= 0x03,
-	Top					= 0x04,
-	Bottom				= 0x05
+	Left				= 0x03,
+	Back				= 0x04,
+	Front				= 0x05
 }
+
+## Rotations
+var dir_rot = [
+	[Dir.Top, Dir.Bottom, Dir.Right, Dir.Left, Dir.Back, Dir.Front],
+	[Dir.Top, Dir.Bottom, Dir.Front, Dir.Back, Dir.Right, Dir.Left],
+	[Dir.Top, Dir.Bottom, Dir.Left, Dir.Right, Dir.Front, Dir.Back],
+	[Dir.Top, Dir.Bottom, Dir.Back, Dir.Front, Dir.Left, Dir.Right]
+]
 
 ## Normal dirs
 const UP				= Vector3.UP
@@ -142,7 +150,7 @@ class Tile extends Resource:
 	# Slope (Flipped)
 	Tile.new([
 		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		Cull.Full, Dir.Top,	GrowthTypes.Full),
-		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, Dir.Back,	GrowthTypes.None),
+		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, Dir.Bottom,	GrowthTypes.None),
 		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	Cull.DownTri_1, Dir.Left,	GrowthTypes.SlopeSideR),
 		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI_FLIPPED,  LEFT, 		Cull.DownTri_2, Dir.Right,	GrowthTypes.SlopeSideL),
 		TileSide.new(PLANE_FRONT,				INDICE_QUAD,		 FWD, 		Cull.Full, Dir.Front,	GrowthTypes.HalfSide),

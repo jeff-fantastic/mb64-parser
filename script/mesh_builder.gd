@@ -145,7 +145,7 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 	var inbound_tile_dat = MDat.tiles[inbound_tile.type]
 	if !inbound_tile_dat:
 		inbound_tile_dat = MDat.tiles[MDat.TileTypes.Block]
-	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, 6)]
+	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, ((4-rot) % 4)) ^ 1]
 	
 	if inbound_faces.is_empty():
 		return true
@@ -163,10 +163,12 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 			if (face.cullid == iface.cullid):
 				return false
 		if face.cullid == MDat.Cull.BottomSlab || face.cullid == MDat.Cull.TopSlab || face.cullid == MDat.Cull.PoleTop:
-			if (face.cullid == iface.cullid):
-				return false
-		if (face.cullid == (iface.cullid^1)):
-			return true
+			if (face.cullid != iface.cullid):
+				return rot == inbound_tile.rot
+			return false
+		print(face.cullid, iface.cullid^1, face.cullid == iface.cullid^1)
+		if (face.cullid == iface.cullid^1):
+			return false
 		if (face.cullid & 0x10) && (iface.cullid & 0x10) ||\
 		   (face.cullid & 0x20) && (iface.cullid & 0x20):
 			return (face.cullid > iface.cullid)
@@ -175,9 +177,7 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:
 	# Return self if dir is not in rotation, otherwise rotate
-	if dir > 3: return wrapi(dir + 1, 4, 6) if rot == 6 else dir
-	if rot == 0: return dir
-	return wrapi(dir + rot, 0, 4)
+	return MDat.dir_rot[rot][dir]
 
 ## Converts direction enum into vector3
 func vec_from_dir(dir : MDat.Dir) -> Vector3:
