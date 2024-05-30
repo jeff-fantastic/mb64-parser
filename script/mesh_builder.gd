@@ -163,15 +163,14 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 			if (face.cullid == iface.cullid):
 				return false
 		if face.cullid == MDat.Cull.BottomSlab || face.cullid == MDat.Cull.TopSlab || face.cullid == MDat.Cull.PoleTop:
-			if (face.cullid != iface.cullid):
-				return rot == inbound_tile.rot
-			return true
+			if (face.cullid == iface.cullid):
+				return false
 		print(face.cullid, iface.cullid^1, face.cullid == iface.cullid^1)
 		if (face.cullid == iface.cullid^1):
 			return false
 		if (face.cullid & 0x10) && (iface.cullid & 0x10) ||\
 		   (face.cullid & 0x20) && (iface.cullid & 0x20):
-			return (face.cullid > iface.cullid)
+			return (face.cullid < iface.cullid)
 	return true
 
 ## "Rotates" direction enum by provided factor

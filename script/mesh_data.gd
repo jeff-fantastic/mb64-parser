@@ -225,41 +225,41 @@ class Tile extends Resource:
 	]),
 	# Upper Gentle Slope
 	Tile.new([
-		TileSide.new(maxv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	Cull.Empty, Dir.Back, 	GrowthTypes.Full),
-		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		Cull.Full, Dir.Bottom,	GrowthTypes.None),
-		TileSide.new(maxv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	Cull.UpperGentle_2, Dir.Left, 	GrowthTypes.SlopeSideR),
-		TileSide.new(maxv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI,  		 LEFT, 		Cull.UpperGentle_1, Dir.Right, 	GrowthTypes.SlopeSideL),
-		TileSide.new(PLANE_FRONT,					INDICE_QUAD, 		 FWD, 		Cull.Full, Dir.Front, 	GrowthTypes.HalfSide),
 		TileSide.new(PLANE_RIGHT_HALF,				INDICE_QUAD, 		 RIGHT, 	Cull.BottomSlab, 	Dir.Left, 	GrowthTypes.HalfSide),
 		TileSide.new(PLANE_LEFT_HALF,				INDICE_QUAD, 		 LEFT, 		Cull.BottomSlab, 	Dir.Right, 	GrowthTypes.HalfSide),
 		TileSide.new(PLANE_BACK_HALF,				INDICE_QUAD, 		 BACK, 		Cull.BottomSlab, 	Dir.Back, 	GrowthTypes.HalfSide),
+		TileSide.new(maxv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	Cull.Empty, Dir.Back, 	GrowthTypes.Full),
+		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		Cull.Full, Dir.Bottom,	GrowthTypes.None),
+		TileSide.new(maxv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	Cull.UpperGentle_1, Dir.Left, 	GrowthTypes.SlopeSideR),
+		TileSide.new(maxv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI,  		 LEFT, 		Cull.UpperGentle_2, Dir.Right, 	GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_FRONT,					INDICE_QUAD, 		 FWD, 		Cull.Full, Dir.Front, 	GrowthTypes.HalfSide),
 	]),
 	# Upper Gentle Slope (Flipped)
 	Tile.new([
-		TileSide.new(flip_y(maxv(PLANE_SLOPE,1,0.5)),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, Dir.Back,	GrowthTypes.Full),
-		TileSide.new(PLANE_UP,								INDICE_QUAD, 		 UP, 		Cull.Full, Dir.Bottom,	GrowthTypes.None),
-		TileSide.new(flip_y(maxv(TRIANGLE_SLOPER,1,0.5)),	INDICE_TRI_FLIPPED,	 RIGHT, 	Cull.LowerGentle_1, 	Dir.Right, GrowthTypes.SlopeSideR),
-		TileSide.new(flip_y(maxv(TRIANGLE_SLOPEL,1,0.5)),	INDICE_TRI_FLIPPED,  LEFT, 		Cull.LowerGentle_2, 	Dir.Left, GrowthTypes.SlopeSideL),
-		TileSide.new(PLANE_FRONT,							INDICE_QUAD, 		 FWD, 		Cull.Full, Dir.Front, 	GrowthTypes.HalfSide),
-		TileSide.new(flip_y(PLANE_RIGHT_HALF),				INDICE_QUAD_FLIPPED, RIGHT, 	Cull.TopSlab, Dir.Right, 	GrowthTypes.HalfSide),
-		TileSide.new(flip_y(PLANE_LEFT_HALF),				INDICE_QUAD_FLIPPED, LEFT, 		Cull.TopSlab, Dir.Left, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_RIGHT_HALF),				INDICE_QUAD_FLIPPED, RIGHT, 	Cull.TopSlab, Dir.Left, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(PLANE_LEFT_HALF),				INDICE_QUAD_FLIPPED, LEFT, 		Cull.TopSlab, Dir.Right, 	GrowthTypes.HalfSide),
 		TileSide.new(flip_y(PLANE_BACK_HALF),				INDICE_QUAD_FLIPPED, BACK, 		Cull.TopSlab, Dir.Back, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(maxv(PLANE_SLOPE,1,0.5)),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, Dir.Back,	GrowthTypes.Full),
+		TileSide.new(PLANE_UP,								INDICE_QUAD, 		 UP, 		Cull.Full, Dir.Top,	GrowthTypes.None),
+		TileSide.new(flip_y(maxv(TRIANGLE_SLOPER,1,0.5)),	INDICE_TRI_FLIPPED,	 RIGHT, 	Cull.LowerGentle_1, 	Dir.Left, GrowthTypes.SlopeSideR),
+		TileSide.new(flip_y(maxv(TRIANGLE_SLOPEL,1,0.5)),	INDICE_TRI_FLIPPED,  LEFT, 		Cull.LowerGentle_2, 	Dir.Right, GrowthTypes.SlopeSideL),
+		TileSide.new(PLANE_FRONT,							INDICE_QUAD, 		 FWD, 		Cull.Full, Dir.Front, 	GrowthTypes.HalfSide),
 	]),
 	# Lower Gentle Slope
 	Tile.new([
 		TileSide.new(minv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	Cull.Empty, Dir.Top, 	GrowthTypes.Full),
 		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		Cull.Full, Dir.Bottom,	GrowthTypes.None),
-		TileSide.new(minv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	Cull.LowerGentle_1, Dir.Left, GrowthTypes.SlopeSideL),
-		TileSide.new(minv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI,  		 LEFT, 		Cull.LowerGentle_2, Dir.Right, GrowthTypes.SlopeSideR),
+		TileSide.new(minv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	Cull.LowerGentle_2, Dir.Left, GrowthTypes.SlopeSideL),
+		TileSide.new(minv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI,  		 LEFT, 		Cull.LowerGentle_1, Dir.Right, GrowthTypes.SlopeSideR),
 		TileSide.new(PLANE_FRONT_HALF,				INDICE_QUAD, 		 FWD, 		Cull.BottomSlab, Dir.Front, GrowthTypes.Unconditional),
 	]),
 	# Lower Gentle Slope (Flipped)
 	Tile.new([
-		TileSide.new(flip_y(minv(PLANE_SLOPE,1,0.5)),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, Dir.Back, 	GrowthTypes.Full),
+		TileSide.new(flip_y(minv(PLANE_SLOPE,1,0.5)),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, Dir.Bottom, 	GrowthTypes.Full),
 		TileSide.new(PLANE_UP,								INDICE_QUAD, 		 UP, 		Cull.Full, Dir.Top, 	GrowthTypes.None),
-		TileSide.new(flip_y(minv(TRIANGLE_SLOPER,1,0.5)),	INDICE_TRI_FLIPPED,	 RIGHT, 	Cull.UpperGentle_1, Dir.Right, 	GrowthTypes.SlopeSideR),
-		TileSide.new(flip_y(minv(TRIANGLE_SLOPEL,1,0.5)),	INDICE_TRI_FLIPPED,  LEFT, 		Cull.UpperGentle_2, Dir.Left, 	GrowthTypes.SlopeSideL),
-		TileSide.new(flip_y(PLANE_FRONT_HALF),				INDICE_QUAD_FLIPPED, FWD, 		Cull.Full, Dir.Front, 	GrowthTypes.HalfSide),
+		TileSide.new(flip_y(minv(TRIANGLE_SLOPER,1,0.5)),	INDICE_TRI_FLIPPED,	 RIGHT, 	Cull.UpperGentle_2, Dir.Left, 	GrowthTypes.SlopeSideR),
+		TileSide.new(flip_y(minv(TRIANGLE_SLOPEL,1,0.5)),	INDICE_TRI_FLIPPED,  LEFT, 		Cull.UpperGentle_1, Dir.Right, 	GrowthTypes.SlopeSideL),
+		TileSide.new(flip_y(PLANE_FRONT_HALF),				INDICE_QUAD_FLIPPED, FWD, 		Cull.TopSlab, Dir.Front, 	GrowthTypes.HalfSide),
 	]),
 	# Block
 	Tile.new([
@@ -274,21 +274,28 @@ class Tile extends Resource:
 	Tile.new([
 		TileSide.new(TRI_TOP,					INDICE_TRI,  			UP, 		Cull.TopTri, Dir.Top, GrowthTypes.Full),
 		TileSide.new(flip_y(TRI_TOP),			INDICE_TRI_FLIPPED, 	DOWN, 		Cull.TopTri, Dir.Bottom, GrowthTypes.None),
-		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		Cull.Full, Dir.Right, GrowthTypes.NormalSide),
-		TileSide.new(PLANE_VSLOPE,				INDICE_QUAD_FLIPPED, 	LEFT+BACK, 	Cull.Empty, Dir.Left, GrowthTypes.DiagonalSide),
+		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		Cull.Full, Dir.Left, GrowthTypes.NormalSide),
+		TileSide.new(PLANE_VSLOPE,				INDICE_QUAD_FLIPPED, 	LEFT+BACK, 	Cull.Empty, Dir.Right, GrowthTypes.DiagonalSide),
 		TileSide.new(PLANE_FRONT,				INDICE_QUAD, 			FWD, 		Cull.Full, Dir.Front, GrowthTypes.NormalSide),
 	]),
 	# Vertical Slab
 	Tile.new([
 		TileSide.new(minv(PLANE_UP,2,0.5),			INDICE_QUAD, UP, 		Cull.TopHalf, Dir.Top, GrowthTypes.Full),
 		TileSide.new(minv(PLANE_DOWN,2,0.5),		INDICE_QUAD, DOWN, 		Cull.TopHalf, Dir.Bottom, GrowthTypes.None),
-		TileSide.new(minv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	Cull.HalfSide_1, Dir.Right, GrowthTypes.NormalSide),
-		TileSide.new(minv(PLANE_LEFT,2,0.5),		INDICE_QUAD, LEFT, 		Cull.HalfSide_2, Dir.Left, GrowthTypes.NormalSide),
+		TileSide.new(minv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	Cull.HalfSide_1, Dir.Left, GrowthTypes.NormalSide),
+		TileSide.new(minv(PLANE_LEFT,2,0.5),		INDICE_QUAD, LEFT, 		Cull.HalfSide_2, Dir.Right, GrowthTypes.NormalSide),
 		TileSide.new(shift(PLANE_BACK,2,-0.5),		INDICE_QUAD, BACK, 		Cull.Empty, Dir.Back, GrowthTypes.NormalSide),
 		TileSide.new(PLANE_FRONT,					INDICE_QUAD, FWD, 		Cull.Full, Dir.Front, GrowthTypes.NormalSide),
 	]),
 	# Cull
-	null,
+	Tile.new([
+		TileSide.new([],	[], Vector3.ZERO, 		Cull.Full, Dir.Top, GrowthTypes.None),
+		TileSide.new([],	[], Vector3.ZERO, 		Cull.Full, Dir.Bottom, GrowthTypes.None),
+		TileSide.new([],	[], Vector3.ZERO, 		Cull.Full, Dir.Left, GrowthTypes.None),
+		TileSide.new([],	[], Vector3.ZERO, 		Cull.Full, Dir.Right, GrowthTypes.None),
+		TileSide.new([],	[], Vector3.ZERO, 		Cull.Full, Dir.Back, GrowthTypes.None),
+		TileSide.new([],	[], Vector3.ZERO, 		Cull.Full, Dir.Front, GrowthTypes.None),
+	]),
 	# Troll Block
 	null,
 	# Fence
