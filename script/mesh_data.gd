@@ -448,6 +448,34 @@ var default_themes : Array[Array] = [
 		[Mat.JRBWall,			Mat.JRBWall,			"Wall"],
 		[Mat.Quicksand,			Mat.Quicksand,			"Quicksand"],
 		MatFence.JRB, Mat.VPCaution, MatBar.HMC, MatWater.Default
+	],
+	## 9 - Retro
+	[
+		[Mat.RetroGround,		Mat.RetroGround,		"Ground"],
+		[Mat.RetroBricks,		Mat.RetroBricks,		"Bricks"],
+		[Mat.RetroTreePlat,		Mat.RetroTreeTop,		"Treetop"],
+		[Mat.RetroBlock,		Mat.RetroBlock,			"Block"],
+		[Mat.RetroBlueGround,	Mat.RetroBlueGround,	"Blue Ground"],
+		[Mat.RetroBlueBricks,	Mat.RetroBlueBricks,	"Blue Bricks"],
+		[Mat.RetroBlueBlock,	Mat.RetroBlueBlock,		"Blue Block"],
+		[Mat.RetroWhiteBrick,	Mat.RetroWhiteBrick,	"White Bricks"],
+		[Mat.RetroLava,			Mat.RetroLava,			"Lava"],
+		[Mat.RetroUnderWaterGround,	Mat.RetroUnderWaterGround,	"Underwater Tile"],
+		MatFence.Retro, Mat.RetroBricks, MatBar.Retro, MatWater.Retro
+	],
+	## 10 - Minecraft
+	[
+		[Mat.MCDirt,			Mat.MCGrass,			"Grass"],
+		[Mat.MCCobblestone,		Mat.MCCobblestone,		"Cobblestone"],
+		[Mat.MCStone,			Mat.MCStone,			"Stone"],
+		[Mat.MCOakLogSide,		Mat.MCOakLogTop,		"Oak Log"],
+		[Mat.MCOakLeaves,		Mat.MCOakLeaves,		"Oak Leaves"],
+		[Mat.MCWoodPlanks,		Mat.MCWoodPlanks,		"Oak Planks"],
+		[Mat.MCSand,			Mat.MCSand,				"Sand"],
+		[Mat.MCBricks,			Mat.MCBricks,			"Bricks"],
+		[Mat.MCFlowingLava,		Mat.MCLava,				"Lava"],
+		[Mat.MCGlass,			Mat.MCGlass,			"Glass"],
+		MatFence.MC, Mat.MCOakLogSide, MatBar.MC, MatWater.MC
 	]
 ]
 
