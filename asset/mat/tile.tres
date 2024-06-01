@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ymysj8ithxad"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_7a1lq"]
+[ext_resource type="Texture2D" uid="uid://m3gkowwd2he3" path="res://asset/level/Glover#6731B331#0#0#1F49C2D1_ciByRGBA.png" id="2_e08ye"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7a1lq")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_e08ye")

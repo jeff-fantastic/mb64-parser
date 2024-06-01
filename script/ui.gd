@@ -17,9 +17,16 @@ ObjectCount: {object_count}
 """
 ## GitHub link
 const GITHUB_LINK : String = "https://github.com/jeff-fantastic/mb64-parser"
+## Show/hide icons
+const _T_SHOW_HIDE = [
+	preload("res://asset/gui/svg/show.svg"),
+	preload("res://asset/gui/svg/hide.svg")
+]
 
 ## Sent when a parse is requested
 signal parse_requested(path : String)
+## Sent when a model export is requested
+signal export_requested()
 ## Sent when editing ability is changed
 signal editing_changed(mode : bool)
 
@@ -98,7 +105,49 @@ func update_ui(res : MB64Level) -> void:
 	%bound_height.value = res.boundary_height
 	%bound_mat.value = res.boundary_mat
 
-## Toggles metadata window field visibility
+## Toggles window field visibility
 func toggle_metadata_fields(mode : bool) -> void:
 	%meta_container.visible = mode
+	%model_container.visible = mode
 	%meta_message.visible = !mode
+	%model_message.visible = !mode
+
+func show_hide_toggle(toggled_on: bool) -> void:
+	var tw := create_tween()
+	if toggled_on:
+		%showhide.icon = _T_SHOW_HIDE[1]
+		%main_win_anim.play("showhide")
+		tw.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+		tw.tween_property(%main_win, "position:x", %ui.size.x, 0.5).from(%ui.size.x - 325)
+	else:
+		%showhide.icon = _T_SHOW_HIDE[0]
+		%main_win_anim.play_backwards("showhide")
+		tw.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		tw.tween_property(%main_win, "position:x", %ui.size.x - 325, 0.5)
+
+func tab_changed(tab: int) -> void:
+	match tab:
+		# Import tab
+		0:
+			%tab_import.visible = true
+			%tab_metadata.visible = false
+			%tab_model.visible = false
+			%tab_info.visible = false
+		1:
+			%tab_import.visible = false
+			%tab_metadata.visible = true
+			%tab_model.visible = false
+			%tab_info.visible = false
+		2:
+			%tab_import.visible = false
+			%tab_metadata.visible = false
+			%tab_model.visible = true
+			%tab_info.visible = false
+		4:
+			%tab_import.visible = false
+			%tab_metadata.visible = false
+			%tab_model.visible = false
+			%tab_info.visible = true
+
+func export_request() -> void:
+	export_requested.emit()

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c3pvkytxdlqes"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_24bis"]
+[ext_resource type="Texture2D" uid="uid://h2te4icjebwp" path="res://asset/level/sand2.png" id="2_1iy54"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_24bis")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_1iy54")

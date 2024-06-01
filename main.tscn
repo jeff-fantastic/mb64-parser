@@ -1,36 +1,131 @@
-[gd_scene load_steps=15 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=28 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
 [ext_resource type="Script" path="res://script/ui.gd" id="2_3kiir"]
 [ext_resource type="Texture2D" uid="uid://c2psown8f2nhy" path="res://asset/gui/thumb_placeholder.png" id="4_22j1p"]
+[ext_resource type="Texture2D" uid="uid://dc5c6w510jm4c" path="res://asset/gui/svg/import.svg" id="4_fmn8t"]
 [ext_resource type="PackedScene" uid="uid://cisw0jgkcidv1" path="res://song_config_window.tscn" id="5_68tqu"]
+[ext_resource type="Texture2D" uid="uid://bjjp4pafolwc8" path="res://asset/gui/svg/metadata.svg" id="5_g4xbd"]
+[ext_resource type="Texture2D" uid="uid://bu6t5mk5bjbgo" path="res://asset/gui/svg/model.svg" id="6_pwy57"]
 [ext_resource type="Texture2D" uid="uid://vyscghk0x3p7" path="res://asset/github.svg" id="6_v1xy5"]
 [ext_resource type="Script" path="res://script/mesh_builder.gd" id="7_oka8h"]
+[ext_resource type="Texture2D" uid="uid://btx8c35nmef3o" path="res://asset/gui/svg/random.svg" id="7_qjmup"]
+[ext_resource type="Texture2D" uid="uid://3lewdvipomle" path="res://asset/gui/svg/info.svg" id="8_yxiu7"]
 [ext_resource type="Script" path="res://script/cam.gd" id="9_cubwj"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unneb"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_detail = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1iys"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[ext_resource type="Texture2D" uid="uid://crohbo0w6csbd" path="res://asset/gui/svg/show.svg" id="10_b2pqr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6f2dw"]
+content_margin_left = 10.0
+content_margin_right = 0.0
+bg_color = Color(0.103744, 0.103744, 0.103744, 0.533333)
+border_width_left = 8
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e6vu"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.215902, 0.215902, 0.215902, 0.533333)
+border_width_left = 6
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3077"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 0.360784)
+border_width_left = 8
+border_color = Color(0, 0, 0, 0)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsda1"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gt645"]
+device = -1
+keycode = 72
+unicode = 104
+
+[sub_resource type="Shortcut" id="Shortcut_vhk86"]
+events = [SubResource("InputEventKey_gt645")]
+
+[sub_resource type="Animation" id="Animation_jsr70"]
+resource_name = "showhide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_win/tab_bar:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("main_win/tab_bar:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.00408552, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 4, 4]
+}
+
+[sub_resource type="Animation" id="Animation_fn2dx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_win/tab_bar:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("main_win/tab_bar:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kcmok"]
+_data = {
+"RESET": SubResource("Animation_fn2dx"),
+"showhide": SubResource("Animation_jsr70")
+}
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lvik"]
 
@@ -51,6 +146,7 @@ unique_name_in_owner = true
 script = ExtResource("1_2mchu")
 
 [node name="ui" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,50 +159,81 @@ script = ExtResource("2_3kiir")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
-[node name="import_panel" type="Control" parent="ui"]
-layout_mode = 2
-anchors_preset = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 226.0
-offset_bottom = 316.0
+[node name="windows" type="Control" parent="ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="main_win" type="Control" parent="ui/windows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -325.0
+offset_top = 16.0
+offset_right = -11.9998
+offset_bottom = 634.0
+grow_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="hide_show" type="Button" parent="ui/import_panel"]
+[node name="tab_bar" type="TabBar" parent="ui/windows/main_win"]
 layout_mode = 2
-anchor_left = -0.076
-anchor_top = -0.053
-anchor_right = -0.076
-anchor_bottom = -0.053
-offset_left = 225.96
-offset_top = 131.9
-offset_right = 251.96
-offset_bottom = 203.9
+anchor_left = 1.038
+anchor_top = -0.026
+anchor_right = 1.038
+anchor_bottom = -0.026
+offset_left = -399.894
+offset_top = 39.068
+offset_right = 151.106
+offset_bottom = 114.068
+rotation = -1.57079
+scale = Vector2(-1, 1)
 size_flags_horizontal = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_unneb")
-text = ">"
-metadata/_edit_use_anchors_ = true
+theme = ExtResource("1_5kf88")
+tab_count = 5
+tab_0/title = ""
+tab_0/icon = ExtResource("4_fmn8t")
+tab_1/title = ""
+tab_1/icon = ExtResource("5_g4xbd")
+tab_2/title = ""
+tab_2/icon = ExtResource("6_pwy57")
+tab_3/title = ""
+tab_3/icon = ExtResource("7_qjmup")
+tab_3/disabled = true
+tab_4/title = ""
+tab_4/icon = ExtResource("8_yxiu7")
 
-[node name="panel" type="PanelContainer" parent="ui/import_panel"]
+[node name="panel" type="PanelContainer" parent="ui/windows/main_win"]
+custom_minimum_size = Vector2(210, 300)
 layout_mode = 2
-anchor_left = -0.076
-anchor_top = -0.053
-anchor_right = -0.076
-anchor_bottom = -0.053
-offset_left = 15.96
-offset_top = 15.9
-offset_right = 225.96
-offset_bottom = 321.9
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -313.0
+offset_top = -2.0
+offset_bottom = 618.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_5kf88")
-metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui/import_panel/panel"]
+[node name="tab_import" type="Control" parent="ui/windows/main_win/panel"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="label" type="RichTextLabel" parent="ui/import_panel/panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/windows/main_win/panel/tab_import"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="label" type="RichTextLabel" parent="ui/windows/main_win/panel/tab_import/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
@@ -115,14 +242,15 @@ Parser Tool[/b]
 
 [i]Original hack by Rovertronic, Arthurtilly, and co. Parser created by Jefftastic
 
-Select a valid SM64 rom to extract assets from, then load a valid level file (.mb64)"
+Load a valid level file (.mb64) to view the level, modify its metadata, and more."
 fit_content = true
 
-[node name="load_sm64_rom" type="Button" parent="ui/import_panel/panel/VBoxContainer"]
+[node name="load_sm64_rom" type="Button" parent="ui/windows/main_win/panel/tab_import/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Load SM64 ROM"
 
-[node name="open_file_diag" type="FileDialog" parent="ui/import_panel/panel/VBoxContainer/load_sm64_rom"]
+[node name="open_file_diag" type="FileDialog" parent="ui/windows/main_win/panel/tab_import/VBoxContainer/load_sm64_rom"]
 title = "Open a File"
 size = Vector2i(941, 159)
 ok_button_text = "Open"
@@ -131,11 +259,11 @@ access = 2
 filters = PackedStringArray("*.mb64")
 use_native_dialog = true
 
-[node name="load_level" type="Button" parent="ui/import_panel/panel/VBoxContainer"]
+[node name="load_level" type="Button" parent="ui/windows/main_win/panel/tab_import/VBoxContainer"]
 layout_mode = 2
 text = "Load Level"
 
-[node name="level_diag" type="FileDialog" parent="ui/import_panel/panel/VBoxContainer/load_level"]
+[node name="level_diag" type="FileDialog" parent="ui/windows/main_win/panel/tab_import/VBoxContainer/load_level"]
 unique_name_in_owner = true
 title = "Open a File"
 initial_position = 4
@@ -146,51 +274,20 @@ access = 2
 filters = PackedStringArray("*.mb64")
 use_native_dialog = true
 
-[node name="meta_data" type="Control" parent="ui"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-metadata/_edit_lock_ = true
-
-[node name="hide_show" type="Button" parent="ui/meta_data"]
-layout_mode = 2
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -351.0
-offset_top = 313.0
-offset_right = -325.0
-offset_bottom = -263.0
-size_flags_horizontal = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_t1iys")
-text = "<"
-metadata/_edit_use_anchors_ = true
-
-[node name="panel" type="PanelContainer" parent="ui/meta_data"]
-custom_minimum_size = Vector2(210, 300)
-layout_mode = 2
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -324.914
-offset_top = 13.68
-offset_right = -14.9141
-offset_bottom = -16.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme = ExtResource("1_5kf88")
-metadata/_edit_use_anchors_ = true
-
-[node name="meta_container" type="VBoxContainer" parent="ui/meta_data/panel"]
+[node name="tab_metadata" type="Control" parent="ui/windows/main_win/panel"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
+
+[node name="meta_container" type="VBoxContainer" parent="ui/windows/main_win/panel/tab_metadata"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+offset_right = 289.0
+offset_bottom = 594.32
 theme_override_constants/separation = 8
 
-[node name="category" type="RichTextLabel" parent="ui/meta_data/panel/meta_container"]
+[node name="category" type="RichTextLabel" parent="ui/windows/main_win/panel/tab_metadata/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
@@ -199,7 +296,7 @@ text = "[b]Level Metadata[/b]
 "
 fit_content = true
 
-[node name="thumbnail" type="Button" parent="ui/meta_data/panel/meta_container"]
+[node name="thumbnail" type="Button" parent="ui/windows/main_win/panel/tab_metadata/meta_container"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
@@ -208,7 +305,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="thumbnail_diag" type="FileDialog" parent="ui/meta_data/panel/meta_container/thumbnail"]
+[node name="thumbnail_diag" type="FileDialog" parent="ui/windows/main_win/panel/tab_metadata/meta_container/thumbnail"]
 unique_name_in_owner = true
 title = "Open a File"
 size = Vector2i(941, 159)
@@ -218,7 +315,7 @@ access = 2
 filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.bmp")
 use_native_dialog = true
 
-[node name="metadata" type="RichTextLabel" parent="ui/meta_data/panel/meta_container"]
+[node name="metadata" type="RichTextLabel" parent="ui/windows/main_win/panel/tab_metadata/meta_container"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
@@ -231,33 +328,33 @@ ObjectCount: {object_count}
 "
 fit_content = true
 
-[node name="scroll" type="ScrollContainer" parent="ui/meta_data/panel/meta_container"]
+[node name="scroll" type="ScrollContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="vbox" type="VBoxContainer" parent="ui/meta_data/panel/meta_container/scroll"]
+[node name="vbox" type="VBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 alignment = 1
 
-[node name="info" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="info" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 text = "Information"
 label_settings = SubResource("LabelSettings_cjteh")
 
-[node name="seperator3" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="seperator3" type="HSeparator" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="level_name_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="level_name_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/level_name_property"]
 layout_mode = 2
 text = "Title"
 
-[node name="level_name" type="LineEdit" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property"]
+[node name="level_name" type="LineEdit" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/level_name_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
@@ -266,14 +363,14 @@ placeholder_text = "Level Name"
 max_length = 50
 clear_button_enabled = true
 
-[node name="level_author_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="level_author_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/level_author_property"]
 layout_mode = 2
 text = "Author"
 
-[node name="level_author" type="LineEdit" parent="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property"]
+[node name="level_author" type="LineEdit" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/level_author_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
@@ -282,40 +379,40 @@ placeholder_text = "Level Author"
 max_length = 30
 clear_button_enabled = true
 
-[node name="generic" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="generic" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 text = "Generic"
 label_settings = SubResource("LabelSettings_cjteh")
 
-[node name="seperator" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="seperator" type="HSeparator" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="song_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="song_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/song_property"]
 layout_mode = 2
 text = "Song"
 
-[node name="song" type="Button" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property"]
+[node name="song" type="Button" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/song_property"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Open Config"
 alignment = 0
 
-[node name="song_config_window" parent="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" instance=ExtResource("5_68tqu")]
+[node name="song_config_window" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/song_property/song" instance=ExtResource("5_68tqu")]
 unique_name_in_owner = true
 visible = false
 
-[node name="envfx_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="envfx_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/envfx_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/envfx_property"]
 layout_mode = 2
 text = "Environment"
 
-[node name="environment" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/envfx_property"]
+[node name="environment" type="OptionButton" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/envfx_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
@@ -334,14 +431,14 @@ popup/item_3/id = 3
 popup/item_4/text = "Sandstorm"
 popup/item_4/id = 4
 
-[node name="theme_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="theme_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/theme_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/theme_property"]
 layout_mode = 2
 text = "Theme"
 
-[node name="theme" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/theme_property"]
+[node name="theme" type="OptionButton" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/theme_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -374,14 +471,14 @@ popup/item_10/id = 10
 popup/item_11/text = "Minecraft"
 popup/item_11/id = 11
 
-[node name="background_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="background_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/background_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/background_property"]
 layout_mode = 2
 text = "BG"
 
-[node name="background" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/background_property"]
+[node name="background" type="OptionButton" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/background_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -409,14 +506,14 @@ popup/item_8/id = 8
 popup/item_9/text = "None"
 popup/item_9/id = 9
 
-[node name="coin_star_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="coin_star_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/coin_star_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/coin_star_property"]
 layout_mode = 2
 text = "Coin Star"
 
-[node name="coin_star" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/coin_star_property"]
+[node name="coin_star" type="SpinBox" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/coin_star_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
@@ -426,62 +523,62 @@ step = 20.0
 value = 20.0
 suffix = "Coins"
 
-[node name="water_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="water_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/water_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/water_property"]
 layout_mode = 2
 text = "Water Level"
 
-[node name="water_level" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/water_property"]
+[node name="water_level" type="SpinBox" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/water_property"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 64.0
 prefix = "Y"
 
-[node name="secret_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="secret_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/secret_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/secret_property"]
 layout_mode = 2
 text = "Enable Secret Theme"
 
-[node name="secret_theme" type="CheckBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/secret_property"]
+[node name="secret_theme" type="CheckBox" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/secret_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="btcm_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="btcm_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/btcm_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/btcm_property"]
 layout_mode = 2
 text = "Enable BTCM gamemode"
 
-[node name="btcm_mode" type="CheckBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/btcm_property"]
+[node name="btcm_mode" type="CheckBox" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/btcm_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="boundary" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 text = "Boundary"
 label_settings = SubResource("LabelSettings_cjteh")
 
-[node name="seperator2" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="seperator2" type="HSeparator" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="boundary_type_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary_type_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_type_property"]
 layout_mode = 2
 text = "Boundary Type"
 
-[node name="bound_type" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type_property"]
+[node name="bound_type" type="OptionButton" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_type_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
@@ -499,49 +596,49 @@ popup/item_3/id = 3
 popup/item_4/text = "Plateau"
 popup/item_4/id = 4
 
-[node name="boundary_height_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary_height_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_height_property"]
 layout_mode = 2
 text = "Boundary Height"
 
-[node name="bound_height" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property"]
+[node name="bound_height" type="SpinBox" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_height_property"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 64.0
 prefix = "Y"
 
-[node name="boundary_material_id_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="boundary_material_id_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_material_id_property"]
 layout_mode = 2
 text = "Boundary Material ID"
 
-[node name="bound_mat" type="SpinBox" parent="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property"]
+[node name="bound_mat" type="SpinBox" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_material_id_property"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 max_value = 9.0
 
-[node name="btcm" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="btcm" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 text = "BTCM Exclusive"
 label_settings = SubResource("LabelSettings_cjteh")
 
-[node name="seperator4" type="HSeparator" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="seperator4" type="HSeparator" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="costume_property" type="HBoxContainer" parent="ui/meta_data/panel/meta_container/scroll/vbox"]
+[node name="costume_property" type="HBoxContainer" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox"]
 layout_mode = 2
 
-[node name="meta_name" type="Label" parent="ui/meta_data/panel/meta_container/scroll/vbox/costume_property"]
+[node name="meta_name" type="Label" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/costume_property"]
 layout_mode = 2
 text = "Costume"
 
-[node name="costume" type="OptionButton" parent="ui/meta_data/panel/meta_container/scroll/vbox/costume_property"]
+[node name="costume" type="OptionButton" parent="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/costume_property"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
@@ -579,12 +676,12 @@ popup/item_13/id = 13
 popup/item_14/text = "Cosmic Phant."
 popup/item_14/id = 14
 
-[node name="export" type="Button" parent="ui/meta_data/panel/meta_container"]
+[node name="export" type="Button" parent="ui/windows/main_win/panel/tab_metadata/meta_container"]
 layout_mode = 2
 tooltip_text = "Writes changed metadata to .mb64 file"
 text = "Export Modified Level"
 
-[node name="export_dialog" type="FileDialog" parent="ui/meta_data/panel/meta_container/export"]
+[node name="export_dialog" type="FileDialog" parent="ui/windows/main_win/panel/tab_metadata/meta_container/export"]
 unique_name_in_owner = true
 title = "Export Modified Level..."
 initial_position = 4
@@ -592,12 +689,135 @@ access = 2
 filters = PackedStringArray("*.mb64")
 use_native_dialog = true
 
-[node name="meta_message" type="Label" parent="ui/meta_data/panel"]
+[node name="meta_message" type="Label" parent="ui/windows/main_win/panel/tab_metadata"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load a level first!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="tab_model" type="Control" parent="ui/windows/main_win/panel"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[node name="model_container" type="VBoxContainer" parent="ui/windows/main_win/panel/tab_model"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="category" type="RichTextLabel" parent="ui/windows/main_win/panel/tab_model/model_container"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+bbcode_enabled = true
+text = "[b]Level Model[/b]
+Nothing much here... yet! Exporting is experimental"
+fit_content = true
+
+[node name="export" type="Button" parent="ui/windows/main_win/panel/tab_model/model_container"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Export Model as glTF binary"
+
+[node name="export_model" type="FileDialog" parent="ui/windows/main_win/panel/tab_model/model_container/export"]
+unique_name_in_owner = true
+initial_position = 4
+size = Vector2i(941, 159)
+ok_button_text = "Save"
+access = 2
+filters = PackedStringArray("*.glb")
+use_native_dialog = true
+
+[node name="model_message" type="Label" parent="ui/windows/main_win/panel/tab_model"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Load a level first!"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="tab_info" type="Control" parent="ui/windows/main_win/panel"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/windows/main_win/panel/tab_info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="label" type="RichTextLabel" parent="ui/windows/main_win/panel/tab_info/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]Controls[/b]
+[i]C - Toggle camera control
+WASD - Move camera 
+Q/E - Move camera
+
+V - Toggle wireframe
+B - Toggle UV debug
+H - Hide menu shortcut[/i]
+
+[b]About[/b]
+[i]This program is used to parse and reconstruct Mario Builder 64 levels, and serves to fufill the following purposes at minimum:
+[ul]
+Read and write metadata in the header
+Read and reconstruct tile data
+Read and reconstruct object data
+Level viewing with extensive camera control
+Perform major data operations that would otherwise be challenging on N64
+Export reconstructed level data to modern model formats, for use elsewhere
+[/ul]
+
+This software would have been much harder to develop without the source code of Mario Builder 64 and it's level format being publicized. Big ups to Rovertronic and Arthurtilly for (incidentally) making the development of this tool easier!
+
+Software is licensed under GPL-3.0, you have the right to copy, modify and distribute this software. This software is provided with zero warranty, I am irresponsible for any potential damages caused by this software.[/i]"
+fit_content = true
+
+[node name="showhide" type="Button" parent="ui/windows/main_win"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.038
+anchor_top = -0.026
+anchor_right = 1.038
+anchor_bottom = -0.026
+offset_left = -399.894
+offset_top = 520.068
+offset_right = -324.894
+offset_bottom = 588.068
+theme = ExtResource("1_5kf88")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6f2dw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5e6vu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s3077")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_xsda1")
+toggle_mode = true
+shortcut = SubResource("Shortcut_vhk86")
+icon = ExtResource("10_b2pqr")
+
+[node name="main_win_anim" type="AnimationPlayer" parent="ui/windows"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_kcmok")
+}
 
 [node name="info" type="HBoxContainer" parent="ui"]
 modulate = Color(1, 1, 1, 0.482353)
@@ -629,9 +849,10 @@ label_settings = SubResource("LabelSettings_e6hdq")
 script = ExtResource("7_oka8h")
 
 [node name="built_mesh" type="MeshInstance3D" parent="mesh_builder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0369234, 4.76837e-07, 0.342829)
 
 [node name="cam" type="Camera3D" parent="mesh_builder"]
-transform = Transform3D(-4.37114e-08, -0.258819, 0.965926, 0, 0.965926, 0.258819, -1, 1.13133e-08, -4.2222e-08, 37.907, 17.525, 40.924)
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 16, 64, 64)
 environment = SubResource("Environment_2qncd")
 script = ExtResource("9_cubwj")
 
@@ -641,25 +862,29 @@ transform = Transform3D(0.477159, 0.731136, -0.487607, 0, 0.554844, 0.831955, 0.
 [connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
 [connection signal="parsing_complete" from="parser" to="mesh_builder" method="build_mesh"]
 [connection signal="editing_changed" from="ui" to="ui" method="toggle_metadata_fields"]
+[connection signal="export_requested" from="ui" to="mesh_builder" method="export_model_process"]
 [connection signal="parse_requested" from="ui" to="parser" method="parse_file"]
-[connection signal="pressed" from="ui/import_panel/panel/VBoxContainer/load_level" to="ui" method="mb64_import_requested"]
-[connection signal="file_selected" from="ui/import_panel/panel/VBoxContainer/load_level/level_diag" to="ui" method="mb64_selected"]
-[connection signal="pressed" from="ui/meta_data/panel/meta_container/thumbnail" to="ui" method="painting_import_requested"]
-[connection signal="file_selected" from="ui/meta_data/panel/meta_container/thumbnail/thumbnail_diag" to="parser" method="load_picture_for_import"]
-[connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_name_property/level_name" to="parser" method="set_level_name"]
-[connection signal="text_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/level_author_property/level_author" to="parser" method="set_author"]
-[connection signal="pressed" from="ui/meta_data/panel/meta_container/scroll/vbox/song_property/song" to="ui" method="open_song_config"]
-[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/envfx_property/environment" to="parser" method="set_envfx"]
-[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/theme_property/theme" to="parser" method="set_theme"]
-[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/background_property/background" to="parser" method="set_background"]
-[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/coin_star_property/coin_star" to="parser" method="coin_star_changed"]
-[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/water_property/water_level" to="parser" method="water_level_changed"]
-[connection signal="toggled" from="ui/meta_data/panel/meta_container/scroll/vbox/secret_property/secret_theme" to="parser" method="secret_theme_toggled"]
-[connection signal="toggled" from="ui/meta_data/panel/meta_container/scroll/vbox/btcm_property/btcm_mode" to="parser" method="btcm_mode_toggled"]
-[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_type_property/bound_type" to="parser" method="bound_type_selected"]
-[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_height_property/bound_height" to="parser" method="bound_height_changed"]
-[connection signal="value_changed" from="ui/meta_data/panel/meta_container/scroll/vbox/boundary_material_id_property/bound_mat" to="parser" method="bound_mat_changed"]
-[connection signal="item_selected" from="ui/meta_data/panel/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
-[connection signal="pressed" from="ui/meta_data/panel/meta_container/export" to="parser" method="open_save_dialog"]
-[connection signal="file_selected" from="ui/meta_data/panel/meta_container/export/export_dialog" to="parser" method="write_meta"]
+[connection signal="tab_changed" from="ui/windows/main_win/tab_bar" to="ui" method="tab_changed"]
+[connection signal="pressed" from="ui/windows/main_win/panel/tab_import/VBoxContainer/load_level" to="ui" method="mb64_import_requested"]
+[connection signal="file_selected" from="ui/windows/main_win/panel/tab_import/VBoxContainer/load_level/level_diag" to="ui" method="mb64_selected"]
+[connection signal="pressed" from="ui/windows/main_win/panel/tab_metadata/meta_container/thumbnail" to="ui" method="painting_import_requested"]
+[connection signal="file_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/thumbnail/thumbnail_diag" to="parser" method="load_picture_for_import"]
+[connection signal="text_changed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/level_name_property/level_name" to="parser" method="set_level_name"]
+[connection signal="text_changed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/level_author_property/level_author" to="parser" method="set_author"]
+[connection signal="pressed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/song_property/song" to="ui" method="open_song_config"]
+[connection signal="item_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/envfx_property/environment" to="parser" method="set_envfx"]
+[connection signal="item_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/theme_property/theme" to="parser" method="set_theme"]
+[connection signal="item_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/background_property/background" to="parser" method="set_background"]
+[connection signal="value_changed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/coin_star_property/coin_star" to="parser" method="coin_star_changed"]
+[connection signal="value_changed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/water_property/water_level" to="parser" method="water_level_changed"]
+[connection signal="toggled" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/secret_property/secret_theme" to="parser" method="secret_theme_toggled"]
+[connection signal="toggled" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/btcm_property/btcm_mode" to="parser" method="btcm_mode_toggled"]
+[connection signal="item_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_type_property/bound_type" to="parser" method="bound_type_selected"]
+[connection signal="value_changed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_height_property/bound_height" to="parser" method="bound_height_changed"]
+[connection signal="value_changed" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/boundary_material_id_property/bound_mat" to="parser" method="bound_mat_changed"]
+[connection signal="item_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/scroll/vbox/costume_property/costume" to="parser" method="set_costume"]
+[connection signal="pressed" from="ui/windows/main_win/panel/tab_metadata/meta_container/export" to="parser" method="open_save_dialog"]
+[connection signal="file_selected" from="ui/windows/main_win/panel/tab_metadata/meta_container/export/export_dialog" to="parser" method="write_meta"]
+[connection signal="pressed" from="ui/windows/main_win/panel/tab_model/model_container/export" to="ui" method="export_request"]
+[connection signal="toggled" from="ui/windows/main_win/showhide" to="ui" method="show_hide_toggle"]
 [connection signal="pressed" from="ui/info/github" to="ui" method="open_github_repo"]

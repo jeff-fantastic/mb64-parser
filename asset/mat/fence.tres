@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://kgrpfb2y63wo"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_i12rc"]
+[ext_resource type="Texture2D" uid="uid://b1m5b1p7a8kyo" path="res://asset/level/exm_saku.png" id="2_jy23a"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_i12rc")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_jy23a")

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cy61lad1t6vdk"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_4l7ko"]
+[ext_resource type="Texture2D" uid="uid://b3ivpr1cpwv1p" path="res://asset/level/tileside.png" id="2_rvwcr"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4l7ko")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_rvwcr")

@@ -14,8 +14,8 @@ signal mesh_built()
 ## Tile grid
 var grid : MB64Level.CMMTileGrid
 
-## Materials
-const materials : Array[StandardMaterial3D] = [
+## Placeholder materials
+const placeholder_materials : Array[StandardMaterial3D] = [
 	preload("res://asset/mat/debug/debug0.tres"),
 	preload("res://asset/mat/debug/debug1.tres"),
 	preload("res://asset/mat/debug/debug2.tres"),
@@ -32,6 +32,9 @@ const materials : Array[StandardMaterial3D] = [
 	preload("res://asset/mat/debug/water_debug.tres")
 ]
 
+## Loaded materials, for export
+var loaded_mats : Array[Material] = []
+
 func build_mesh(result : MB64Level) -> void:
 	# Declare variables
 	var mesh : ArrayMesh = ArrayMesh.new()
@@ -39,17 +42,27 @@ func build_mesh(result : MB64Level) -> void:
 	var mesh_data_array : Array[Variant] = []
 	grid = result.t_grid
 	
-	# Setup arrays
-	tiles_sorted.resize(14)
+	# Setup tile sorted array
+	# 10 entries for side tiles,
+	# 10 entries for top tiles (different surfaces)
+	# 4 entries for special tiles
+	tiles_sorted.resize(24)
+	loaded_mats.clear()
+	
+	# Get material array
+	var mats := MDat.default_themes[result.theme]
+	if !mats: mats = placeholder_materials
 	
 	# Iterate over tiles
 	for tile in grid.map:
 		match (tile[1].type):
-			MDat.TileTypes.Fence:	tiles_sorted[10].push_back(tile[0])
-			MDat.TileTypes.Pole:	tiles_sorted[11].push_back(tile[0])
-			MDat.TileTypes.Bars:	tiles_sorted[12].push_back(tile[0])
-			MDat.TileTypes.Water:	tiles_sorted[13].push_back(tile[0])
-			_:						tiles_sorted[tile[1].mat].push_back(tile[0])
+			MDat.TileTypes.Fence:	tiles_sorted[20].push_back(tile[0])
+			MDat.TileTypes.Pole:	tiles_sorted[21].push_back(tile[0])
+			MDat.TileTypes.Bars:	tiles_sorted[22].push_back(tile[0])
+			MDat.TileTypes.Water:	tiles_sorted[23].push_back(tile[0])
+			_:
+				tiles_sorted[tile[1].mat].push_back(tile[0])
+				tiles_sorted[tile[1].mat + 10].push_back(tile[0])
 		
 		
 	# Now iterate over materials
@@ -61,21 +74,32 @@ func build_mesh(result : MB64Level) -> void:
 		if tiles_sorted[list].is_empty():
 			continue
 		
-		# Build surface
 		var total_ind : int = 0
 		for tile in tiles_sorted[list]:
-			total_ind = build_tile(mesh_data_array, tile, total_ind)
+			if list < 10 || list >= 20:
+				# Build sides if tiles_sorted subarray contains tile data
+				total_ind = build_tile_sides(mesh_data_array, tiles_sorted, tile, total_ind)
+			else:
+				# Otherwise build tops
+				total_ind = build_tile_top(mesh_data_array, tile, total_ind)
 		
+		# Make surface, if there is anything
+		if mesh_data_array[Mesh.ARRAY_VERTEX].is_empty():
+			continue
 		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh_data_array)
+		
+		# Assign material
 		var count : int = mesh.get_surface_count() - 1
-		mesh.surface_set_material(count, materials[list])
+		var mat := obtain_material(mats, list)
+		mesh.surface_set_material(count, mat)
+		loaded_mats.append(mat)
 		mesh.generate_triangle_mesh()
 	
 	# Build and set mesh
 	mesh_instance.mesh = mesh
 
-## Builds a tile based on type, and assigns it a material
-func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> int:
+## Builds all sides of a tile except tops.
+func build_tile_sides(mesh_arr : Array[Variant], tile_list : Array, pos : Vector3, total_ind : int) -> int:
 	# Determine tile type and position
 	var tile : MB64Level.CMMTile = grid.tiles[pos.x][pos.y][pos.z]
 	var tile_type : MDat.Tile =  MDat.tiles[tile.type]
@@ -85,43 +109,104 @@ func build_tile(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> in
 	# Build sides
 	for side in tile_type.sides:
 		for face in side:
-			# Determine cull
 			face = face as MDat.TileSide
+			if face.dir == MDat.Dir.Top && tile.type < MDat.TileTypes.Fence && tile.type != MDat.TileTypes.Water:
+				continue
+			
+			# Otherwise determine culling
 			if !should_build(face, pos, face.dir, tile.rot):
 				continue
 			
-			# Get side information
-			var vertices := PackedVector3Array([])
-			var indices : PackedInt32Array = face.indices 
-			
-			# Build vertices array
-			for vtx in face.mesh:
-				var v_pos = rotate_point(vtx, tile.rot) + pos
-				var dir = face.normal.rotated(Vector3.UP, tile.rot * -PI/2)
-				vertices.push_back(v_pos)
-				mesh_arr[Mesh.ARRAY_NORMAL].push_back(dir)
-			
-			# Determine indice offset (this sucks)
-			var offset : PackedInt32Array = indices.duplicate()
-			for idx in range(offset.size()):
-				offset[idx] += total_ind
-			
-			# Append verts, indices, uvs
-			mesh_arr[Mesh.ARRAY_VERTEX].append_array(vertices)
-			mesh_arr[Mesh.ARRAY_INDEX].append_array(offset)
-			
-			# Increment
-			total_ind += indices_from_face(indices)
+			# Build triangle
+			total_ind = build_tri(face, pos, tile, mesh_arr, total_ind)
 		
 	# Return indices
 	return total_ind
 
+## Builds top of tile
+func build_tile_top(mesh_arr : Array[Variant], pos : Vector3, total_ind : int) -> int:
+	# Get top side
+	var tile : MB64Level.CMMTile = grid.tiles[pos.x][pos.y][pos.z]
+	var tile_type : MDat.Tile =  MDat.tiles[tile.type]
+	if !tile_type:
+		tile_type = MDat.tiles[MDat.TileTypes.Block]
+	var side := tile_type.sides[MDat.Dir.Top]
+	
+	for face in side:
+		face = face as MDat.TileSide
+		
+		# Cull check
+		if !should_build(face, pos, face.dir, tile.rot):
+			continue
+		
+		# Build triangle
+		total_ind = build_tri(face, pos, tile, mesh_arr, total_ind)
+		
+	return total_ind
+
+## Builds triangle
+func build_tri(face : MDat.TileSide, pos : Vector3, tile : MB64Level.CMMTile, mesh_arr : Array, total_ind : int) -> int:
+	# Get side information
+	var vertices := PackedVector3Array([])
+	var indices : PackedInt32Array = face.indices 
+	
+	# Build vertices array
+	for vtx in face.mesh:
+		var v_pos = rotate_point(vtx, tile.rot) + pos
+		var dir = face.normal.rotated(Vector3.UP, tile.rot * -PI/2)
+		vertices.push_back(v_pos)
+		mesh_arr[Mesh.ARRAY_NORMAL].push_back(dir)
+	
+	# Determine indice offset (this sucks)
+	var offset : PackedInt32Array = indices.duplicate()
+	for idx in range(offset.size()):
+		offset[idx] += total_ind
+	
+	# Append verts, indices, uvs
+	mesh_arr[Mesh.ARRAY_VERTEX].append_array(vertices)
+	mesh_arr[Mesh.ARRAY_INDEX].append_array(offset)
+	
+	var d_rotated = rotate_enum(face.dir, tile.rot)
+	var d_vec = vec_from_dir(d_rotated)
+	mesh_arr[Mesh.ARRAY_TEX_UV].append_array(rotate_uv(d_vec, tile.rot, face.uv))
+	
+	# Increment
+	return total_ind + indices_from_face(indices)
+
+## Exports level model as GLTF binary
+func export_model_process() -> void:
+	## Generate model from mesh
+	var document := GLTFDocument.new()
+	var state := GLTFState.new()
+	state.base_path = "res://asset/level/"
+	document.append_from_scene(mesh_instance, state)
+	
+	if OS.get_name() != "Web":
+		%export_model.show()
+		%export_model.file_selected.connect(func(path : String) -> void: document.write_to_filesystem(state, path))
+	else:
+		var buf := document.generate_buffer(state)
+		JavaScriptBridge.download_buffer(buf, "model.glb", "application/gltf+binary")
+		
+## Debug input
+func _unhandled_input(event: InputEvent) -> void:
+	# Filter input
+	if !event is InputEventKey:
+		return
+	
+	# Toggle for UV overlay
+	event = event as InputEventKey
+	if event.pressed && event.keycode == KEY_B:
+		mesh_instance.material_overlay = placeholder_materials[0] if !mesh_instance.material_overlay else null 
+
+## Prepares mesh array for data
 func prepare_mesh_array(mda : Array) -> void:
 	mda.clear()
 	mda.resize(Mesh.ARRAY_MAX)
 	mda[Mesh.ARRAY_VERTEX] = PackedVector3Array([])
 	mda[Mesh.ARRAY_INDEX] = PackedInt32Array([])
 	mda[Mesh.ARRAY_NORMAL] = PackedVector3Array([])
+	mda[Mesh.ARRAY_TEX_UV] = PackedVector2Array([])
 
 ## Determines if building a side is necessary based on culling checks
 func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int) -> bool:
@@ -173,6 +258,32 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 			return (face.cullid < iface.cullid)
 	return true
 
+## Obtains material from array based on position
+func obtain_material(mats : Array, pos : int) -> Material:
+	# Determine position and fetch enum
+	var x := pos if pos < 10 else pos - 10
+	var y := (0 if pos < 10 else 1) if pos < 20 else 0
+	var mat_enum = mats[x]
+	if mat_enum is Array:
+		mat_enum = mat_enum[y]
+	else:
+		print("Fence")
+	
+	# Now that we have enum, we need to determine what to return
+	match max(pos-19, 0):
+		# Fence mats
+		1:	
+			return MDat.fence_materials[mat_enum]
+		# Pole mats
+		2:	return placeholder_materials[11]
+		# Bar mats
+		3:	return placeholder_materials[12]
+		# Water mats
+		4:	return placeholder_materials[13]
+		# Default material
+		_:	return MDat.materials[mat_enum] if MDat.materials[mat_enum] else placeholder_materials[mat_enum % 10] 
+	return placeholder_materials[0]
+
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:
 	# Return self if dir is not in rotation, otherwise rotate
@@ -204,3 +315,13 @@ func indices_from_face(indices : PackedInt32Array) -> int:
 ## Rotates a tile
 func rotate_point(pos : Vector3, rot : int) -> Vector3:
 	return (pos - (Vector3.ONE * 0.5)).rotated(Vector3.UP, rot * PI/2) + (Vector3.ONE * 0.5)
+
+## Rotates UV
+func rotate_uv(dir : Vector3, rot : int, uvs : PackedVector2Array) -> PackedVector2Array:
+	var new_uvs := PackedVector2Array([])
+	for uv in uvs:
+		match dir:
+			Vector3.DOWN:		new_uvs.append(uv.rotated(rot * (PI/2)))
+			Vector3.UP:			new_uvs.append(uv.rotated(rot * (PI/2)))
+			_:					new_uvs.append(uv)
+	return new_uvs
