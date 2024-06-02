@@ -8,6 +8,9 @@ Builds a mesh from provided MB64Level data
 ## Signaled when mesh is built
 signal mesh_built()
 
+const OPAQUE = "res://asset/mat/shader/n64_lit.gdshader"
+const TRANSPARENT = "res://asset/mat/shader/n64_lit_transparent.gdshader"
+
 ## Reference to [MeshInstance]
 @onready var mesh_instance := $built_mesh
 
@@ -32,22 +35,19 @@ const placeholder_materials : Array[StandardMaterial3D] = [
 	preload("res://asset/mat/debug/water_debug.tres")
 ]
 
-## Loaded materials, for export
-var loaded_mats : Array[Material] = []
-
 func build_mesh(result : MB64Level) -> void:
 	# Declare variables
 	var mesh : ArrayMesh = ArrayMesh.new()
 	var tiles_sorted : Array[Array]
 	var mesh_data_array : Array[Variant] = []
 	grid = result.t_grid
+	mesh_instance.mesh = mesh
 	
 	# Setup tile sorted array
 	# 10 entries for side tiles,
 	# 10 entries for top tiles (different surfaces)
 	# 4 entries for special tiles
 	tiles_sorted.resize(24)
-	loaded_mats.clear()
 	
 	# Get material array
 	var mats := MDat.default_themes[result.theme]
@@ -91,12 +91,8 @@ func build_mesh(result : MB64Level) -> void:
 		# Assign material
 		var count : int = mesh.get_surface_count() - 1
 		var mat := obtain_material(mats, list)
-		mesh.surface_set_material(count, mat)
-		loaded_mats.append(mat)
+		mesh_instance.set_surface_override_material(count, mat)
 		mesh.generate_triangle_mesh()
-	
-	# Build and set mesh
-	mesh_instance.mesh = mesh
 
 ## Builds all sides of a tile except tops.
 func build_tile_sides(mesh_arr : Array[Variant], tile_list : Array, pos : Vector3, total_ind : int) -> int:
@@ -175,19 +171,49 @@ func build_tri(face : MDat.TileSide, pos : Vector3, tile : MB64Level.CMMTile, me
 
 ## Exports level model as GLTF binary
 func export_model_process() -> void:
-	## Generate model from mesh
+	# Generate model from mesh
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
-	state.base_path = "res://asset/level/"
-	document.append_from_scene(mesh_instance, state)
+	state.base_path = "res://"
+	
+	# This fix is bullshit, maybe I'm missing something here but
+	# Godot's GLTF classes only recognize standard 3D materials.
+	# Sure, thats checks, completely understandable. However, the only 
+	# way I can seem to pack materials into the GLTF file is by replacing
+	# the shader ones with standard ones... ON THE MESH. That is so dumb.
+	# Why Godot doesnt let me just write to the GLTFState and just
+	# work from there is beyond me, but believe me I tried.
+	var og : Array[Material] = []
+	for idx in range(mesh_instance.get_surface_override_material_count()):
+		# Get mat
+		var mat : Material = mesh_instance.get_surface_override_material(idx)
+		og.append(mat)
+		
+		# Convert
+		var new : StandardMaterial3D = StandardMaterial3D.new()
+		if mat is ShaderMaterial:
+			var type := mat.shader.resource_path as String
+			var cull : bool = true if type == OPAQUE else false
+			var transparency : bool = true if type == TRANSPARENT else false
+			new.albedo_texture = mat.get_shader_parameter("albedoTex")
+			new.cull_mode = BaseMaterial3D.CULL_BACK if cull else BaseMaterial3D.CULL_DISABLED
+			new.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR if transparency else BaseMaterial3D.TRANSPARENCY_DISABLED
+			mesh_instance.set_surface_override_material(idx, new)
+			continue
+		mesh_instance.set_surface_override_material(idx, mat)
+	document.append_from_scene(mesh_instance, state, GLTFState.HANDLE_BINARY_EMBED_AS_UNCOMPRESSED)
 	
 	if OS.get_name() != "Web":
 		%export_model.show()
 		%export_model.file_selected.connect(func(path : String) -> void: document.write_to_filesystem(state, path))
 	else:
 		var buf := document.generate_buffer(state)
-		JavaScriptBridge.download_buffer(buf, "model.glb", "application/gltf+binary")
-		
+		JavaScriptBridge.download_buffer(buf, "model.gltf", "application/gltf+json")
+	
+	# Reconvert
+	for idx in range(mesh_instance.get_surface_override_material_count()):
+		mesh_instance.set_surface_override_material(idx, og[idx])
+	
 ## Debug input
 func _unhandled_input(event: InputEvent) -> void:
 	# Filter input
@@ -282,7 +308,6 @@ func obtain_material(mats : Array, pos : int) -> Material:
 		4:	return placeholder_materials[13]
 		# Default material
 		_:	return MDat.materials[mat_enum] if MDat.materials[mat_enum] else placeholder_materials[mat_enum % 10] 
-	return placeholder_materials[0]
 
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:

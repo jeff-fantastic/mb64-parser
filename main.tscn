@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=29 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://3lewdvipomle" path="res://asset/gui/svg/info.svg" id="8_yxiu7"]
 [ext_resource type="Script" path="res://script/cam.gd" id="9_cubwj"]
 [ext_resource type="Texture2D" uid="uid://crohbo0w6csbd" path="res://asset/gui/svg/show.svg" id="10_b2pqr"]
+[ext_resource type="Texture2D" uid="uid://cs4i010g0blf0" path="res://asset/gui/model_help.png" id="11_p1c6f"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
@@ -708,7 +709,6 @@ layout_mode = 2
 
 [node name="model_container" type="VBoxContainer" parent="ui/windows/main_win/panel/tab_model"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -721,7 +721,28 @@ layout_mode = 2
 size_flags_stretch_ratio = 0.0
 bbcode_enabled = true
 text = "[b]Level Model[/b]
-Nothing much here... yet! Exporting is experimental"
+[i]Nothing much here... yet! Exporting is currently heavily experimental
+
+Recommended proceedure (Blender):
+[ul]Open GLTF/GLB file import dialog
+Ensure \"merge vertices\" and \"flat shading\" are selected before import[/ul]
+"
+fit_content = true
+
+[node name="help" type="TextureRect" parent="ui/windows/main_win/panel/tab_model/model_container"]
+layout_mode = 2
+texture = ExtResource("11_p1c6f")
+expand_mode = 5
+
+[node name="category2" type="RichTextLabel" parent="ui/windows/main_win/panel/tab_model/model_container"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+bbcode_enabled = true
+text = "[i]The geometry should be as you would expect once imported. Some additional tips:
+
+[ul]Decimating based on planar angle with the \"Material\" delimiter in Blender can save tons of vertices. Make sure to retriangulate the mesh!
+Various tile building plugins (e.g. Sprytile for Blender) work pretty well with exported models, letting you create new faces quickly that also follow the grid rules of MB64.
+"
 fit_content = true
 
 [node name="export" type="Button" parent="ui/windows/main_win/panel/tab_model/model_container"]
@@ -735,7 +756,7 @@ initial_position = 4
 size = Vector2i(941, 159)
 ok_button_text = "Save"
 access = 2
-filters = PackedStringArray("*.glb")
+filters = PackedStringArray("*.gltf")
 use_native_dialog = true
 
 [node name="model_message" type="Label" parent="ui/windows/main_win/panel/tab_model"]

@@ -12,6 +12,14 @@ uniform vec2 uv_offset = vec2(.0, .0);
 uniform vec2 uv_pan_velocity = vec2(0.0);
 #endif
 
+#ifdef N64LIT
+uniform bool cull_flag = true; // Identifier
+#endif
+
+#ifdef N64TRANSPARENT
+uniform bool transparent_flag = true; // Identifier
+#endif
+
 #ifdef ALPHA_SCISSOR
 uniform bool billboard = false;
 uniform bool y_billboard = false;
