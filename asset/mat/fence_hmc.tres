@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dyrab2epyl71"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_3swtn"]
+[ext_resource type="Texture2D" uid="uid://co7gio7oamp64" path="res://asset/level/hmcfence.png" id="2_iqk4e"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3swtn")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_iqk4e")

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1m5b1p7a8kyo"
+uid="uid://byc207drr8yub"
 path="res://.godot/imported/exm_saku.png-371f65836ae8c800b99a20cd0557761d.ctex"
 metadata={
 "vram_texture": false
@@ -21,7 +21,7 @@ compress/lossy_quality=1.0
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=1
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

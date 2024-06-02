@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci44myegaqtxf"
+uid="uid://cwddvqlpwwfeq"
 path="res://.godot/imported/inside_castle_textures.08800.rgba16.png-065a82c05bacf0bde7041cfdf6c9c303.ctex"
 metadata={
 "vram_texture": false
@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/inside_castle_textures.08800.rgba16.png-065a8
 
 [params]
 
-compress/mode=1
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=1
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

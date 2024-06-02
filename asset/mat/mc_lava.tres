@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://2mqqa5bmkhcw"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_array.gdshader" id="1_0308b"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://bgntl8eyvupa2" path="res://asset/level/mc_lava.png" id="2_p5acs"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_0308b")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/frames = 20
+shader_parameter/pingpong = true
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 16)
+shader_parameter/albedoArray = ExtResource("2_p5acs")

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dakpauxjmwh5u"
+uid="uid://dj44trpkn156w"
 path="res://.godot/imported/snowcheckerboardtiles.png-b775e170105566a6623e3091b504f92a.ctex"
 metadata={
 "vram_texture": false
@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/snowcheckerboardtiles.png-b775e170105566a6623
 
 [params]
 
-compress/mode=1
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=1
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

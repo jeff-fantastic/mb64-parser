@@ -6,7 +6,15 @@ uniform vec4 modulate_color : source_color = vec4(1.0);
 uniform sampler2D albedoTex : source_color, filter_nearest, repeat_enable;
 #endif
 
-#if !defined(NO_TEXTURE) && !defined(METAL)  // METAL doesn't use UV, so no need for panning properties
+#ifdef TEXTURE_ARRAY
+uniform sampler2DArray albedoArray : source_color, filter_nearest, repeat_enable;
+uniform int frames = 0;
+uniform bool pingpong = false;
+#endif
+
+uniform bool filter = true;
+
+#if (!defined(NO_TEXTURE) || defined(TEXTURE_ARRAY)) && !defined(METAL)  // METAL doesn't use UV, so no need for panning properties
 uniform vec2 uv_scale = vec2(1.0, 1.0);
 uniform vec2 uv_offset = vec2(.0, .0);
 uniform vec2 uv_pan_velocity = vec2(0.0);
@@ -27,6 +35,7 @@ uniform float alpha_scissor : hint_range(0, 1) = 0.1;
 #endif
 
 // https://www.emutalk.net/threads/emulating-nintendo-64-3-sample-bilinear-filtering-using-shaders.54215/
+#ifndef NO_TEXTURE
 vec4 n64BilinearFilter(vec4 vtx_color, vec2 texcoord) {
 	ivec2 tex_size = textureSize(albedoTex, 0);
 	float Texture_X = float(tex_size.x);
@@ -60,12 +69,17 @@ vec4 n64BilinearFilter(vec4 vtx_color, vec2 texcoord) {
 
     return diffuseColor * vtx_color;
 }
+#endif
 
 void vertex()
 {
 #if !defined(NO_TEXTURE) && !defined(METAL)  // METAL doesn't use UV, so no need to pan UVs
 	UV = UV * uv_scale + uv_offset;
-	UV += uv_pan_velocity * TIME;
+	vec2 to_pan = uv_pan_velocity * TIME;
+	if (!filter) {
+		to_pan = (uv_pan_velocity / 32.0) * round(TIME * 2.5);
+	}
+	UV += to_pan;
 #endif
 
 #ifdef ALPHA_SCISSOR
@@ -90,16 +104,34 @@ void fragment()
 {
 #ifdef METAL
 	vec2 texture_uv = vec2(NORMAL.x / 2.0 + 0.5, (-NORMAL.y) / 2.0 + 0.5);  // Special thanks to Adam McLaughlan
-#elif !defined(NO_TEXTURE)
+#elif (!defined(NO_TEXTURE) || defined(TEXTURE_ARRAY))
 	vec2 texture_uv = UV;
 #endif
 
 	vec4 color_base = COLOR * modulate_color;
 
-#ifdef NO_TEXTURE
+#ifdef TEXTURE_ARRAY
+	vec4 texture_color;
+	float frame;
+	if (pingpong) {
+		// If you see this shader code... you didnt, actually
+		frame = float(int((uv_pan_velocity.y / 100.0) * (TIME * 100.0)) % (frames * 2));
+		frame = (int(floor(frame)) >= frames) ? float(frames - 1) - float(int(floor(frame)) % frames) : floor(frame);
+	} else {
+		frame = floor(float(int((uv_pan_velocity.y / 100.0) * (TIME * 100.0)) % frames));
+	}
+	texture_color = texture(albedoArray, vec3(texture_uv.x, texture_uv.y, frame));
+	ALBEDO = (color_base * texture_color).rgb;
+#elif defined(NO_TEXTURE)
 	ALBEDO = color_base.rgb;
 #else
-	vec4 texture_color = n64BilinearFilter(COLOR, texture_uv);
+	vec4 texture_color;
+	if (filter) {
+		texture_color = n64BilinearFilter(COLOR, texture_uv);
+	} else {
+		texture_color = texture(albedoTex, texture_uv);
+	}
+	
 	ALBEDO = (color_base * texture_color).rgb;
 #endif
 

@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bj8vb5s0fbswu"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_edutp"]
+[ext_resource type="Texture2D" uid="uid://cjvx1geykqrtq" path="res://asset/level/MakerLava.png" id="2_clg1s"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_edutp")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(-1, -1)
+shader_parameter/albedoTex = ExtResource("2_clg1s")

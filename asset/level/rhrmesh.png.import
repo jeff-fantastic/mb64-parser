@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h1ebg1oeqxvh"
-path.s3tc="res://.godot/imported/rhrmesh.png-aa84c75a6ec514d87b9a26f1ec3d871d.s3tc.ctex"
+uid="uid://bind72mfhcfpt"
+path="res://.godot/imported/rhrmesh.png-aa84c75a6ec514d87b9a26f1ec3d871d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://asset/level/rhrmesh.png"
-dest_files=["res://.godot/imported/rhrmesh.png-aa84c75a6ec514d87b9a26f1ec3d871d.s3tc.ctex"]
+dest_files=["res://.godot/imported/rhrmesh.png-aa84c75a6ec514d87b9a26f1ec3d871d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=1
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

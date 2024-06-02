@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://fu00actdeano"
+path="res://.godot/imported/mc_water.png-333e365a97eaf43da804adf7e374383c.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://asset/level/mc_water.png"
+dest_files=["res://.godot/imported/mc_water.png-333e365a97eaf43da804adf7e374383c.ctexarray"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=1.0
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=32

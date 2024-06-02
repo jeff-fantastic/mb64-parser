@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gygxev8oc7i0"
+uid="uid://dq3luljqnokea"
 path="res://.godot/imported/jrbwall.png-5fe7ceec91deb9e8f082cf44d595b690.ctex"
 metadata={
 "vram_texture": false
@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/jrbwall.png-5fe7ceec91deb9e8f082cf44d595b690.
 
 [params]
 
-compress/mode=1
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=1
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

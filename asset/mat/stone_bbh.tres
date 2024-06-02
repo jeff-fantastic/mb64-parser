@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://diav4ye63rn6s"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_kk5yq"]
+[ext_resource type="Texture2D" uid="uid://0opob00vbhas" path="res://asset/level/bbhwall.png" id="2_cb5lf"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kk5yq")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/cull_flag = true
+shader_parameter/albedoTex = ExtResource("2_cb5lf")

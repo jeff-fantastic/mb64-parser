@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cqxui7rnhm15p"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_b4j6f"]
+[ext_resource type="Texture2D" uid="uid://cl4pyueqr4x0f" path="res://asset/level/bricks.png" id="2_0p2tu"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_b4j6f")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_0p2tu")

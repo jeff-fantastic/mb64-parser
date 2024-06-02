@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ddjnr2it1w3be"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_kkn4j"]
+[ext_resource type="Texture2D" uid="uid://dfb5ojfqvo1m4" path="res://asset/level/MakerWater.png" id="2_ij5we"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kkn4j")
+shader_parameter/modulate_color = Color(1, 1, 1, 0.803922)
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(-1, -1)
+shader_parameter/albedoTex = ExtResource("2_ij5we")

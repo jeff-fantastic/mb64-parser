@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dumb7ribjolow"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_1aq6b"]
+[ext_resource type="Texture2D" uid="uid://pa4cawqps8ba" path="res://asset/level/snowtileside.png" id="2_4kwtc"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_1aq6b")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/cull_flag = true
+shader_parameter/albedoTex = ExtResource("2_4kwtc")

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b1ro6xq3rg76u"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_clyre"]
+[ext_resource type="Texture2D" uid="uid://do1v0hfxe2sxc" path="res://asset/level/Material11.PNG" id="2_w147f"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_clyre")
+shader_parameter/modulate_color = Color(1, 1, 1, 0.486275)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_w147f")

@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3pncxlpc8uue"
+uid="uid://bn6fl1a821s4w"
 path="res://.godot/imported/wc_iwa.png-b53c3a93e31244a29be27277a849ac4f.ctex"
 metadata={
 "vram_texture": false
@@ -15,13 +15,13 @@ dest_files=["res://.godot/imported/wc_iwa.png-b53c3a93e31244a29be27277a849ac4f.c
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=1
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

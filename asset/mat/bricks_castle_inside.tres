@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bdrhin74omalr"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_wwsru"]
+[ext_resource type="Texture2D" uid="uid://blmlqnc1wqto5" path="res://asset/level/castleinsidebricks.png" id="2_2b754"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wwsru")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/cull_flag = true
+shader_parameter/albedoTex = ExtResource("2_2b754")

@@ -5,8 +5,5 @@ shader_type spatial;
 #define BLEND blend_mix
 #define CULL cull_disabled
 #define ALPHA_BLEND
-#define N64TRANSPARENT
-
-
 
 #include "n64_base.gdshaderinc"

@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://t0g2t2wi4p3l"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_odaim"]
+[ext_resource type="Texture2D" uid="uid://ckwiiceve806e" path="res://asset/level/grass_block_top.png" id="2_0oclu"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_odaim")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_0oclu")

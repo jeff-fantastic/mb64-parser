@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cfjyt16m8vqdu"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_fk1t7"]
+[ext_resource type="Texture2D" uid="uid://c7fx2ixpsvpuj" path="res://asset/level/Maker_RHR_Obsidian.png" id="2_324qs"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_fk1t7")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/cull_flag = true
+shader_parameter/albedoTex = ExtResource("2_324qs")

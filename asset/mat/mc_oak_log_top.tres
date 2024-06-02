@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://nvcfbpqv7ckh"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_ir2ll"]
+[ext_resource type="Texture2D" uid="uid://chn4lttknhpmy" path="res://asset/level/oak_log_top.png" id="2_okgf4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ir2ll")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_okgf4")

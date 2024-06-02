@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://4mvlp3jr7qfq"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_7k558"]
+[ext_resource type="Texture2D" uid="uid://lta8oanlnoau" path="res://asset/level/Screen.png" id="2_ab760"]
+[ext_resource type="Shader" path="res://asset/mat/shader/skybox.gdshader" id="3_e7und"]
+[ext_resource type="Texture2D" uid="uid://b6dh1illxpil0" path="res://asset/skybox/ssl.png" id="4_1trao"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc6j1"]
+render_priority = 0
+shader = ExtResource("1_7k558")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_ab760")
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_bc6j1")
+shader = ExtResource("3_e7und")
+shader_parameter/lock_aspect = true
+shader_parameter/aspect_ratio = 1.666
+shader_parameter/fov = Vector2(180, 90)
+shader_parameter/tiling = Vector2i(1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/texture = ExtResource("4_1trao")

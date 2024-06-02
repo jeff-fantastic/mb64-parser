@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://iajonqq3ofyu"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_array.gdshader" id="1_o0l3d"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://dd18o3wh6xcpy" path="res://asset/level/mc_flowing_lava.png" id="2_y2n8r"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_o0l3d")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/frames = 64
+shader_parameter/pingpong = false
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 16)
+shader_parameter/albedoArray = ExtResource("2_y2n8r")

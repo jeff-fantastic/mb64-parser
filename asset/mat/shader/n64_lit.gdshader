@@ -4,7 +4,5 @@ shader_type spatial;
 #define DEPTH depth_draw_opaque
 #define BLEND blend_mix
 #define CULL cull_back
-#define N64LIT
-
 
 #include "n64_base.gdshaderinc"

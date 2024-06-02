@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oikxdad55xrw"
-path.s3tc="res://.godot/imported/fence2.png-0aab3903fe373f673d8010693cb46e66.s3tc.ctex"
+uid="uid://blygsrfdegq4e"
+path="res://.godot/imported/fence2.png-0aab3903fe373f673d8010693cb46e66.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://asset/level/fence2.png"
-dest_files=["res://.godot/imported/fence2.png-0aab3903fe373f673d8010693cb46e66.s3tc.ctex"]
+dest_files=["res://.godot/imported/fence2.png-0aab3903fe373f673d8010693cb46e66.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=1.0
 compress/hdr_compression=1
 compress/normal_map=2
 compress/channel_pack=1
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

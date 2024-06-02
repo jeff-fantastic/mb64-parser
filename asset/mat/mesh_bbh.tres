@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cn43o4f4j3osh"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_w1isk"]
+[ext_resource type="Texture2D" uid="uid://1gcnaf3wtok7" path="res://asset/level/bbhmesh.png" id="2_ew1sh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_w1isk")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_ew1sh")
