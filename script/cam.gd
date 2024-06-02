@@ -9,6 +9,10 @@ User camera control
 const SPEED_NORMAL = 15
 const SPEED_FAST = 40
 
+## Boundaries
+const MIN = -16.0
+const MAX = 80.0
+
 ## Whether or not camera control is enabled
 var in_control : bool = false
 
@@ -55,3 +59,7 @@ func _physics_process(delta : float) -> void:
 	# Move
 	self.translate_object_local(Vector3(vec.x, 0, -vec.y) * SPEED_NORMAL * delta)
 	self.translate(Vector3.UP * vertical * SPEED_NORMAL * delta)
+	
+	# Clamp into bounds
+	position.x = clampf(position.x, MIN, MAX)
+	position.z = clampf(position.z, MIN, MAX)

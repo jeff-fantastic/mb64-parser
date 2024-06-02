@@ -795,14 +795,14 @@ class Tile extends Resource:
 	]),
 	# Sloped Corner
 	Tile.new([
-		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 				Cull.Tri_1, Dir.Right, 	GrowthTypes.SlopeSideR,		UV_TRI),
+		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 				Cull.Tri_1, Dir.Left, 	GrowthTypes.SlopeSideR,		UV_TRI),
 		TileSide.new(TRIANGLE_SLOPEF,		INDICE_TRI, 		FWD, 				Cull.Tri_2, Dir.Front, 	GrowthTypes.SlopeSideL,		UV_TRI),
 		TileSide.new(TRI_CORNER_SLOPE,		INDICE_TRI,			BACK/2+LEFT/2+UP,	Cull.Empty,	Dir.Top, 	GrowthTypes.NormalSide,		UV_TRI),
 		TileSide.new(flip_y(TRI_TOP),		INDICE_TRI_FLIPPED, DOWN, 				Cull.TopTri,Dir.Bottom, GrowthTypes.None,			UV_TRI_TOP),
 	]),
 	# Sloped Corner (Flipped)
 	Tile.new([
-		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,	RIGHT, 				Cull.DownTri_1, Dir.Right,	GrowthTypes.NormalSide,		UV_TRI),
+		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,	RIGHT, 				Cull.DownTri_1, Dir.Left,	GrowthTypes.NormalSide,		UV_TRI),
 		TileSide.new(flip_y(TRIANGLE_SLOPEF),	INDICE_TRI_FLIPPED, FWD, 				Cull.DownTri_2, Dir.Front,	GrowthTypes.NormalSide,		UV_TRI),
 		TileSide.new(flip_y(TRI_CORNER_SLOPE),	INDICE_TRI_FLIPPED,	BACK/2+LEFT/2+DOWN, Cull.Empty, 	Dir.Back,	GrowthTypes.DiagonalSide,	[Vector2(0,1),Vector2(1,0),Vector2(0,0)]),
 		TileSide.new(TRI_TOP,					INDICE_TRI, 		UP, 				Cull.TopTri,	Dir.Top, 	GrowthTypes.Full,			UV_TRI_TOP),
