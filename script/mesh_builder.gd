@@ -13,6 +13,8 @@ const TRANSPARENT = "res://asset/mat/shader/n64_lit_transparent.gdshader"
 
 ## Reference to [MeshInstance]
 @onready var mesh_instance := $built_mesh
+## Reference to skybox
+@onready var skybox := $skybox
 
 ## Tile grid
 var grid : MB64Level.CMMTileGrid
@@ -42,6 +44,9 @@ func build_mesh(result : MB64Level) -> void:
 	var mesh_data_array : Array[Variant] = []
 	grid = result.t_grid
 	mesh_instance.mesh = mesh
+	
+	# Set skybox
+	set_skybox(result.bg)
 	
 	# Setup tile sorted array
 	# 10 entries for side tiles,
@@ -308,6 +313,11 @@ func obtain_material(mats : Array, pos : int) -> Material:
 		4:	return placeholder_materials[13]
 		# Default material
 		_:	return MDat.materials[mat_enum] if MDat.materials[mat_enum] else placeholder_materials[mat_enum % 10] 
+
+## Sets skybox.
+func set_skybox(id : int) -> void:
+	var mat : Material = MDat.sb_materials[id]
+	skybox.set_surface_override_material(0, mat)
 
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:

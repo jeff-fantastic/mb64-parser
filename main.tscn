@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=34 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://script/cam.gd" id="9_cubwj"]
 [ext_resource type="Texture2D" uid="uid://crohbo0w6csbd" path="res://asset/gui/svg/show.svg" id="10_b2pqr"]
 [ext_resource type="Texture2D" uid="uid://cs4i010g0blf0" path="res://asset/gui/model_help.png" id="11_p1c6f"]
+[ext_resource type="Material" uid="uid://cguce4qhn2hjx" path="res://asset/mat/skybox/sb_cloud_floor.tres" id="15_ca14v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
@@ -67,6 +68,33 @@ unicode = 104
 [sub_resource type="Shortcut" id="Shortcut_vhk86"]
 events = [SubResource("InputEventKey_gt645")]
 
+[sub_resource type="Animation" id="Animation_fn2dx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("main_win/tab_bar:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("main_win/tab_bar:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_jsr70"]
 resource_name = "showhide"
 length = 0.5
@@ -95,43 +123,36 @@ tracks/1/keys = {
 "values": [0, 4, 4]
 }
 
-[sub_resource type="Animation" id="Animation_fn2dx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("main_win/tab_bar:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("main_win/tab_bar:process_mode")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kcmok"]
 _data = {
 "RESET": SubResource("Animation_fn2dx"),
 "showhide": SubResource("Animation_jsr70")
 }
 
+[sub_resource type="Shader" id="Shader_3860n"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+void fragment(){
+	vec4 color = vec4(texture(SCREEN_TEXTURE, SCREEN_UV).rgb, texture(TEXTURE, UV).a);
+	COLOR = vec4(1.0 - color.rgb,  color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glm63"]
+shader = SubResource("Shader_3860n")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lvik"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_omba4"]
+shader = SubResource("Shader_3860n")
 
 [sub_resource type="LabelSettings" id="LabelSettings_e6hdq"]
 font_size = 24
+
+[sub_resource type="BoxMesh" id="BoxMesh_xtowb"]
+flip_faces = true
+size = Vector3(1000, 1000, 1000)
 
 [sub_resource type="Environment" id="Environment_2qncd"]
 background_mode = 1
@@ -854,6 +875,7 @@ grow_vertical = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="github" type="Button" parent="ui/info"]
+material = SubResource("ShaderMaterial_glm63")
 layout_mode = 2
 tooltip_text = "Support me and my work!"
 mouse_default_cursor_shape = 2
@@ -862,6 +884,7 @@ icon = ExtResource("6_v1xy5")
 flat = true
 
 [node name="version" type="Label" parent="ui/info"]
+material = SubResource("ShaderMaterial_omba4")
 layout_mode = 2
 text = "mb64-parser v0.2"
 label_settings = SubResource("LabelSettings_e6hdq")
@@ -871,6 +894,10 @@ script = ExtResource("7_oka8h")
 
 [node name="built_mesh" type="MeshInstance3D" parent="mesh_builder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0369234, 4.76837e-07, 0.342829)
+
+[node name="skybox" type="MeshInstance3D" parent="mesh_builder"]
+mesh = SubResource("BoxMesh_xtowb")
+surface_material_override/0 = ExtResource("15_ca14v")
 
 [node name="cam" type="Camera3D" parent="mesh_builder"]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 16, 64, 64)

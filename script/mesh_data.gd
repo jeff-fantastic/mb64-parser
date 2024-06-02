@@ -500,6 +500,20 @@ enum MatWater {
 	null
 ]
 
+## Skybox materials
+@onready var sb_materials = [
+	preload("res://asset/mat/skybox/sb_water.tres"),
+	preload("res://asset/mat/skybox/sb_cloud_floor.tres"),
+	preload("res://asset/mat/skybox/sb_bitfs.tres"),
+	preload("res://asset/mat/skybox/sb_bidw.tres"),
+	preload("res://asset/mat/skybox/sb_bbh.tres"),
+	preload("res://asset/mat/skybox/sb_ccm.tres"),
+	preload("res://asset/mat/skybox/sb_ssl.tres"),
+	preload("res://asset/mat/skybox/sb_wdw.tres"),
+	preload("res://asset/mat/skybox/sb_bits.tres"),
+	preload("res://asset/mat/skybox/sb_none.tres")
+]
+
 ## Default themes.
 var default_themes : Array[Array] = [
 	## 0 - Generic
@@ -628,9 +642,7 @@ var default_themes : Array[Array] = [
 		[Mat.Quicksand,			Mat.Quicksand,			"Quicksand"],
 		MatFence.JRB, Mat.VPCaution, MatBar.HMC, MatWater.Default
 	],
-	## 9 - Custom Theme
-	[],
-	## 10 - Retro
+	## 9 - Retro
 	[
 		[Mat.RetroGround,		Mat.RetroGround,		"Ground"],
 		[Mat.RetroBricks,		Mat.RetroBricks,		"Bricks"],
@@ -644,6 +656,8 @@ var default_themes : Array[Array] = [
 		[Mat.RetroUnderWaterGround,	Mat.RetroUnderWaterGround,	"Underwater Tile"],
 		MatFence.Retro, Mat.RetroBricks, MatBar.Retro, MatWater.Retro
 	],
+	## 10 - Custom Theme
+	[],
 	## 11 - Minecraft
 	[
 		[Mat.MCDirt,			Mat.MCGrass,			"Grass"],

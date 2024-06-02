@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cguce4qhn2hjx"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/skybox.gdshader" id="1_66onx"]
+[ext_resource type="Texture2D" uid="uid://dvadhxotjieqe" path="res://asset/skybox/cloud_floor.png" id="2_uf1nd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_66onx")
+shader_parameter/lock_aspect = true
+shader_parameter/aspect_ratio = 1.666
+shader_parameter/fov = Vector2(180, 90)
+shader_parameter/tiling = Vector2i(1, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/texture = ExtResource("2_uf1nd")
