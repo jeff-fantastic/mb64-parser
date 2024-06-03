@@ -808,15 +808,15 @@ func build_tile_array() -> Array[Tile]:
 	]),
 	# Sloped Corner
 	Tile.new([
-		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 				Cull.Tri_1, Dir.Left, 	GrowthTypes.SlopeSideR,		UV_TRI),
-		TileSide.new(TRIANGLE_SLOPEF,		INDICE_TRI, 		FWD, 				Cull.Tri_2, Dir.Front, 	GrowthTypes.SlopeSideL,		UV_TRI),
+		TileSide.new(TRIANGLE_SLOPER,		INDICE_TRI,			RIGHT, 				Cull.Tri_1, Dir.Left, 	GrowthTypes.SlopeSideR,		[Vector2(0,1),Vector2(0,0),Vector2(1,1)]),
+		TileSide.new(TRIANGLE_SLOPEF,		INDICE_TRI, 		FWD, 				Cull.Tri_2, Dir.Front, 	GrowthTypes.SlopeSideL,		[Vector2(1,1),Vector2(0,1),Vector2(1,0)]),
 		TileSide.new(TRI_CORNER_SLOPE,		INDICE_TRI,			BACK/2+LEFT/2+UP,	Cull.Empty,	Dir.Top, 	GrowthTypes.NormalSide,		UV_TRI),
 		TileSide.new(flip_y(TRI_TOP),		INDICE_TRI_FLIPPED, DOWN, 				Cull.TopTri,Dir.Bottom, GrowthTypes.None,			UV_TRI_TOP),
 	]),
 	# Sloped Corner (Flipped)
 	Tile.new([
-		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,	RIGHT, 				Cull.DownTri_1, Dir.Left,	GrowthTypes.NormalSide,		UV_TRI),
-		TileSide.new(flip_y(TRIANGLE_SLOPEF),	INDICE_TRI_FLIPPED, FWD, 				Cull.DownTri_2, Dir.Front,	GrowthTypes.NormalSide,		UV_TRI),
+		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,	RIGHT, 				Cull.DownTri_1, Dir.Left,	GrowthTypes.NormalSide,		[Vector2(0,0),Vector2(0,1),Vector2(1,0)]),
+		TileSide.new(flip_y(TRIANGLE_SLOPEF),	INDICE_TRI_FLIPPED, FWD, 				Cull.DownTri_2, Dir.Front,	GrowthTypes.NormalSide,		[Vector2(1,0),Vector2(0,0),Vector2(1,1)]),
 		TileSide.new(flip_y(TRI_CORNER_SLOPE),	INDICE_TRI_FLIPPED,	BACK/2+LEFT/2+DOWN, Cull.Empty, 	Dir.Back,	GrowthTypes.DiagonalSide,	[Vector2(0,1),Vector2(1,0),Vector2(0,0)]),
 		TileSide.new(TRI_TOP,					INDICE_TRI, 		UP, 				Cull.TopTri,	Dir.Top, 	GrowthTypes.Full,			UV_TRI_TOP),
 	]),
@@ -826,7 +826,7 @@ func build_tile_array() -> Array[Tile]:
 		TileSide.new(PLANE_LEFT_HALF,				INDICE_QUAD, 		 LEFT, 		Cull.BottomSlab, 			Dir.Right, 	GrowthTypes.HalfSide,		UV_QUAD_HALFV2),
 		TileSide.new(PLANE_BACK_HALF,				INDICE_QUAD, 		 BACK, 		Cull.BottomSlab, 			Dir.Back, 	GrowthTypes.HalfSide,		UV_QUAD_HALFV2),
 		TileSide.new(maxv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	Cull.Empty, 				Dir.Top, 	GrowthTypes.Full,			UV_QUAD_SLOPE),
-		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		Cull.Full, 					Dir.Bottom,	GrowthTypes.None,			UV_QUAD_TOP),
+		TileSide.new(PLANE_DOWN,					INDICE_QUAD_FLIPPED, DOWN, 		Cull.Full, 					Dir.Bottom,	GrowthTypes.None,			UV_QUAD_TOP),
 		TileSide.new(maxv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	Cull.UpperGentle_1, 		Dir.Left, 	GrowthTypes.SlopeSideR,		UV_TRI_HALFV1),
 		TileSide.new(maxv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI_FLIPPED,  		 LEFT, 		Cull.UpperGentle_2, 		Dir.Right, 	GrowthTypes.SlopeSideL,		flip_u(UV_TRI_HALFV1)),
 		TileSide.new(PLANE_FRONT,					INDICE_QUAD, 		 FWD, 		Cull.Full, 					Dir.Front, 	GrowthTypes.HalfSide,		UV_QUAD),
@@ -845,7 +845,7 @@ func build_tile_array() -> Array[Tile]:
 	# Lower Gentle Slope
 	Tile.new([
 		TileSide.new(minv(PLANE_SLOPE,1,0.5),		INDICE_QUAD,		 UP+BACK,	Cull.Empty, Dir.Top, 	GrowthTypes.Full,				UV_QUAD_SLOPE),
-		TileSide.new(PLANE_DOWN,					INDICE_QUAD, 		 DOWN, 		Cull.Full, Dir.Bottom,	GrowthTypes.None,				UV_QUAD_TOP),
+		TileSide.new(PLANE_DOWN,					INDICE_QUAD_FLIPPED, DOWN, 		Cull.Full, Dir.Bottom,	GrowthTypes.None,				UV_QUAD_TOP),
 		TileSide.new(minv(TRIANGLE_SLOPER,1,0.5),	INDICE_TRI,  		 RIGHT, 	Cull.LowerGentle_2, Dir.Left, GrowthTypes.SlopeSideL,	UV_TRI_HALFV2),
 		TileSide.new(minv(TRIANGLE_SLOPEL,1,0.5),	INDICE_TRI_FLIPPED,  		 LEFT, 		Cull.LowerGentle_1, Dir.Right, GrowthTypes.SlopeSideR,	flip_u(UV_TRI_HALFV2)),
 		TileSide.new(PLANE_FRONT_HALF,				INDICE_QUAD, 		 FWD, 		Cull.BottomSlab, Dir.Front, GrowthTypes.Unconditional,	UV_QUAD_HALFV2),
