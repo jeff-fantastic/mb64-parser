@@ -60,7 +60,7 @@ func build_mesh(result : MB64Level) -> void:
 	
 	# Get material array
 	mats = MDat.default_themes[result.theme]
-	if !mats: mats = placeholder_materials
+	#if !mats: mats = placeholder_materials
 	
 	# Iterate over tiles
 	for tile in grid.map:
@@ -317,8 +317,7 @@ func obtain_material(materials : Array, pos : int) -> Material:
 	# Now that we have enum, we need to determine what to return
 	match max(pos-19, 0):
 		# Fence mats
-		1:	
-			return MDat.fence_materials[mat_enum]
+		1:	return MDat.fence_materials[mat_enum]
 		# Pole mats
 		2:	return placeholder_materials[11]
 		# Bar mats
@@ -326,7 +325,7 @@ func obtain_material(materials : Array, pos : int) -> Material:
 		# Water mats
 		4:	return MDat.water_materials[mat_enum]
 		# Default material
-		_:	return MDat.materials[mat_enum] if MDat.materials[mat_enum] else placeholder_materials[mat_enum % 10] 
+		_:	return MDat.materials[mat_enum]
 
 ## Sets skybox.
 func set_skybox(id : int) -> void:
