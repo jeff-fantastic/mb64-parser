@@ -8,6 +8,8 @@ involving the .mb64 file format
 
 ## Emitted when parsing complete
 signal parsing_complete(result : MB64Level)
+## Emitted when rebuild request is recieved
+signal rebuild_accepted(data : MB64Level)
 
 ## Current path
 var current_path : String = "/"
@@ -244,6 +246,10 @@ func open_save_dialog() -> void:
 	# Otherwise just save
 	write_meta("")
 
+## Called when mesh builder wants to rebuild
+func remesh_requested() -> void:
+	rebuild_accepted.emit(current_res)
+
 ## SETTERS
 ##------------------------------------------------------------------------------
 
@@ -285,3 +291,4 @@ func bound_height_changed(value: float) -> void:
 
 func bound_mat_changed(value: float) -> void:
 	current_res.boundary_mat = int(value)
+

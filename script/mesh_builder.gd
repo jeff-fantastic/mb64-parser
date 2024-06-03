@@ -7,6 +7,8 @@ Builds a mesh from provided MB64Level data
 
 ## Signaled when mesh is built
 signal mesh_built()
+## Signaled when a remesh is requested
+signal remesh_requested()
 
 const OPAQUE = "res://asset/mat/shader/n64_lit.gdshader"
 const TRANSPARENT = "res://asset/mat/shader/n64_lit_transparent.gdshader"
@@ -185,7 +187,7 @@ func export_model_process() -> void:
 	
 	# This fix is bullshit, maybe I'm missing something here but
 	# Godot's GLTF classes only recognize standard 3D materials.
-	# Sure, thats checks, completely understandable. However, the only 
+	# Sure, that checks, completely understandable. However, the only 
 	# way I can seem to pack materials into the GLTF file is by replacing
 	# the shader ones with standard ones... ON THE MESH. That is so dumb.
 	# Why Godot doesnt let me just write to the GLTFState and just
@@ -231,6 +233,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	event = event as InputEventKey
 	if event.pressed && event.keycode == KEY_B:
 		mesh_instance.material_overlay = placeholder_materials[0] if !mesh_instance.material_overlay else null 
+	
+	# Refresh tile array
+	if event.pressed && event.keycode == KEY_F1:
+		MDat.tiles = MDat.build_tile_array()
+		remesh_requested.emit()
 
 ## Prepares mesh array for data
 func prepare_mesh_array(mda : Array) -> void:

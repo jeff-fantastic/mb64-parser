@@ -909,6 +909,7 @@ transform = Transform3D(0.477159, 0.731136, -0.487607, 0, 0.554844, 0.831955, 0.
 
 [connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
 [connection signal="parsing_complete" from="parser" to="mesh_builder" method="build_mesh"]
+[connection signal="rebuild_accepted" from="parser" to="mesh_builder" method="build_mesh"]
 [connection signal="editing_changed" from="ui" to="ui" method="toggle_metadata_fields"]
 [connection signal="export_requested" from="ui" to="mesh_builder" method="export_model_process"]
 [connection signal="parse_requested" from="ui" to="parser" method="parse_file"]
@@ -936,3 +937,4 @@ transform = Transform3D(0.477159, 0.731136, -0.487607, 0, 0.554844, 0.831955, 0.
 [connection signal="pressed" from="ui/windows/main_win/panel/tab_model/model_container/export" to="ui" method="export_request"]
 [connection signal="toggled" from="ui/windows/main_win/showhide" to="ui" method="show_hide_toggle"]
 [connection signal="pressed" from="ui/info/github" to="ui" method="open_github_repo"]
+[connection signal="remesh_requested" from="mesh_builder" to="parser" method="remesh_requested"]

@@ -725,7 +725,10 @@ class Tile extends Resource:
 			self.sides[side.dir].append(side)
 
 ## Tiles
-@onready var tiles : Array[Tile] = [
+@onready var tiles : Array[Tile] = build_tile_array()
+
+func build_tile_array() -> Array[Tile]:
+	return [
 	# Empty
 	null,
 	# Null,
@@ -734,16 +737,16 @@ class Tile extends Resource:
 	Tile.new([
 		TileSide.new(PLANE_SLOPE,		INDICE_QUAD,		 UP+BACK,	Cull.Empty, Dir.Top,	GrowthTypes.Full,		UV_QUAD_SLOPE),
 		TileSide.new(PLANE_DOWN,		INDICE_QUAD_FLIPPED, DOWN, 		Cull.Full, 	Dir.Bottom,	GrowthTypes.None,		UV_QUAD_TOP),
-		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  		 RIGHT, 	Cull.Tri_1, Dir.Left,	GrowthTypes.SlopeSideR,	UV_TRI),
-		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI_FLIPPED,  		 LEFT, 		Cull.Tri_2, Dir.Right,	GrowthTypes.SlopeSideL,	flip_u(UV_TRI)),
+		TileSide.new(TRIANGLE_SLOPER,	INDICE_TRI,  		 RIGHT, 	Cull.Tri_1, Dir.Left,	GrowthTypes.SlopeSideR,	flip_u(UV_TRI)),
+		TileSide.new(TRIANGLE_SLOPEL,	INDICE_TRI_FLIPPED,  		 LEFT, 		Cull.Tri_2, Dir.Right,	GrowthTypes.SlopeSideL,	UV_TRI),
 		TileSide.new(PLANE_FRONT,		INDICE_QUAD, 		 FWD, 		Cull.Full, 	Dir.Front,	GrowthTypes.HalfSide,	UV_QUAD),
 	]),
 	# Slope (Flipped)
 	Tile.new([
 		TileSide.new(PLANE_UP,					INDICE_QUAD, 		 UP, 		Cull.Full, 		Dir.Top,	GrowthTypes.Full,		UV_QUAD_TOP),
 		TileSide.new(flip_y(PLANE_SLOPE),		INDICE_QUAD_FLIPPED, DOWN+BACK,	Cull.Empty, 	Dir.Back,	GrowthTypes.None,		UV_QUAD_TOP),
-		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	Cull.DownTri_1, Dir.Left,	GrowthTypes.SlopeSideR,	UV_TRI),
-		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI,  LEFT, 		Cull.DownTri_2, Dir.Right,	GrowthTypes.SlopeSideL,	flip_u(UV_TRI)),
+		TileSide.new(flip_y(TRIANGLE_SLOPER),	INDICE_TRI_FLIPPED,  RIGHT, 	Cull.DownTri_1, Dir.Left,	GrowthTypes.SlopeSideR,	flip_v(flip_u(UV_TRI))),
+		TileSide.new(flip_y(TRIANGLE_SLOPEL),	INDICE_TRI,  LEFT, 		Cull.DownTri_2, Dir.Right,	GrowthTypes.SlopeSideL,	flip_v(UV_TRI)),
 		TileSide.new(PLANE_FRONT,				INDICE_QUAD,		 FWD, 		Cull.Full, 		Dir.Front,	GrowthTypes.HalfSide,	UV_QUAD),
 	]),
 	# Slab
