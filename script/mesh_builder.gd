@@ -369,8 +369,8 @@ func indices_from_face(indices : PackedInt32Array) -> int:
 	return 2 + (indices.size() / 3)
 
 ## Rotates a tile
-func rotate_point(pos : Vector3, rot : int) -> Vector3:
-	return (pos - (Vector3.ONE * 0.5)).rotated(Vector3.UP, rot * PI/2) + (Vector3.ONE * 0.5)
+static func rotate_point(pos : Vector3, rot : int, size : int = 1) -> Vector3:
+	return (pos - (Vector3.ONE * size * 0.5)).rotated(Vector3.UP, rot * PI/2) + (Vector3.ONE * size * 0.5)
 
 ## Rotates UV
 func rotate_uv(dir : Vector3, rot : int, uvs : PackedVector2Array) -> PackedVector2Array:

@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bw8yxj27puxke"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_q0ifb"]
-[ext_resource type="Texture2D" uid="uid://bveqojk2q1yoh" path="res://asset/level/minecraft_grass_but_colorlerful_png_png.png" id="2_r5v7w"]
+[ext_resource type="Texture2D" uid="uid://bleuc6ggsq62p" path="res://asset/level/minecraft_grass_but_colorlerful_png_png.png" id="2_r5v7w"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_q0ifb")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)

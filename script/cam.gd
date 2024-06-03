@@ -31,7 +31,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	# Handle mouse scroll
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton && in_control:
 		if event.pressed && event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			target_fov = min(target_fov + 5, MAX_FOV)
 		if event.pressed && event.button_index == MOUSE_BUTTON_WHEEL_UP:

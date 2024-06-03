@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=35 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://crohbo0w6csbd" path="res://asset/gui/svg/show.svg" id="10_b2pqr"]
 [ext_resource type="Texture2D" uid="uid://cs4i010g0blf0" path="res://asset/gui/model_help.png" id="11_p1c6f"]
 [ext_resource type="Material" uid="uid://cguce4qhn2hjx" path="res://asset/mat/skybox/sb_cloud_floor.tres" id="15_ca14v"]
+[ext_resource type="Script" path="res://script/boundary_builder.gd" id="17_i1kxq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
@@ -907,8 +908,17 @@ script = ExtResource("9_cubwj")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="mesh_builder"]
 transform = Transform3D(0.477159, 0.731136, -0.487607, 0, 0.554844, 0.831955, 0.878817, -0.396974, 0.264749, 0, 0, 0)
 
+[node name="boundary_builder" type="Node" parent="."]
+script = ExtResource("17_i1kxq")
+size = 2
+type = 4
+
+[node name="boundary" type="MeshInstance3D" parent="boundary_builder"]
+skeleton = NodePath("../..")
+
 [connection signal="parsing_complete" from="parser" to="ui" method="update_ui"]
 [connection signal="parsing_complete" from="parser" to="mesh_builder" method="build_mesh"]
+[connection signal="parsing_complete" from="parser" to="boundary_builder" method="build_boundary"]
 [connection signal="rebuild_accepted" from="parser" to="mesh_builder" method="build_mesh"]
 [connection signal="editing_changed" from="ui" to="ui" method="toggle_metadata_fields"]
 [connection signal="export_requested" from="ui" to="mesh_builder" method="export_model_process"]
