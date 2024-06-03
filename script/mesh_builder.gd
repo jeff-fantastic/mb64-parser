@@ -18,6 +18,8 @@ const TRANSPARENT = "res://asset/mat/shader/n64_lit_transparent.gdshader"
 
 ## Tile grid
 var grid : MB64Level.CMMTileGrid
+## Theme
+var mats : Array
 
 ## Placeholder materials
 const placeholder_materials : Array[StandardMaterial3D] = [
@@ -55,7 +57,7 @@ func build_mesh(result : MB64Level) -> void:
 	tiles_sorted.resize(24)
 	
 	# Get material array
-	var mats := MDat.default_themes[result.theme]
+	mats = MDat.default_themes[result.theme]
 	if !mats: mats = placeholder_materials
 	
 	# Iterate over tiles
@@ -263,6 +265,13 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 		inbound_tile_dat = MDat.tiles[MDat.TileTypes.Block]
 	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, ((4-inbound_tile.rot) % 4)) ^ 1]
 	
+	# Build if inbound is transparent, and if self is opaque
+	var outbound_mat = obtain_material(mats, outbound_tile.mat) as ShaderMaterial
+	var inbound_mat = obtain_material(mats, inbound_tile.mat) as ShaderMaterial
+	if inbound_mat.shader.resource_path != OPAQUE && outbound_mat.shader.resource_path == OPAQUE:
+		return true
+	
+	# Build if no inbound faces
 	if inbound_faces.is_empty():
 		return true
 	
@@ -290,15 +299,13 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 	return true
 
 ## Obtains material from array based on position
-func obtain_material(mats : Array, pos : int) -> Material:
+func obtain_material(materials : Array, pos : int) -> Material:
 	# Determine position and fetch enum
 	var x := pos if pos < 10 else pos - 10
 	var y := (0 if pos < 10 else 1) if pos < 20 else 0
-	var mat_enum = mats[x]
+	var mat_enum = materials[x]
 	if mat_enum is Array:
 		mat_enum = mat_enum[y]
-	else:
-		print("Fence")
 	
 	# Now that we have enum, we need to determine what to return
 	match max(pos-19, 0):

@@ -766,19 +766,19 @@ class Tile extends Resource:
 	]),
 	# Corner
 	Tile.new([
-		TileSide.new(TRI_CORNER1,		INDICE_TRI,  UP+BACK,	Cull.Empty, 	Dir.Back, 	GrowthTypes.Full,		UV_TRI),
-		TileSide.new(TRI_CORNER2,		INDICE_TRI,  UP+LEFT,	Cull.Empty, 	Dir.Right, 	GrowthTypes.Full,		UV_TRI),
-		TileSide.new(PLANE_DOWN,		INDICE_QUAD, DOWN, 		Cull.Full, 		Dir.Bottom, GrowthTypes.None,		UV_QUAD_TOP),
-		TileSide.new(TRI_SLOPER_BACK,	INDICE_TRI,  FWD,	 	Cull.Tri_1, 	Dir.Front, 	GrowthTypes.NormalSide,	UV_TRI),
-		TileSide.new(TRIANGLE_SLOPEB,	INDICE_TRI,  RIGHT, 	Cull.Tri_2, 	Dir.Left, 	GrowthTypes.NormalSide,	UV_TRI),
+		TileSide.new(TRI_CORNER1,		INDICE_TRI,  			UP+BACK,	Cull.Empty, 	Dir.Top, 	GrowthTypes.Full,		UV_TRI),
+		TileSide.new(TRI_CORNER2,		INDICE_TRI,  			UP+LEFT,	Cull.Empty, 	Dir.Top, 	GrowthTypes.Full,		UV_TRI),
+		TileSide.new(PLANE_DOWN,		INDICE_QUAD_FLIPPED,	DOWN, 		Cull.Full, 		Dir.Bottom, GrowthTypes.None,		UV_QUAD_TOP),
+		TileSide.new(TRI_SLOPER_BACK,	INDICE_TRI,  			FWD,	 	Cull.Tri_2, 	Dir.Front, 	GrowthTypes.NormalSide,	UV_TRI),
+		TileSide.new(TRIANGLE_SLOPEB,	INDICE_TRI,  			RIGHT, 		Cull.Tri_1, 	Dir.Left, 	GrowthTypes.NormalSide,	UV_TRI),
 	]),
 	# Corner (Flipped)
 	Tile.new([
-		TileSide.new(flip_y(TRI_CORNER1),		INDICE_TRI_FLIPPED, DOWN+BACK,	Cull.Empty, 	Dir.Back, 	GrowthTypes.Full,		UV_TRI),
-		TileSide.new(flip_y(TRI_CORNER2),		INDICE_TRI_FLIPPED, DOWN+LEFT,	Cull.Empty, 	Dir.Left, 	GrowthTypes.Full,		UV_TRI),
-		TileSide.new(PLANE_UP,					INDICE_QUAD,UP, 		Cull.Full, 		Dir.Top, 	GrowthTypes.None,				UV_QUAD_TOP),
-		TileSide.new(flip_y(TRI_SLOPER_BACK),	INDICE_TRI_FLIPPED, FWD,	 	Cull.DownTri_1, Dir.Front, 	GrowthTypes.NormalSide,	UV_TRI),
-		TileSide.new(flip_y(TRIANGLE_SLOPEB),	INDICE_TRI_FLIPPED, RIGHT, 		Cull.DownTri_2, Dir.Right, 	GrowthTypes.NormalSide,	UV_TRI),
+		TileSide.new(flip_y(TRI_CORNER1),		INDICE_TRI_FLIPPED, DOWN+BACK,	Cull.Empty, 	Dir.Bottom, GrowthTypes.None,		UV_TRI),
+		TileSide.new(flip_y(TRI_CORNER2),		INDICE_TRI_FLIPPED, DOWN+LEFT,	Cull.Empty, 	Dir.Bottom, GrowthTypes.None,		UV_TRI),
+		TileSide.new(PLANE_UP,					INDICE_QUAD,		UP, 		Cull.Full, 		Dir.Top, 	GrowthTypes.None,				UV_QUAD_TOP),
+		TileSide.new(flip_y(TRI_SLOPER_BACK),	INDICE_TRI_FLIPPED, FWD,	 	Cull.DownTri_2, Dir.Front, 	GrowthTypes.NormalSide,	UV_TRI),
+		TileSide.new(flip_y(TRIANGLE_SLOPEB),	INDICE_TRI_FLIPPED, RIGHT, 		Cull.DownTri_1, Dir.Left, 	GrowthTypes.NormalSide,	UV_TRI),
 	]),
 	# Inverted Corner
 	Tile.new([
