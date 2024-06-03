@@ -232,53 +232,53 @@ enum Mat {
 	
 	BuildingEnd					= 0x74,
 	
-	Lava						= 0x75,
-	LavaOld						= 0x76,
-	Acid						= 0x77,
-	BurningIce					= 0x78,
-	Quicksand					= 0x79,
-	SlowSand					= 0x7A,
-	Void						= 0x7B,
+	Lava						= BuildingEnd,
+	LavaOld						= 0x75,
+	Acid						= 0x76,
+	BurningIce					= 0x77,
+	Quicksand					= 0x78,
+	SlowSand					= 0x79,
+	Void						= 0x7A,
 	
-	HazardEnd					= 0x7C,
+	HazardEnd					= 0x7B,
 	
 	RHRMesh						= HazardEnd,
-	VPMesh						= 0x7D,
-	HMCMesh						= 0x7E,
-	BBHMesh						= 0x7F,
-	PinkMesh					= 0x80,
-	TTCMesh						= 0x81,
-	Ice							= 0x82,
-	Crystal						= 0x83,
-	VPScreen					= 0x84,
+	VPMesh						= 0x7C,
+	HMCMesh						= 0x7D,
+	BBHMesh						= 0x7E,
+	PinkMesh					= 0x7F,
+	TTCMesh						= 0x80,
+	Ice							= 0x81,
+	Crystal						= 0x82,
+	VPScreen					= 0x83,
 	
-	End							= 0x85,
+	End							= 0x84,
 	
 	RetroGround					= End,
-	RetroBricks					= 0x86,
-	RetroTreeTop				= 0x87,
-	RetroTreePlat				= 0x88,
-	RetroBlock					= 0x89,
-	RetroBlueGround				= 0x8A,
-	RetroBlueBricks				= 0x8B,
-	RetroBlueBlock				= 0x8C,
-	RetroWhiteBrick				= 0x8D,
-	RetroLava					= 0x8E,
-	RetroUnderWaterGround		= 0x8F,
+	RetroBricks					= 0x85,
+	RetroTreeTop				= 0x86,
+	RetroTreePlat				= 0x87,
+	RetroBlock					= 0x88,
+	RetroBlueGround				= 0x89,
+	RetroBlueBricks				= 0x8A,
+	RetroBlueBlock				= 0x8B,
+	RetroWhiteBrick				= 0x8C,
+	RetroLava					= 0x8D,
+	RetroUnderWaterGround		= 0x8E,
 	
-	MCDirt						= 0x90,
-	MCGrass						= 0x91,
-	MCCobblestone				= 0x92,
-	MCStone						= 0x93,
-	MCOakLogTop					= 0x94,
-	MCOakLogSide				= 0x95,
-	MCOakLeaves					= 0x96,
-	MCWoodPlanks				= 0x97,
-	MCSand						= 0x98,
-	MCBricks					= 0x99,
-	MCLava						= 0x9A,
-	MCFlowingLava				= 0x9B,
-	MCGlass						= 0x9C
+	MCDirt						= 0x8F,
+	MCGrass						= 0x90,
+	MCCobblestone				= 0x91,
+	MCStone						= 0x92,
+	MCOakLogTop					= 0x93,
+	MCOakLogSide				= 0x94,
+	MCOakLeaves					= 0x95,
+	MCWoodPlanks				= 0x96,
+	MCSand						= 0x97,
+	MCBricks					= 0x98,
+	MCLava						= 0x99,
+	MCFlowingLava				= 0x9A,
+	MCGlass						= 0x9B
 }
 
 ## Bar materials
@@ -324,162 +324,161 @@ enum MatWater {
 ## Materials
 @onready var materials = [
 	preload("res://asset/mat/grass.tres"), # Material 000
-	null, # Material 001
-	null, # Material 002
-	null, # Material 003
-	null, # Material 004
-	null, # Material 005
-	null, # Material 006
-	null, # Material 007
+	preload("res://asset/mat/grass_old.tres"), # Material 001
+	preload("res://asset/mat/grass_cartoon.tres"), # Material 002
+	preload("res://asset/mat/grass_dark.tres"), # Material 003
+	preload("res://asset/mat/grass_hmc.tres"), # Material 004
+	preload("res://asset/mat/grass_orange.tres"), # Material 005
+	preload("res://asset/mat/grass_red.tres"), # Material 006
+	preload("res://asset/mat/grass_purple.tres"), # Material 007
 	preload("res://asset/mat/sand.tres"), # Material 008
-	null, # Material 009
-	null, # Material 010
-	null, # Material 011
+	preload("res://asset/mat/sand_jrb.tres"), # Material 009
+	preload("res://asset/mat/snow.tres"), # Material 010
+	preload("res://asset/mat/snow_old.tres"), # Material 011
 	preload("res://asset/mat/dirt.tres"), # Material 012
 	preload("res://asset/mat/sand_dirt.tres"), # Material 013
-	null, # Material 014
-	null, # Material 015
-	null, # Material 016
-	null, # Material 017
-	null, # Material 018
-	null, # Material 019
-	null, # Material 020
-	null, # Material 021
-	null, # Material 022
+	preload("res://asset/mat/dirt_light.tres"), # Material 014
+	preload("res://asset/mat/dirt_hmc.tres"), # Material 015
+	preload("res://asset/mat/dirt_rocky.tres"), # Material 016
+	preload("res://asset/mat/dirt_old.tres"), # Material 017
+	preload("res://asset/mat/dirt_wavy.tres"), # Material 018
+	preload("res://asset/mat/dirt_wavy_blue.tres"), # Material 019
+	preload("res://asset/mat/dirt_snow.tres"), # Material 020
+	preload("res://asset/mat/dirt_purple.tres"), # Material 021
+	preload("res://asset/mat/hmc_wall.tres"), # Material 022
 	preload("res://asset/mat/stone.tres"), # Material 023
-	null, # Material 024
-	null, # Material 025
-	null, # Material 026
-	null, # Material 027
-	null, # Material 028
+	preload("res://asset/mat/stone_hmc.tres"), # Material 024
+	preload("res://asset/mat/hmc_mazefloor.tres"), # Material 025
+	preload("res://asset/mat/ccm_rock.tres"), # Material 026
+	preload("res://asset/mat/floor_ttm.tres"), # Material 027
+	preload("res://asset/mat/rock_ttm.tres"), # Material 028
 	preload("res://asset/mat/cobblestone.tres"), # Material 029
-	null, # Material 030
-	null, # Material 031
-	null, # Material 032
-	null, # Material 033
-	null, # Material 034
-	null, # Material 035
-	null, # Material 036
-	null, # Material 037
-	null, # Material 038
-	null, # Material 039
-	null, # Material 040
-	null, # Material 041
-	null, # Material 042
-	null, # Material 043
+	preload("res://asset/mat/wall_jrb.tres"), # Material 030
+	preload("res://asset/mat/gabbro.tres"), # Material 031
+	preload("res://asset/mat/stone_rhr.tres"), # Material 032
+	preload("res://asset/mat/rock_lava.tres"), # Material 033
+	preload("res://asset/mat/wall_volcanic.tres"), # Material 034
+	preload("res://asset/mat/rock_basalt.tres"), # Material 035
+	preload("res://asset/mat/stone_obsidian.tres"), # Material 036
+	preload("res://asset/mat/stone_castle.tres"), # Material 037
+	preload("res://asset/mat/jrb_underwater.tres"), # Material 038
+	preload("res://asset/mat/rock_snow.tres"), # Material 039
+	preload("res://asset/mat/rock_icy.tres"), # Material 040
+	preload("res://asset/mat/stone_desert.tres"), # Material 041
+	preload("res://asset/mat/stone_rhr_obsidian.tres"), # Material 042
+	preload("res://asset/mat/stone_jrb.tres"), # Material 043
 	preload("res://asset/mat/bricks.tres"), # Material 044
-	null, # Material 045
-	null, # Material 046
-	null, # Material 047
-	null, # Material 048
-	null, # Material 049
-	null, # Material 050
-	null, # Material 051
-	null, # Material 052
-	null, # Material 053
-	null, # Material 054
-	null, # Material 055
-	null, # Material 056
-	null, # Material 057
+	preload("res://asset/mat/bricks.tres"), # Material 045
+	preload("res://asset/mat/bricks_desert.tres"), # Material 046
+	preload("res://asset/mat/bricks_rhr.tres"), # Material 047
+	preload("res://asset/mat/bricks_hmc.tres"), # Material 048
+	preload("res://asset/mat/bricks_brown.tres"), # Material 049
+	preload("res://asset/mat/bricks_wdw.tres"), # Material 050
+	preload("res://asset/mat/bricks_ttm.tres"), # Material 051
+	preload("res://asset/mat/bricks_castle_inside.tres"), # Material 052
+	preload("res://asset/mat/bricks_bbh.tres"), # Material 053
+	preload("res://asset/mat/bricks_roof.tres"), # Material 054
+	preload("res://asset/mat/bricks_castle_outside.tres"), # Material 055
+	preload("res://asset/mat/bricks_snow.tres"), # Material 056
+	preload("res://asset/mat/tile_snow_side.tres"), # Material 057
 	preload("res://asset/mat/tile_brick.tres"), # Material 058
 	preload("res://asset/mat/tile.tres"), # Material 059
-	null, # Material 060
-	null, # Material 061
-	null, # Material 062
-	null, # Material 063
-	null, # Material 064
-	null, # Material 065
-	null, # Material 066
-	null, # Material 067
-	null, # Material 068
-	null, # Material 069
-	null, # Material 070
-	null, # Material 071
-	null, # Material 072
-	null, # Material 073
-	null, # Material 074
-	null, # Material 075
-	null, # Material 076
-	null, # Material 077
-	null, # Material 078
-	null, # Material 079
-	null, # Material 080
-	null, # Material 081
-	null, # Material 082
-	null, # Material 083
-	null, # Material 084
+	preload("res://asset/mat/tile_castle.tres"), # Material 060
+	preload("res://asset/mat/tile_desert.tres"), # Material 061
+	preload("res://asset/mat/tile_vp_blue.tres"), # Material 062
+	preload("res://asset/mat/tile_snow.tres"), # Material 063
+	preload("res://asset/mat/tile_jrb_top.tres"), # Material 064
+	preload("res://asset/mat/tile_jrb_side.tres"), # Material 065
+	preload("res://asset/mat/tile_hmc.tres"), # Material 066
+	preload("res://asset/mat/tile_granite.tres"), # Material 067
+	preload("res://asset/mat/tile_rhr.tres"), # Material 068
+	preload("res://asset/mat/tile_vp.tres"), # Material 069
+	preload("res://asset/mat/tile_diamond.tres"), # Material 070
+	preload("res://asset/mat/tile_castle_hex.tres"), # Material 071
+	preload("res://asset/mat/tile_snow_brick.tres"), # Material 072
+	preload("res://asset/mat/cutstone_desert.tres"), # Material 073
+	preload("res://asset/mat/cutstone_vp.tres"), # Material 074
+	preload("res://asset/mat/stone_bbh.tres"), # Material 075
+	preload("res://asset/mat/stone_bbh_pattern.tres"), # Material 076
+	preload("res://asset/mat/patterned_block.tres"), # Material 077
+	preload("res://asset/mat/slab_hmc.tres"), # Material 078
+	preload("res://asset/mat/block_rhr.tres"), # Material 079
+	preload("res://asset/mat/block_granite.tres"), # Material 080
+	preload("res://asset/mat/stone_castle_side.tres"), # Material 081
+	preload("res://asset/mat/pillar_castle.tres"), # Material 082
+	preload("res://asset/mat/pillar_bbh.tres"), # Material 083
+	preload("res://asset/mat/pillar_rhr.tres"), # Material 084
 	preload("res://asset/mat/wood.tres"), # Material 085
-	null, # Material 086
-	null, # Material 087
-	null, # Material 088
-	null, # Material 089
-	null, # Material 090
-	null, # Material 091
-	null, # Material 092
-	null, # Material 093
-	null, # Material 094
-	null, # Material 095
-	null, # Material 096
-	null, # Material 097
-	null, # Material 098
-	null, # Material 099
-	null, # Material 100
-	null, # Material 101
-	null, # Material 102
-	null, # Material 103
+	preload("res://asset/mat/wood_bbh_floor.tres"), # Material 086
+	preload("res://asset/mat/wood_bbh_wall.tres"), # Material 087
+	preload("res://asset/mat/wood_castle.tres"), # Material 088
+	preload("res://asset/mat/wood_jrb.tres"), # Material 089
+	preload("res://asset/mat/wood_jrb_sside.tres"), # Material 090
+	preload("res://asset/mat/wood_jrb_stop.tres"), # Material 091
+	preload("res://asset/mat/wood_bbh.tres"), # Material 092
+	preload('res://asset/mat/roof_bbh.tres'), # Material 093
+	preload("res://asset/mat/wood_solid.tres"), # Material 094
+	preload("res://asset/mat/wood_rhr.tres"), # Material 095
+	preload("res://asset/mat/metal_bbh.tres"), # Material 096
+	preload("res://asset/mat/metal_jrb_side.tres"), # Material 097
+	preload("res://asset/mat/metal_jrb.tres"), # Material 098
+	preload("res://asset/mat/metal_castle.tres"), # Material 099
+	preload("res://asset/mat/metal_desert.tres"), # Material 100
+	preload("res://asset/mat/metal_virtuaplex.tres"), # Material 101
+	preload("res://asset/mat/carpet_castle.tres"), # Material 102
+	preload("res://asset/mat/wall_castle.tres"), # Material 103
 	preload("res://asset/mat/roof.tres"), # Material 104
-	null, # Material 105
-	null, # Material 106
-	null, # Material 107
-	null, # Material 108
-	null, # Material 109
-	null, # Material 110
-	null, # Material 111
-	null, # Material 112
-	null, # Material 113
-	null, # Material 114
-	null, # Material 115
-	null, # Material 116
-	preload("res://asset/mat/lava.tres"), # Material 117
-	null, # Material 118
-	null, # Material 119
-	null, # Material 120
-	null, # Material 121
-	null, # Material 122
-	null, # Material 123
-	null, # Material 124
-	null, # Material 125
-	null, # Material 126
-	null, # Material 127
-	null, # Material 128
-	null, # Material 129
-	null, # Material 130
-	null, # Material 131
-	null, # Material 132
-	null, # Material 133
-	null, # Material 134
-	null, # Material 135
-	null, # Material 136
-	null, # Material 137
-	null, # Material 138
-	null, # Material 139
-	null, # Material 140
-	null, # Material 141
-	null, # Material 142
-	null, # Material 143
-	null, # Material 144
-	null, # Material 145
-	null, # Material 146
-	null, # Material 147
-	null, # Material 148
-	null, # Material 149
-	null, # Material 150
-	null, # Material 151
-	null, # Material 152
-	null, # Material 153
-	null, # Material 154
-	null, # Material 155
-	null, # Material 156
+	preload("res://asset/mat/roof_castle.tres"), # Material 105
+	preload("res://asset/mat/roof_snow.tres"), # Material 106
+	preload('res://asset/mat/window_bbh.tres'), # Material 107
+	preload("res://asset/mat/light_hmc.tres"), # Material 108
+	preload("res://asset/mat/caution_vp.tres"), # Material 109
+	preload("res://asset/mat/block_rhr.tres"), # Material 110
+	preload("res://asset/mat/tile_studded.tres"), # Material 111
+	preload("res://asset/mat/block_ttc.tres"), # Material 112
+	preload("res://asset/mat/side_ttc.tres"), # Material 113
+	preload("res://asset/mat/wall_ttc.tres"), # Material 114
+	preload("res://asset/mat/flower.tres"), # Material 115
+	preload("res://asset/mat/lava.tres"), # Material 116
+	preload("res://asset/mat/lava_old.tres"), # Material 117
+	preload("res://asset/mat/acid.tres"), # Material 118
+	preload("res://asset/mat/burning_ice.tres"), # Material 119
+	preload('res://asset/mat/quicksand.tres'), # Material 120
+	preload('res://asset/mat/slow_quicksand.tres'), # Material 121
+	preload("res://asset/mat/void.tres"), # Material 122
+	preload("res://asset/mat/mesh_rhr.tres"), # Material 123
+	preload("res://asset/mat/mesh_vp.tres"), # Material 124
+	preload("res://asset/mat/mesh_hmc.tres"), # Material 125
+	preload("res://asset/mat/mesh_bbh.tres"), # Material 126
+	preload("res://asset/mat/mesh_pink.tres"), # Material 127
+	preload("res://asset/mat/mesh_ttc.tres"), # Material 128
+	preload("res://asset/mat/ice.tres"), # Material 129
+	preload("res://asset/mat/crystal.tres"), # Material 130
+	preload("res://asset/mat/vp_screen.tres"), # Material 131
+	preload("res://asset/mat/retro_ground.tres"), # Material 132
+	preload("res://asset/mat/retro_brick.tres"), # Material 133
+	preload("res://asset/mat/retro_tree_top.tres"), # Material 134
+	preload("res://asset/mat/retro_tree.tres"), # Material 135
+	preload("res://asset/mat/retro_block.tres"), # Material 136
+	preload("res://asset/mat/retro_groundblue.tres"), # Material 137
+	preload("res://asset/mat/retro_brickblue.tres"), # Material 138
+	preload("res://asset/mat/retro_blockblue.tres"), # Material 139
+	preload("res://asset/mat/retro_whitebrick.tres"), # Material 140
+	preload("res://asset/mat/retro_lava.tres"), # Material 141
+	preload("res://asset/mat/retro_underwater.tres"), # Material 142
+	preload("res://asset/mat/mc_dirt.tres"), # Material 143
+	preload("res://asset/mat/mc_grass.tres"), # Material 144
+	preload("res://asset/mat/mc_cobblestone.tres"), # Material 145
+	preload("res://asset/mat/mc_stone.tres"), # Material 146
+	preload("res://asset/mat/mc_oak_log_top.tres"), # Material 147
+	preload("res://asset/mat/mc_oak_log.tres"), # Material 148
+	preload("res://asset/mat/mc_oak_leaves.tres"), # Material 149
+	preload("res://asset/mat/mc_oak_planks.tres"), # Material 150
+	preload("res://asset/mat/mc_sand.tres"), # Material 151
+	preload("res://asset/mat/mc_bricks.tres"), # Material 152
+	preload("res://asset/mat/mc_lava.tres"), # Material 153
+	preload("res://asset/level/mc_flowing_lava.png"), # Material 154
+	preload("res://asset/mat/mc_glass.tres"), # Material 155
 ]
 
 ## Fence materials

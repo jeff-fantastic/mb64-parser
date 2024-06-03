@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cacwncwhdkufk"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_8y83x"]
-[ext_resource type="Texture2D" uid="uid://dmwxxtex3gw2u" path="res://asset/level/Ground.png" id="2_k0nf7"]
+[ext_resource type="Texture2D" uid="uid://ddhstkd01wwyq" path="res://asset/level/Ground.png" id="2_k0nf7"]
 
 [resource]
 render_priority = 0

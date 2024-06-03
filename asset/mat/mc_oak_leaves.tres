@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://5gogfp8he8u"]
+
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_r4ghb"]
+[ext_resource type="Texture2D" uid="uid://blfwys0hfr4ex" path="res://asset/level/oak_leaves.png" id="2_4qw5t"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_r4ghb")
+shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = false
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/albedoTex = ExtResource("2_4qw5t")
