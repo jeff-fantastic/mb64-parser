@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bhqfi3of8x63e"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_55ykj"]
-[ext_resource type="Texture2D" uid="uid://n5djjrv3feoc" path="res://asset/level/MakerRHRBrick.png" id="2_dtays"]
+[ext_resource type="Texture2D" uid="uid://dvxhvm3w3q72y" path="res://asset/level/MakerRHRBrick.png" id="2_dtays"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_55ykj")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
-shader_parameter/cull_flag = true
 shader_parameter/albedoTex = ExtResource("2_dtays")

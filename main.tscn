@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://rok34yn3wnyo"]
+[gd_scene load_steps=34 format=3 uid="uid://rok34yn3wnyo"]
 
 [ext_resource type="Script" path="res://script/parser.gd" id="1_2mchu"]
 [ext_resource type="Theme" uid="uid://yxs4msdvs0lv" path="res://asset/ui_theme.tres" id="1_5kf88"]
@@ -16,8 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://crohbo0w6csbd" path="res://asset/gui/svg/show.svg" id="10_b2pqr"]
 [ext_resource type="Texture2D" uid="uid://cs4i010g0blf0" path="res://asset/gui/model_help.png" id="11_p1c6f"]
 [ext_resource type="Material" uid="uid://cguce4qhn2hjx" path="res://asset/mat/skybox/sb_cloud_floor.tres" id="15_ca14v"]
-[ext_resource type="Material" uid="uid://5gogfp8he8u" path="res://asset/mat/mc_oak_leaves.tres" id="15_fojn2"]
-[ext_resource type="ArrayMesh" uid="uid://c3ocbxrsk5sni" path="res://asset/model/mesh/cube.res" id="17_3njvl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cjteh"]
 font_size = 18
@@ -895,8 +893,6 @@ label_settings = SubResource("LabelSettings_e6hdq")
 script = ExtResource("7_oka8h")
 
 [node name="built_mesh" type="MeshInstance3D" parent="mesh_builder"]
-material_override = ExtResource("15_fojn2")
-mesh = ExtResource("17_3njvl")
 
 [node name="skybox" type="MeshInstance3D" parent="mesh_builder"]
 mesh = SubResource("BoxMesh_xtowb")

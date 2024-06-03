@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://o7r3s8sdf7xf"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_sig48"]
-[ext_resource type="Texture2D" uid="uid://efv3yiqkue2" path="res://asset/level/volcanicwall.png" id="2_0gk0a"]
+[ext_resource type="Texture2D" uid="uid://dakucr7aaivwq" path="res://asset/level/volcanicwall.png" id="2_0gk0a"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_sig48")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
-shader_parameter/cull_flag = true
 shader_parameter/albedoTex = ExtResource("2_0gk0a")

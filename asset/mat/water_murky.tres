@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ba5sq336nnyg5"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_dqrai"]
-[ext_resource type="Texture2D" uid="uid://bftfwjre5pt7v" path="res://asset/level/segment2.12C58.rgba16.png" id="2_wb741"]
+[ext_resource type="Texture2D" uid="uid://bo2fk4u6sy34o" path="res://asset/level/segment2.12C58.rgba16.png" id="2_wb741"]
 
 [resource]
 render_priority = 0

@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b6y5l50g6272w"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_ei7ec"]
-[ext_resource type="Texture2D" uid="uid://bpchtl6vgkyrs" path="res://asset/level/ttc_textures.08400.rgba16.png" id="2_64afd"]
+[ext_resource type="Texture2D" uid="uid://dakqo0g32j05q" path="res://asset/level/ttc_textures.08400.rgba16.png" id="2_64afd"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_ei7ec")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
-shader_parameter/cull_flag = true
 shader_parameter/albedoTex = ExtResource("2_64afd")

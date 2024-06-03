@@ -310,7 +310,7 @@ func obtain_material(mats : Array, pos : int) -> Material:
 		# Bar mats
 		3:	return placeholder_materials[12]
 		# Water mats
-		4:	return placeholder_materials[13]
+		4:	return MDat.water_materials[mat_enum]
 		# Default material
 		_:	return MDat.materials[mat_enum] if MDat.materials[mat_enum] else placeholder_materials[mat_enum % 10] 
 

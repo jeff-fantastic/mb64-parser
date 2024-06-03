@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dqhucy485bjj0"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_7eqjb"]
-[ext_resource type="Texture2D" uid="uid://cciuty7lcbixa" path="res://asset/level/MakerRetroBrick.png" id="2_m2vik"]
+[ext_resource type="Texture2D" uid="uid://06a0u6nq084o" path="res://asset/level/MakerRetroBrick.png" id="2_m2vik"]
 
 [resource]
 render_priority = 0

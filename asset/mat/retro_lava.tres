@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bj8vb5s0fbswu"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_edutp"]
-[ext_resource type="Texture2D" uid="uid://cjvx1geykqrtq" path="res://asset/level/MakerLava.png" id="2_clg1s"]
+[ext_resource type="Texture2D" uid="uid://d1qt8xvo30481" path="res://asset/level/MakerLava.png" id="2_clg1s"]
 
 [resource]
 render_priority = 0

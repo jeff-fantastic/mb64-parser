@@ -368,18 +368,18 @@ enum MatWater {
 	preload("res://asset/mat/stone_rhr_obsidian.tres"), # Material 042
 	preload("res://asset/mat/stone_jrb.tres"), # Material 043
 	preload("res://asset/mat/bricks.tres"), # Material 044
-	preload("res://asset/mat/bricks.tres"), # Material 045
-	preload("res://asset/mat/bricks_desert.tres"), # Material 046
-	preload("res://asset/mat/bricks_rhr.tres"), # Material 047
-	preload("res://asset/mat/bricks_hmc.tres"), # Material 048
-	preload("res://asset/mat/bricks_brown.tres"), # Material 049
-	preload("res://asset/mat/bricks_wdw.tres"), # Material 050
-	preload("res://asset/mat/bricks_ttm.tres"), # Material 051
-	preload("res://asset/mat/bricks_castle_inside.tres"), # Material 052
-	preload("res://asset/mat/bricks_bbh.tres"), # Material 053
-	preload("res://asset/mat/bricks_roof.tres"), # Material 054
-	preload("res://asset/mat/bricks_castle_outside.tres"), # Material 055
-	preload("res://asset/mat/bricks_snow.tres"), # Material 056
+	preload("res://asset/mat/bricks_desert.tres"), # Material 045
+	preload("res://asset/mat/bricks_rhr.tres"), # Material 046
+	preload("res://asset/mat/bricks_hmc.tres"), # Material 047
+	preload("res://asset/mat/bricks_brown.tres"), # Material 048
+	preload("res://asset/mat/bricks_wdw.tres"), # Material 049
+	preload("res://asset/mat/bricks_ttm.tres"), # Material 050
+	preload("res://asset/mat/bricks_castle_inside.tres"), # Material 051
+	preload("res://asset/mat/bricks_bbh.tres"), # Material 052
+	preload("res://asset/mat/bricks_roof.tres"), # Material 053
+	preload("res://asset/mat/bricks_castle_outside.tres"), # Material 054
+	preload("res://asset/mat/bricks_snow.tres"), # Material 055
+	preload("res://asset/mat/bricks_jrb.tres"), # Material 056
 	preload("res://asset/mat/tile_snow_side.tres"), # Material 057
 	preload("res://asset/mat/tile_brick.tres"), # Material 058
 	preload("res://asset/mat/tile.tres"), # Material 059
@@ -477,26 +477,26 @@ enum MatWater {
 	preload("res://asset/mat/mc_sand.tres"), # Material 151
 	preload("res://asset/mat/mc_bricks.tres"), # Material 152
 	preload("res://asset/mat/mc_lava.tres"), # Material 153
-	preload("res://asset/level/mc_flowing_lava.png"), # Material 154
+	preload("res://asset/mat/mc_lava_flowing.tres"), # Material 154
 	preload("res://asset/mat/mc_glass.tres"), # Material 155
 ]
 
 ## Fence materials
 @onready var fence_materials = [
 	preload("res://asset/mat/fence.tres"),
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null,
-	null
+	preload("res://asset/mat/fence_2.tres"),
+	preload("res://asset/mat/fence_desert.tres"),
+	preload("res://asset/mat/fence_barbed.tres"),
+	preload("res://asset/mat/fence_rhr.tres"),
+	preload("res://asset/mat/fence_hmc.tres"),
+	preload("res://asset/mat/fence_castle.tres"),
+	preload("res://asset/mat/fence_vp.tres"),
+	preload("res://asset/mat/fence_bbh.tres"),
+	preload('res://asset/mat/fence_jrb.tres'),
+	preload("res://asset/mat/fence_snow2.tres"),
+	preload("res://asset/mat/fence_snow.tres"),
+	preload("res://asset/mat/fence_retro.tres"),
+	preload("res://asset/mat/mc_oak_fence.tres")
 ]
 
 ## Skybox materials
@@ -511,6 +511,14 @@ enum MatWater {
 	preload("res://asset/mat/skybox/sb_wdw.tres"),
 	preload("res://asset/mat/skybox/sb_bits.tres"),
 	preload("res://asset/mat/skybox/sb_none.tres")
+]
+
+## Water materials
+@onready var water_materials = [
+	preload("res://asset/mat/water.tres"),
+	preload("res://asset/mat/water_murky.tres"),
+	preload("res://asset/mat/retro_water.tres"),
+	preload("res://asset/mat/mc_water.tres")
 ]
 
 ## Default themes.

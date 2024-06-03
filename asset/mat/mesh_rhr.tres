@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cepya8ppr1aq6"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_gajam"]
-[ext_resource type="Texture2D" uid="uid://h1ebg1oeqxvh" path="res://asset/level/rhrmesh.png" id="2_ylc1y"]
+[ext_resource type="Texture2D" uid="uid://bind72mfhcfpt" path="res://asset/level/rhrmesh.png" id="2_ylc1y"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_gajam")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)

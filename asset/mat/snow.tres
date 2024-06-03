@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dx5y5y8rtmdva"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_g8rlb"]
-[ext_resource type="Texture2D" uid="uid://5o7fe7haibs" path="res://asset/level/small_snow.png" id="2_6q35n"]
+[ext_resource type="Texture2D" uid="uid://n0qws6fw3frl" path="res://asset/level/small_snow.png" id="2_6q35n"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_g8rlb")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)

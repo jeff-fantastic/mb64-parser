@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://da6i14f2pjnpp"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_8unbn"]
-[ext_resource type="Texture2D" uid="uid://b6t0fm4v71ile" path="res://asset/level/jrbmetalside.png" id="2_e446c"]
+[ext_resource type="Texture2D" uid="uid://djd60qwimqo2m" path="res://asset/level/jrbmetalside.png" id="2_e446c"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_8unbn")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)

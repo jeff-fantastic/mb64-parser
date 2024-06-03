@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://148dshe6bux6"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_gw5ad"]
-[ext_resource type="Texture2D" uid="uid://jl6f83lrvnwy" path="res://asset/level/ChainLink.png" id="2_40o40"]
+[ext_resource type="Texture2D" uid="uid://bhmnu8iphr0en" path="res://asset/level/ChainLink.png" id="2_40o40"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_gw5ad")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)

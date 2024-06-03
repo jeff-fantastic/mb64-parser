@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ddjnr2it1w3be"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent_cull.gdshader" id="1_kkn4j"]
-[ext_resource type="Texture2D" uid="uid://dfb5ojfqvo1m4" path="res://asset/level/MakerWater.png" id="2_ij5we"]
+[ext_resource type="Texture2D" uid="uid://ceb3ele2qdvih" path="res://asset/level/MakerWater.png" id="2_ij5we"]
 
 [resource]
 render_priority = 0

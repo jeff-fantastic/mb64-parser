@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d3bmut7xf3gdf"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_emfqj"]
-[ext_resource type="Texture2D" uid="uid://c0l5dwuqrxffo" path="res://asset/level/lavawood.png" id="2_lh2gw"]
+[ext_resource type="Texture2D" uid="uid://b716f8gvja5ik" path="res://asset/level/lavawood.png" id="2_lh2gw"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_emfqj")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
-shader_parameter/cull_flag = true
 shader_parameter/albedoTex = ExtResource("2_lh2gw")

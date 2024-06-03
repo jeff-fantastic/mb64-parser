@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://kswfwy0hrcg0"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_alwwf"]
-[ext_resource type="Texture2D" uid="uid://cdaej5hd2ocfn" path="res://asset/level/castle_grounds_textures.04000.rgba16.png" id="2_ggydk"]
+[ext_resource type="Texture2D" uid="uid://d3s8oqaogts3q" path="res://asset/level/castle_grounds_textures.04000.rgba16.png" id="2_ggydk"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_alwwf")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
-shader_parameter/cull_flag = true
 shader_parameter/albedoTex = ExtResource("2_ggydk")

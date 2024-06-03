@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d2wtcfva6cgig"]
 
 [ext_resource type="Shader" path="res://asset/mat/shader/n64_lit.gdshader" id="1_021gq"]
-[ext_resource type="Texture2D" uid="uid://bg72gq01guc48" path="res://asset/level/MakerCosmic.png" id="2_j5b0h"]
+[ext_resource type="Texture2D" uid="uid://d0fx3npg2qk3u" path="res://asset/level/MakerCosmic.png" id="2_j5b0h"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_021gq")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
+shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0.125, 0.125)
