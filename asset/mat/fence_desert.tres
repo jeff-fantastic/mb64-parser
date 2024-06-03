@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://ch3a8c30tu80j"]
 
-[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_sqxjb"]
-[ext_resource type="Texture2D" uid="uid://qpl0soloue7" path="res://asset/level/desertfence.png" id="2_sxa5b"]
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_cutout.gdshader" id="1_1r0u2"]
+[ext_resource type="Texture2D" uid="uid://dfnm1k2j0muwm" path="res://asset/level/desertfence.png" id="2_sxa5b"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_sqxjb")
+shader = ExtResource("1_1r0u2")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/billboard = false
+shader_parameter/y_billboard = false
+shader_parameter/alpha_scissor = 0.35
 shader_parameter/albedoTex = ExtResource("2_sxa5b")

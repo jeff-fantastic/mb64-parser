@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b834125il1hd0"]
 
-[ext_resource type="Texture2D" uid="uid://1gcnaf3wtok7" path="res://asset/level/bbhmesh.png" id="1_wf6nf"]
+[ext_resource type="Texture2D" uid="uid://q6g3oacsjn1l" path="res://asset/level/bbhmesh.png" id="1_wf6nf"]
 
 [resource]
 shading_mode = 2

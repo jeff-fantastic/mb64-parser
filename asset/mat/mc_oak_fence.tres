@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cpx6mwpqrrbr4"]
 
-[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_65nnh"]
-[ext_resource type="Texture2D" uid="uid://y3j08trwmvvk" path="res://asset/level/oak_fence.png" id="2_0hcg3"]
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_cutout.gdshader" id="1_yvxx4"]
+[ext_resource type="Texture2D" uid="uid://dtk01tpgh2tev" path="res://asset/level/oak_fence.png" id="2_0hcg3"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_65nnh")
+shader = ExtResource("1_yvxx4")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/filter = false
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/billboard = false
+shader_parameter/y_billboard = false
+shader_parameter/alpha_scissor = 0.35
 shader_parameter/albedoTex = ExtResource("2_0hcg3")

@@ -330,8 +330,16 @@ func obtain_material(materials : Array, pos : int) -> Material:
 
 ## Sets skybox.
 func set_skybox(id : int) -> void:
+	# Skybox
 	var mat : Material = MDat.sb_materials[id]
 	skybox.set_surface_override_material(0, mat)
+	
+	# VP mesh
+	var vp_mat : Material = MDat.vp_screen_mesh
+	var new_mat := ShaderMaterial.new()
+	new_mat = mat.duplicate()
+	new_mat.next_pass = vp_mat
+	MDat.materials[MDat.Mat.VPScreen] = new_mat
 
 ## "Rotates" direction enum by provided factor
 func rotate_enum(dir : MDat.Dir, rot : int) -> int:

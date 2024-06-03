@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d28tfapb8oa8y"]
 
-[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_53pih"]
-[ext_resource type="Texture2D" uid="uid://di07lvswpfdus" path="res://asset/level/RetroFence.png" id="2_y8pop"]
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_cutout.gdshader" id="1_rfqvb"]
+[ext_resource type="Texture2D" uid="uid://brxt6xuawcmd" path="res://asset/level/RetroFence.png" id="2_y8pop"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_53pih")
+shader = ExtResource("1_rfqvb")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/filter = false
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/billboard = false
+shader_parameter/y_billboard = false
+shader_parameter/alpha_scissor = 0.35
 shader_parameter/albedoTex = ExtResource("2_y8pop")

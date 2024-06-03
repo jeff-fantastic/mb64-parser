@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b1ky3rhr86ipk"]
 
-[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_k2a8v"]
-[ext_resource type="Texture2D" uid="uid://glftqhq7eggf" path="res://asset/level/snowfence.png" id="2_12nnx"]
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_cutout.gdshader" id="1_3trq5"]
+[ext_resource type="Texture2D" uid="uid://dnkh8h7ljb4py" path="res://asset/level/snowfence.png" id="2_12nnx"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_k2a8v")
+shader = ExtResource("1_3trq5")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/billboard = false
+shader_parameter/y_billboard = false
+shader_parameter/alpha_scissor = 0.35
 shader_parameter/albedoTex = ExtResource("2_12nnx")

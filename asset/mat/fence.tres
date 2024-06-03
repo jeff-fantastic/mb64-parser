@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://kgrpfb2y63wo"]
 
-[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_i12rc"]
-[ext_resource type="Texture2D" uid="uid://b1m5b1p7a8kyo" path="res://asset/level/exm_saku.png" id="2_jy23a"]
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_cutout.gdshader" id="1_x8253"]
+[ext_resource type="Texture2D" uid="uid://byc207drr8yub" path="res://asset/level/exm_saku.png" id="2_jy23a"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_i12rc")
+shader = ExtResource("1_x8253")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/billboard = false
+shader_parameter/y_billboard = false
+shader_parameter/alpha_scissor = 0.35
 shader_parameter/albedoTex = ExtResource("2_jy23a")

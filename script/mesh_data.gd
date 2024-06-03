@@ -513,6 +513,9 @@ enum MatWater {
 	preload("res://asset/mat/skybox/sb_none.tres")
 ]
 
+## VP screen mesh material
+@onready var vp_screen_mesh := preload("res://asset/mat/vp_screen_mesh.tres") 
+
 ## Water materials
 @onready var water_materials = [
 	preload("res://asset/mat/water.tres"),

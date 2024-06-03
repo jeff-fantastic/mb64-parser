@@ -1,14 +1,17 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bavkv1dkoogfj"]
 
-[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_transparent.gdshader" id="1_gk8wm"]
-[ext_resource type="Texture2D" uid="uid://dsjpns5o005bn" path="res://asset/level/rhrfence.png" id="2_n58ek"]
+[ext_resource type="Shader" path="res://asset/mat/shader/n64_lit_cutout.gdshader" id="1_jg46k"]
+[ext_resource type="Texture2D" uid="uid://dotwpou6gpke8" path="res://asset/level/rhrfence.png" id="2_n58ek"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_gk8wm")
+shader = ExtResource("1_jg46k")
 shader_parameter/modulate_color = Color(1, 1, 1, 1)
 shader_parameter/filter = true
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/uv_pan_velocity = Vector2(0, 0)
+shader_parameter/billboard = false
+shader_parameter/y_billboard = false
+shader_parameter/alpha_scissor = 0.35
 shader_parameter/albedoTex = ExtResource("2_n58ek")
