@@ -877,9 +877,9 @@ func build_tile_array() -> Array[Tile]:
 	]),
 	# Vertical Slab
 	Tile.new([
-		TileSide.new(minv(PLANE_UP,2,0.5),			INDICE_QUAD, UP, 		Cull.TopHalf, Dir.Top, GrowthTypes.Full,			UV_QUAD_HALFV1),
-		TileSide.new(minv(PLANE_DOWN,2,0.5),		INDICE_QUAD, DOWN, 		Cull.TopHalf, Dir.Bottom, GrowthTypes.None,			UV_QUAD_HALFV1),
-		TileSide.new(minv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	Cull.HalfSide_1, Dir.Left, GrowthTypes.NormalSide, 	UV_QUAD_HALFH),
+		TileSide.new(minv(PLANE_UP,2,0.5),			INDICE_QUAD, UP, 		Cull.TopHalf, Dir.Top, GrowthTypes.Full,			[Vector2(.5,1),Vector2(1,1),Vector2(1,0),Vector2(.5,0)]),
+		TileSide.new(minv(PLANE_DOWN,2,0.5),INDICE_QUAD_FLIPPED, DOWN, 		Cull.TopHalf, Dir.Bottom, GrowthTypes.None,			[Vector2(.5,1),Vector2(1,1),Vector2(1,0),Vector2(.5,0)]),
+		TileSide.new(minv(PLANE_RIGHT,2,0.5),		INDICE_QUAD, RIGHT, 	Cull.HalfSide_1, Dir.Left, GrowthTypes.NormalSide, 	[Vector2(0,1),Vector2(0,0),Vector2(.5,0),Vector2(.5,1)]),
 		TileSide.new(minv(PLANE_LEFT,2,0.5),		INDICE_QUAD, LEFT, 		Cull.HalfSide_2, Dir.Right, GrowthTypes.NormalSide,	UV_QUAD_HALFH),
 		TileSide.new(shift(PLANE_BACK,2,-0.5),		INDICE_QUAD, BACK, 		Cull.Empty, Dir.Back, GrowthTypes.NormalSide,		UV_QUAD),
 		TileSide.new(PLANE_FRONT,					INDICE_QUAD, FWD, 		Cull.Full, Dir.Front, GrowthTypes.NormalSide, 		UV_QUAD),
@@ -1003,7 +1003,7 @@ const UV_QUAD 			: PackedVector2Array = [Vector2(1,1),Vector2(0,1),Vector2(0,0),
 const UV_QUAD_TOP 		: PackedVector2Array = [Vector2(0,1),Vector2(1,1),Vector2(1,0),Vector2(0,0)]
 const UV_QUAD_SLOPE		: PackedVector2Array = [Vector2(1,1),Vector2(1,0),Vector2(0,0),Vector2(0,1)]
 const UV_QUAD_INVERSE 	: PackedVector2Array = [Vector2(0,1),Vector2(0,0),Vector2(1,0),Vector2(1,1)]
-const UV_QUAD_HALFH		: PackedVector2Array = [Vector2(.5,1),Vector2(0,1),Vector2(0,0),Vector2(.5,0)]
+const UV_QUAD_HALFH		: PackedVector2Array = [Vector2(1,1),Vector2(.5,1),Vector2(.5,0),Vector2(1,0)]
 const UV_QUAD_HALFV1 	: PackedVector2Array = [Vector2(1,0),Vector2(0,0),Vector2(0,.5),Vector2(1,.5)]
 const UV_QUAD_HALFV2	: PackedVector2Array = [Vector2(1,1),Vector2(0,1),Vector2(0,.5),Vector2(1,.5)]
 const UV_TRI 			: PackedVector2Array = [Vector2(1,1),Vector2(1,0),Vector2(0,1)]
