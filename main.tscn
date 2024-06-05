@@ -911,7 +911,7 @@ transform = Transform3D(0.477159, 0.731136, -0.487607, 0, 0.554844, 0.831955, 0.
 [node name="boundary_builder" type="Node" parent="."]
 script = ExtResource("17_i1kxq")
 size = 2
-type = 4
+type = 2
 
 [node name="boundary" type="MeshInstance3D" parent="boundary_builder"]
 skeleton = NodePath("../..")

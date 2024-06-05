@@ -157,7 +157,7 @@ func build_tri(face : MDat.TileSide, pos : Vector3, tile : MB64Level.CMMTile, me
 	
 	# Build vertices array
 	for vtx in face.mesh:
-		var v_pos = rotate_point(vtx, tile.rot) + pos
+		var v_pos = Meshbuilder.rotate_point(vtx, tile.rot) + pos
 		var dir = face.normal.rotated(Vector3.UP, tile.rot * -PI/2)
 		vertices.push_back(v_pos)
 		mesh_arr[Mesh.ARRAY_NORMAL].push_back(dir)
@@ -173,7 +173,7 @@ func build_tri(face : MDat.TileSide, pos : Vector3, tile : MB64Level.CMMTile, me
 	
 	var d_rotated = rotate_enum(face.dir, tile.rot)
 	var d_vec = vec_from_dir(d_rotated)
-	mesh_arr[Mesh.ARRAY_TEX_UV].append_array(rotate_uv(d_vec, tile.rot, face.uv))
+	mesh_arr[Mesh.ARRAY_TEX_UV].append_array(Meshbuilder.rotate_uv(d_vec, tile.rot, face.uv))
 	
 	# Increment
 	return total_ind + indices_from_face(indices)
@@ -373,7 +373,7 @@ static func rotate_point(pos : Vector3, rot : int, size : int = 1) -> Vector3:
 	return (pos - (Vector3.ONE * size * 0.5)).rotated(Vector3.UP, rot * PI/2) + (Vector3.ONE * size * 0.5)
 
 ## Rotates UV
-func rotate_uv(dir : Vector3, rot : int, uvs : PackedVector2Array) -> PackedVector2Array:
+static func rotate_uv(dir : Vector3, rot : int, uvs : PackedVector2Array) -> PackedVector2Array:
 	var new_uvs := PackedVector2Array([])
 	for uv in uvs:
 		match dir:

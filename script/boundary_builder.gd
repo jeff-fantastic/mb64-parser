@@ -12,6 +12,9 @@ const BOUNDARY_OUTER_FLOOR : int =	1 << 1
 const BOUNDARY_INNER_WALLS : int =	1 << 2
 const BOUNDARY_OUTER_WALLS : int =	1 << 3
 
+## Transparent shader
+const TRANSPARENT_SHADER = preload("res://asset/mat/shader/n64_lit_transparent_cull.gdshader")
+
 ## ArrayMesh format
 const FORMAT = (
 	ArrayMesh.ARRAY_FORMAT_VERTEX | 
@@ -102,6 +105,14 @@ func build_mesh(mat : Array = DEFAULT_MATS) -> void:
 		if !(BOUNDARY_TABLE[type] & BOUNDARY_INNER_FLOOR):
 			floor_indice = build_chasm(st_floor, floor_indice, SIZES[size])
 	
+	# Create outer floor
+	if (BOUNDARY_TABLE[type] & BOUNDARY_OUTER_FLOOR):
+		floor_indice = build_outer_floor(st_floor, floor_indice, SIZES[size], height, (BOUNDARY_TABLE[type] & BOUNDARY_INNER_WALLS))
+	
+	# Create outer walls
+	if (BOUNDARY_TABLE[type] & BOUNDARY_OUTER_WALLS):
+		wall_indice = build_outer_walls(st_wall, wall_indice, SIZES[size])
+	
 	# Commit floor, walls
 	var array_mesh := ArrayMesh.new()
 	st_wall.commit(array_mesh, FORMAT)
@@ -111,7 +122,10 @@ func build_mesh(mat : Array = DEFAULT_MATS) -> void:
 	# Set materials
 	var count := array_mesh.get_surface_count()
 	for surface in range(array_mesh.get_surface_count()):
-		array_mesh.surface_set_material(surface, mat[(surface + 1) if count == 1 else surface])
+		var new_mat : ShaderMaterial = mat[(surface + 1) if count == 1 else surface].duplicate()
+		new_mat.shader = TRANSPARENT_SHADER
+		new_mat.render_priority = -2 + surface
+		array_mesh.surface_set_material(surface, new_mat)
 	
 	print("Border generation complete")
 
@@ -143,9 +157,51 @@ func build_floor(st : SurfaceTool, idc : int, floor_size : int) -> int:
 		st.add_index(i)
 	
 	return idc + 4
+
+## Builds outer floor of boundary
+func build_outer_floor(st : SurfaceTool, idc : int, f_s : int, w_h : int, wall : bool = false) -> int:
+	# Declare variables
+	var verts := [
+		Vector3(0, w_h if wall else 0, 0),
+		Vector3(-10, w_h if wall else 0, -10),
+		Vector3(f_s + 10, w_h if wall else 0, -10),
+		Vector3(f_s, w_h if wall else 0, 0),
+	]
+	var uv := [
+		Vector2(-10,0),
+		Vector2(0, 10),
+		Vector2(0, -f_s - 10),
+		Vector2(-10, -f_s),
+	]
+	var color := [
+		Color.WHITE,
+		Color.TRANSPARENT,
+		Color.TRANSPARENT,
+		Color.WHITE
+	]
+	var idc_offset = idc
+	
+	for rot in range(4):
+		# Create plane
+		var uv_rot = Meshbuilder.rotate_uv(Vector3.UP, rot, uv)
+		for vtx in range(verts.size()):
+			var vtx_rot = Meshbuilder.rotate_point(verts[vtx], rot, f_s)
+			st.set_normal(Vector3.UP)
+			st.set_smooth_group(-1)
+			st.set_color(color[vtx])
+			st.set_uv(uv_rot[vtx])
+			st.add_vertex(vtx_rot)
+	
+		# Add indices
+		var ind = create_indice_offset(IND_PLANE, idc_offset) as Array[int]
+		for i in ind:
+			st.add_index(i)
+		idc_offset += 4
+	
+	return idc_offset
 	
 ## Builds walls of boundary
-func build_walls(st : SurfaceTool, idc : int, f_s : int, w_h : int, floor : bool) -> int:
+func build_walls(st : SurfaceTool, idc : int, f_s : int, w_h : int, has_floor : bool) -> int:
 	# Declare variables
 	var wall_verts := [
 		Vector3(0, 0, 0 ),
@@ -189,7 +245,7 @@ func build_walls(st : SurfaceTool, idc : int, f_s : int, w_h : int, floor : bool
 			st.add_index(i)
 		idc_offset += 4
 	
-	if floor:
+	if has_floor:
 		return idc_offset
 	
 	# Add verts, indices for chasm
@@ -224,6 +280,7 @@ func build_chasm(st : SurfaceTool, idc : int, f_s : int) -> int:
 		st.set_normal(Vector3.LEFT)
 		st.set_smooth_group(-1)
 		st.set_color(Color.BLACK)
+		st.set_uv(Vector2(0,0))
 		st.add_vertex(chasm_floor_verts[vtx])
 	
 	# Indices for chasm floor
@@ -234,8 +291,45 @@ func build_chasm(st : SurfaceTool, idc : int, f_s : int) -> int:
 			
 	return idc_offset
 
-## Builds outer floor of level
-func build_outer_floor(st : SurfaceTool, idc : int, f_s : int, w_h : int) -> int:
+## Builds boundary outer walls
+func build_outer_walls(st : SurfaceTool, idc : int, f_s : int) -> int:
+	# Declare variables
+	var wall_verts := [
+		Vector3(0, 0, 0 ),
+		Vector3(0, 0, f_s),
+		Vector3(0, -10 , f_s),
+		Vector3(0, -10 , 0)
+	]
+	var uv := [
+		Vector2(1*f_s,-10),
+		Vector2(0,-10),
+		Vector2(0,0),
+		Vector2(1*f_s,0)
+	]
+	var color := [
+		Color.WHITE,
+		Color.WHITE,
+		Color.TRANSPARENT,
+		Color.TRANSPARENT
+	]
+	var idc_offset = idc
+	
+	# Add verts, indices for wall
+	for rot in range(4):
+		for vtx in range(wall_verts.size()):
+			var vtx_rot = Meshbuilder.rotate_point(wall_verts[vtx], rot, f_s)
+			st.set_normal(Meshbuilder.rotate_point(Vector3.LEFT, rot))
+			st.set_smooth_group(-1)
+			st.set_color(color[vtx])
+			st.set_uv(uv[vtx])
+			st.add_vertex(vtx_rot)
+		
+		# Add indices
+		var ind = create_indice_offset(IND_PLANE, idc_offset) as Array[int]
+		for i in ind:
+			st.add_index(i)
+		idc_offset += 4
+	
 	return 0
 
 func create_indice_offset(array : Array, count : int) -> Array:
