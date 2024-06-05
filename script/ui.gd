@@ -104,6 +104,7 @@ func update_ui(res : MB64Level) -> void:
 	%bound_type.selected = res.boundary
 	%bound_height.value = res.boundary_height
 	%bound_mat.value = res.boundary_mat
+	%tab_bar.current_tab = 1
 
 ## Toggles window field visibility
 func toggle_metadata_fields(mode : bool) -> void:
