@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3bf012meebo0" path="res://asset/level/Water_.png" id="2_okr4m"]
 
 [resource]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_o3uas")
 shader_parameter/modulate_color = Color(1, 1, 1, 0.803922)
 shader_parameter/filter = true

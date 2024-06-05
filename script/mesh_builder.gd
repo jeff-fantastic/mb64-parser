@@ -10,8 +10,15 @@ signal mesh_built()
 ## Signaled when a remesh is requested
 signal remesh_requested()
 
-const OPAQUE = "res://asset/mat/shader/n64_lit.gdshader"
-const TRANSPARENT = "res://asset/mat/shader/n64_lit_transparent.gdshader"
+const OPAQUE = [
+	"n64_lit.gdshader",
+	"n64_lit_array.gdshader"
+]
+const TRANSPARENT = [
+	"n64_lit_transparent.gdshader",
+	"n64_lit_transparent_cull.gdshader",
+	"n64_lit_cutout.gdshader",
+]
 
 ## Reference to [MeshInstance]
 @onready var mesh_instance := $built_mesh
@@ -202,8 +209,8 @@ func export_model_process() -> void:
 		var new : StandardMaterial3D = StandardMaterial3D.new()
 		if mat is ShaderMaterial:
 			var type := mat.shader.resource_path as String
-			var cull : bool = true if type == OPAQUE else false
-			var transparency : bool = true if type == TRANSPARENT else false
+			var cull : bool = true if type in OPAQUE else false
+			var transparency : bool = true if type in TRANSPARENT else false
 			new.albedo_texture = mat.get_shader_parameter("albedoTex")
 			new.cull_mode = BaseMaterial3D.CULL_BACK if cull else BaseMaterial3D.CULL_DISABLED
 			new.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR if transparency else BaseMaterial3D.TRANSPARENCY_DISABLED
@@ -273,9 +280,9 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 	var inbound_faces = inbound_tile_dat.sides[rotate_enum(d_rotated, ((4-inbound_tile.rot) % 4)) ^ 1]
 	
 	# Build if inbound is transparent, and if self is opaque
-	var outbound_mat = obtain_material(mats, outbound_tile.mat) as ShaderMaterial
-	var inbound_mat = obtain_material(mats, inbound_tile.mat) as ShaderMaterial
-	if inbound_mat.shader.resource_path != OPAQUE && outbound_mat.shader.resource_path == OPAQUE:
+	var outbound_mat = obtain_material(mats, tile_to_mat_type(outbound_tile.type, outbound_tile.mat)) as ShaderMaterial
+	var inbound_mat = obtain_material(mats, tile_to_mat_type(inbound_tile.type, inbound_tile.mat)) as ShaderMaterial
+	if check_type(inbound_mat, TRANSPARENT) && check_type(outbound_mat, OPAQUE):
 		return true
 	
 	# Build if no inbound faces
@@ -292,12 +299,11 @@ func should_build(face : MDat.TileSide, pos : Vector3, dir : MDat.Dir, rot : int
 		if face.cullid == MDat.Cull.Full:
 			return true
 		if (face.cullid == MDat.Cull.TopTri || face.cullid == MDat.Cull.TopHalf):
-			if (face.cullid == iface.cullid):
+			if (face.cullid == iface.cullid) && (inbound_tile.rot == outbound_tile.rot):
 				return false
 		if face.cullid == MDat.Cull.BottomSlab || face.cullid == MDat.Cull.TopSlab || face.cullid == MDat.Cull.PoleTop:
 			if (face.cullid == iface.cullid):
 				return false
-		print(face.cullid, iface.cullid^1, face.cullid == iface.cullid^1)
 		if (face.cullid == iface.cullid^1):
 			return false
 		if (face.cullid & 0x10) && (iface.cullid & 0x10) ||\
@@ -367,6 +373,21 @@ func add_vec(vec1 : Vector3, vec2 : Vector3) -> Vector3:
 ## Returns indice offset based on size of input indices array
 func indices_from_face(indices : PackedInt32Array) -> int:
 	return 2 + (indices.size() / 3)
+
+## Checks type of material
+func check_type(mat : ShaderMaterial, type : Array) -> bool:
+	var path := mat.shader.resource_path.lstrip("res://asset/mat/shader/")
+	return path in type
+
+## Converts tile type to mat type
+func tile_to_mat_type(tile_id : int, mat_id : int) -> int:
+	match tile_id:
+		MDat.TileTypes.Fence:
+			return 20
+		MDat.TileTypes.Water:
+			return 23
+		_:
+			return mat_id
 
 ## Rotates a tile
 static func rotate_point(pos : Vector3, rot : int, size : int = 1) -> Vector3:
