@@ -8,17 +8,17 @@ Multipurpose tool intended to work with Mario Builder 64 level files.
 # roadmap
 - [x] Parse full header data
 - [x] Parse custom theme selection
-- [ ] Parse tile data
+- [x] Parse tile data
 - [ ] Parse object data
 - [x] Modify level title, author
 - [x] Modify painting thumbnail
 - [x] Extended metadata modification
 
 ## level
-- [ ] Reconstructing level geometry
-- [ ] Reconstructing level UV
+- [x] Reconstructing level geometry (~75% complete)
+- [x] Reconstructing level UV
 - [ ] Reconstructing object placement
-- [ ] Exporting generated level model
+- [x] Exporting generated level model [EXPERIMENTAL]
 - [ ] Mesh optimization (Likely through greedy mesh algo or similar)
 
 ## fun
