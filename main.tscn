@@ -771,7 +771,7 @@ fit_content = true
 [node name="export" type="Button" parent="ui/windows/main_win/panel/tab_model/model_container"]
 layout_mode = 2
 size_flags_vertical = 10
-text = "Export Model as glTF binary"
+text = "Export Model as glTF document"
 
 [node name="export_model" type="FileDialog" parent="ui/windows/main_win/panel/tab_model/model_container/export"]
 unique_name_in_owner = true

@@ -101,6 +101,7 @@ func write_meta(path : String) -> void:
 	var new_data : StreamPeerBuffer = StreamPeerBuffer.new()
 	
 	# Begin writing to stream buffer
+	new_data.big_endian = true
 	new_data.put_data(prep_data(0xA, res.file_header.to_utf8_buffer()))
 	new_data.put_u8(res.version)
 	new_data.put_data(prep_data(0x1F, res.author.to_utf8_buffer()))
@@ -125,9 +126,6 @@ func write_meta(path : String) -> void:
 	
 	res.custom_theme.serialize(new_data)
 	res.trajectories.serialize(new_data)
-	
-	## Skip padding
-	new_data.seek(new_data.get_position() + 8)
 	
 	new_data.put_data(current_buffer.slice(new_data.get_position()))
 	
