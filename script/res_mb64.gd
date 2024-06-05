@@ -99,6 +99,7 @@ class CMMCustomTheme extends Resource:
 	
 	## Deserializes data to custom resource
 	func deserialize(data : PackedByteArray) -> CMMCustomTheme:
+		# Set data
 		mats = data.slice(0, 10)
 		topmats = data.slice(10, 20)
 		topmatsEnabled = data.slice(20, 30)
@@ -106,6 +107,23 @@ class CMMCustomTheme extends Resource:
 		pole = data.decode_u8(31)
 		bars = data.decode_u8(32)
 		water = data.decode_u8(33)
+		
+		# Time to configure theme
+		MDat.default_themes[10].resize(14)
+		for index in range(14):
+			match index:
+				10:
+					MDat.default_themes[10][index] = fence
+				11:
+					MDat.default_themes[10][index] = pole
+				12:
+					MDat.default_themes[10][index] = bars
+				13:
+					MDat.default_themes[10][index] = water
+				_:
+					MDat.default_themes[10][index] = \
+					[mats[index], topmats[index] if topmatsEnabled[index] else mats[index], ""]
+			
 		return self
 	
 	## Reserializes custom resource back into byte data

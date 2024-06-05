@@ -409,8 +409,8 @@ enum MatWater {
 	preload("res://asset/mat/pillar_bbh.tres"), # Material 083
 	preload("res://asset/mat/pillar_rhr.tres"), # Material 084
 	preload("res://asset/mat/wood.tres"), # Material 085
-	preload("res://asset/mat/wood_bbh_floor.tres"), # Material 086
-	preload("res://asset/mat/wood_bbh_wall.tres"), # Material 087
+	preload("res://asset/mat/wood_bbh_wall.tres"), # Material 086
+	preload("res://asset/mat/wood_bbh_floor.tres"), # Material 087
 	preload("res://asset/mat/wood_castle.tres"), # Material 088
 	preload("res://asset/mat/wood_jrb.tres"), # Material 089
 	preload("res://asset/mat/wood_jrb_sside.tres"), # Material 090
@@ -788,18 +788,18 @@ func build_tile_array() -> Array[Tile]:
 	]),
 	# Inverted Corner
 	Tile.new([
-		TileSide.new(TRIANGLE_SLOPEL,			INDICE_TRI_FLIPPED,  	LEFT, 		Cull.Tri_1, Dir.Left, 	GrowthTypes.SlopeSideL,	flip_u(UV_TRI)),
-		TileSide.new(shift(TRI_SLOPER_BACK,2,1),INDICE_TRI_FLIPPED,  	BACK, 		Cull.Tri_2, Dir.Back, 	GrowthTypes.SlopeSideL,	UV_TRI),
+		TileSide.new(TRIANGLE_SLOPEL,			INDICE_TRI_FLIPPED,  	LEFT, 		Cull.Tri_2, Dir.Right, 	GrowthTypes.SlopeSideL,	flip_u(UV_TRI)),
+		TileSide.new(shift(TRI_SLOPER_BACK,2,1),INDICE_TRI_FLIPPED,  	BACK, 		Cull.Tri_1, Dir.Back, 	GrowthTypes.SlopeSideL,	UV_TRI),
 		TileSide.new(PLANE_DOWN,				INDICE_QUAD_FLIPPED,	DOWN, 		Cull.Full, 	Dir.Bottom,	GrowthTypes.None,		UV_QUAD_TOP),
-		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		Cull.Full, 	Dir.Right, 	GrowthTypes.NormalSide,	UV_QUAD_INVERSE),
+		TileSide.new(PLANE_RIGHT,				INDICE_QUAD,			RIGHT, 		Cull.Full, 	Dir.Left, 	GrowthTypes.NormalSide,	UV_QUAD_INVERSE),
 		TileSide.new(TRI_INVERT1,				INDICE_TRI, 			LEFT+UP, 	Cull.Empty, Dir.Top, 	GrowthTypes.NormalSide,	[Vector2(0,0),Vector2(0,1),Vector2(1,1)]),
 		TileSide.new(TRI_INVERT2,				INDICE_TRI, 			BACK+UP, 	Cull.Empty, Dir.Top, 	GrowthTypes.NormalSide,	[Vector2(0,0),Vector2(1,1),Vector2(1,0)]),
 		TileSide.new(PLANE_FRONT,				INDICE_QUAD, 			FWD, 		Cull.Full, 	Dir.Front, 	GrowthTypes.NormalSide,	UV_QUAD),
 	]),
 	# Inverted Corner (Flipped)
 	Tile.new([
-		TileSide.new(flip_y(TRIANGLE_SLOPEL),			INDICE_TRI, 		LEFT, 		Cull.DownTri_1,	Dir.Right, 	GrowthTypes.SlopeSideL,		flip_u(UV_TRI)),
-		TileSide.new(flip_y(shift(TRI_SLOPER_BACK,2,1)),INDICE_TRI,  		BACK, 		Cull.DownTri_2,	Dir.Back, 	GrowthTypes.SlopeSideL,		UV_TRI),
+		TileSide.new(flip_y(TRIANGLE_SLOPEL),			INDICE_TRI, 		LEFT, 		Cull.DownTri_2,	Dir.Right, 	GrowthTypes.SlopeSideL,		flip_u(UV_TRI)),
+		TileSide.new(flip_y(shift(TRI_SLOPER_BACK,2,1)),INDICE_TRI,  		BACK, 		Cull.DownTri_1,	Dir.Front, 	GrowthTypes.SlopeSideL,		UV_TRI),
 		TileSide.new(PLANE_UP,							INDICE_QUAD,		UP, 		Cull.Full, 		Dir.Top, 	GrowthTypes.None,			UV_QUAD_TOP),
 		TileSide.new(PLANE_RIGHT,						INDICE_QUAD,		RIGHT, 		Cull.Full, 		Dir.Left, 	GrowthTypes.NormalSide,		UV_QUAD_INVERSE),
 		TileSide.new(flip_y(TRI_INVERT1),				INDICE_TRI_FLIPPED, LEFT+DOWN, 	Cull.Empty, 	Dir.Right, GrowthTypes.NormalSide,		[Vector2(0,0),Vector2(0,1),Vector2(1,1)]),
