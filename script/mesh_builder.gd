@@ -341,7 +341,7 @@ func set_skybox(id : int) -> void:
 	
 	# VP mesh
 	var vp_mat : Material = MDat.vp_screen_mesh
-	var new_mat := ShaderMaterial.new()
+	var new_mat := Material.new()
 	new_mat = mat.duplicate()
 	new_mat.next_pass = vp_mat
 	MDat.materials[MDat.Mat.VPScreen] = new_mat
@@ -376,6 +376,8 @@ func indices_from_face(indices : PackedInt32Array) -> int:
 
 ## Checks type of material
 func check_type(mat : ShaderMaterial, type : Array) -> bool:
+	if !mat:
+		return false
 	var path := mat.shader.resource_path.lstrip("res://asset/mat/shader/")
 	return path in type
 

@@ -897,7 +897,7 @@ func build_tile_array() -> Array[Tile]:
 	null,
 	# Fence
 	Tile.new([
-		TileSide.new(PLANE_FRONT_HALF,	INDICE_QUAD, FWD, 		Cull.Empty, Dir.Front, GrowthTypes.None, [Vector2(2,1),Vector2(0,1),Vector2(0,0),Vector2(2,0)]),
+		TileSide.new(PLANE_FRONT_HALF,	INDICE_QUAD, FWD, 		Cull.Empty, Dir.Front, GrowthTypes.None, [Vector2(2,.97),Vector2(0,.97),Vector2(0,.03),Vector2(2,.03)]),
 	]),
 	# Pole
 	null,
